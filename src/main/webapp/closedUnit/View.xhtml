@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClosedUnitViewDlg" widgetVar="ClosedUnitViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewClosedUnitTitle}">
+            <h:form id="ClosedUnitViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{closedUnitController.selected != null}">
+                        <h:outputText value="#{bundle.ViewClosedUnitLabel_closedDate}"/>
+                        <h:outputText value="#{closedUnitController.selected.closedDate}" title="#{bundle.ViewClosedUnitTitle_closedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewClosedUnitLabel_closedUnit}"/>
+                        <h:outputText value="#{closedUnitController.selected.closedUnit}" title="#{bundle.ViewClosedUnitTitle_closedUnit}"/>
+                        <h:outputText value="#{bundle.ViewClosedUnitLabel_id}"/>
+                        <h:outputText value="#{closedUnitController.selected.id}" title="#{bundle.ViewClosedUnitTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ClosedUnitViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

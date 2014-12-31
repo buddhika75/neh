@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PatientViewDlg" widgetVar="PatientViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPatientTitle}">
+            <h:form id="PatientViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{patientController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPatientLabel_name}"/>
+                        <h:outputText value="#{patientController.selected.name}" title="#{bundle.ViewPatientTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_nic}"/>
+                        <h:outputText value="#{patientController.selected.nic}" title="#{bundle.ViewPatientTitle_nic}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_sex}"/>
+                        <h:outputText value="#{patientController.selected.sex}" title="#{bundle.ViewPatientTitle_sex}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_title}"/>
+                        <h:outputText value="#{patientController.selected.title}" title="#{bundle.ViewPatientTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_nationality}"/>
+                        <h:outputText value="#{patientController.selected.nationality}" title="#{bundle.ViewPatientTitle_nationality}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_religion}"/>
+                        <h:outputText value="#{patientController.selected.religion}" title="#{bundle.ViewPatientTitle_religion}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_dob}"/>
+                        <h:outputText value="#{patientController.selected.dob}" title="#{bundle.ViewPatientTitle_dob}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPatientLabel_age}"/>
+                        <h:outputText value="#{patientController.selected.age}" title="#{bundle.ViewPatientTitle_age}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_nameWithTitle}"/>
+                        <h:outputText value="#{patientController.selected.nameWithTitle}" title="#{bundle.ViewPatientTitle_nameWithTitle}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_address}"/>
+                        <h:outputText value="#{patientController.selected.address}" title="#{bundle.ViewPatientTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_occupation}"/>
+                        <h:outputText value="#{patientController.selected.occupation}" title="#{bundle.ViewPatientTitle_occupation}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_district}"/>
+                        <h:outputText value="#{patientController.selected.district}" title="#{bundle.ViewPatientTitle_district}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_telephoneNo}"/>
+                        <h:outputText value="#{patientController.selected.telephoneNo}" title="#{bundle.ViewPatientTitle_telephoneNo}"/>
+                        <h:outputText value="#{bundle.ViewPatientLabel_id}"/>
+                        <h:outputText value="#{patientController.selected.id}" title="#{bundle.ViewPatientTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PatientViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

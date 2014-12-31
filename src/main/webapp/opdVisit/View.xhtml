@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OpdVisitViewDlg" widgetVar="OpdVisitViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOpdVisitTitle}">
+            <h:form id="OpdVisitViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{opdVisitController.selected != null}">
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_patient}"/>
+                        <h:outputText value="#{opdVisitController.selected.patient}" title="#{bundle.ViewOpdVisitTitle_patient}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_encounterDate}"/>
+                        <h:outputText value="#{opdVisitController.selected.encounterDate}" title="#{bundle.ViewOpdVisitTitle_encounterDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_dailyNo}"/>
+                        <h:outputText value="#{opdVisitController.selected.dailyNo}" title="#{bundle.ViewOpdVisitTitle_dailyNo}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_intDailyNo}"/>
+                        <h:outputText value="#{opdVisitController.selected.intDailyNo}" title="#{bundle.ViewOpdVisitTitle_intDailyNo}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_serialNo}"/>
+                        <h:outputText value="#{opdVisitController.selected.serialNo}" title="#{bundle.ViewOpdVisitTitle_serialNo}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_intSerialNo}"/>
+                        <h:outputText value="#{opdVisitController.selected.intSerialNo}" title="#{bundle.ViewOpdVisitTitle_intSerialNo}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_yearNo}"/>
+                        <h:outputText value="#{opdVisitController.selected.yearNo}" title="#{bundle.ViewOpdVisitTitle_yearNo}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_ward}"/>
+                        <h:outputText value="#{opdVisitController.selected.ward}" title="#{bundle.ViewOpdVisitTitle_ward}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_unit}"/>
+                        <h:outputText value="#{opdVisitController.selected.unit}" title="#{bundle.ViewOpdVisitTitle_unit}"/>
+                        <h:outputText value="#{bundle.ViewOpdVisitLabel_id}"/>
+                        <h:outputText value="#{opdVisitController.selected.id}" title="#{bundle.ViewOpdVisitTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="OpdVisitViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

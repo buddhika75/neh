@@ -35,6 +35,83 @@ public class Encounter implements Serializable {
     int yearNo;
     @ManyToOne
     Ward ward;
+    @ManyToOne
+    Unit unit;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Date getEncounterDate() {
+        return encounterDate;
+    }
+
+    public void setEncounterDate(Date encounterDate) {
+        this.encounterDate = encounterDate;
+    }
+
+    public String getDailyNo() {
+        return dailyNo;
+    }
+
+    public void setDailyNo(String dailyNo) {
+        this.dailyNo = dailyNo;
+    }
+
+    public int getIntDailyNo() {
+        return intDailyNo;
+    }
+
+    public void setIntDailyNo(int intDailyNo) {
+        this.intDailyNo = intDailyNo;
+    }
+
+    public String getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    public int getIntSerialNo() {
+        return intSerialNo;
+    }
+
+    public void setIntSerialNo(int intSerialNo) {
+        this.intSerialNo = intSerialNo;
+    }
+
+    public int getYearNo() {
+        return yearNo;
+    }
+
+    public void setYearNo(int yearNo) {
+        this.yearNo = yearNo;
+    }
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+    
+    
+    
     
 
     public Long getId() {

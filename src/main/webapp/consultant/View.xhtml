@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ConsultantViewDlg" widgetVar="ConsultantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewConsultantTitle}">
+            <h:form id="ConsultantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{consultantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewConsultantLabel_userName}"/>
+                        <h:outputText value="#{consultantController.selected.userName}" title="#{bundle.ViewConsultantTitle_userName}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_password}"/>
+                        <h:outputText value="#{consultantController.selected.password}" title="#{bundle.ViewConsultantTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_name}"/>
+                        <h:outputText value="#{consultantController.selected.name}" title="#{bundle.ViewConsultantTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_nic}"/>
+                        <h:outputText value="#{consultantController.selected.nic}" title="#{bundle.ViewConsultantTitle_nic}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_sex}"/>
+                        <h:outputText value="#{consultantController.selected.sex}" title="#{bundle.ViewConsultantTitle_sex}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_title}"/>
+                        <h:outputText value="#{consultantController.selected.title}" title="#{bundle.ViewConsultantTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_nationality}"/>
+                        <h:outputText value="#{consultantController.selected.nationality}" title="#{bundle.ViewConsultantTitle_nationality}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_religion}"/>
+                        <h:outputText value="#{consultantController.selected.religion}" title="#{bundle.ViewConsultantTitle_religion}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_dob}"/>
+                        <h:outputText value="#{consultantController.selected.dob}" title="#{bundle.ViewConsultantTitle_dob}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_age}"/>
+                        <h:outputText value="#{consultantController.selected.age}" title="#{bundle.ViewConsultantTitle_age}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_nameWithTitle}"/>
+                        <h:outputText value="#{consultantController.selected.nameWithTitle}" title="#{bundle.ViewConsultantTitle_nameWithTitle}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_address}"/>
+                        <h:outputText value="#{consultantController.selected.address}" title="#{bundle.ViewConsultantTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_occupation}"/>
+                        <h:outputText value="#{consultantController.selected.occupation}" title="#{bundle.ViewConsultantTitle_occupation}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_district}"/>
+                        <h:outputText value="#{consultantController.selected.district}" title="#{bundle.ViewConsultantTitle_district}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_telephoneNo}"/>
+                        <h:outputText value="#{consultantController.selected.telephoneNo}" title="#{bundle.ViewConsultantTitle_telephoneNo}"/>
+                        <h:outputText value="#{bundle.ViewConsultantLabel_id}"/>
+                        <h:outputText value="#{consultantController.selected.id}" title="#{bundle.ViewConsultantTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ConsultantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

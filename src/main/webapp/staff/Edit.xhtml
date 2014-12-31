@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StaffEditDlg" widgetVar="StaffEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStaffTitle}">
+            <h:form id="StaffEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{staffController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStaffLabel_userName}" for="userName" />
+                        <p:inputText id="userName" value="#{staffController.selected.userName}" title="#{bundle.EditStaffTitle_userName}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{staffController.selected.password}" title="#{bundle.EditStaffTitle_password}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{staffController.selected.name}" title="#{bundle.EditStaffTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_nic}" for="nic" />
+                        <p:inputText id="nic" value="#{staffController.selected.nic}" title="#{bundle.EditStaffTitle_nic}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{staffController.selected.sex}" title="#{bundle.EditStaffTitle_sex}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{staffController.selected.title}" title="#{bundle.EditStaffTitle_title}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_nationality}" for="nationality" />
+                        <p:inputText id="nationality" value="#{staffController.selected.nationality}" title="#{bundle.EditStaffTitle_nationality}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_religion}" for="religion" />
+                        <p:inputText id="religion" value="#{staffController.selected.religion}" title="#{bundle.EditStaffTitle_religion}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_dob}" for="dob" />
+                        <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{staffController.selected.dob}" title="#{bundle.EditStaffTitle_dob}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditStaffLabel_age}" for="age" />
+                        <p:inputText id="age" value="#{staffController.selected.age}" title="#{bundle.EditStaffTitle_age}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_nameWithTitle}" for="nameWithTitle" />
+                        <p:inputText id="nameWithTitle" value="#{staffController.selected.nameWithTitle}" title="#{bundle.EditStaffTitle_nameWithTitle}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_address}" for="address" />
+                        <p:inputTextarea rows="4" cols="30" id="address" value="#{staffController.selected.address}" title="#{bundle.EditStaffTitle_address}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_occupation}" for="occupation" />
+                        <p:selectOneMenu id="occupation" value="#{staffController.selected.occupation}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="occupationItem"
+                                           itemValue="#{occupationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStaffLabel_district}" for="district" />
+                        <p:selectOneMenu id="district" value="#{staffController.selected.district}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="districtItem"
+                                           itemValue="#{districtItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditStaffLabel_telephoneNo}" for="telephoneNo" />
+                        <p:inputText id="telephoneNo" value="#{staffController.selected.telephoneNo}" title="#{bundle.EditStaffTitle_telephoneNo}" />
+                        <p:outputLabel value="#{bundle.EditStaffLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{staffController.selected.id}" title="#{bundle.EditStaffTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{staffController.update}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StaffEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StaffEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

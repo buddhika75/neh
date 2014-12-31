@@ -48,7 +48,6 @@ public class Person implements Serializable {
     boolean retired;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date dob;
-    @Transient
     String age;
     @Transient
     String nameWithTitle;
@@ -60,6 +59,8 @@ public class Person implements Serializable {
     Item district;
     String telephoneNo;
 
+    
+    
     public String getName() {
         return name;
     }
@@ -204,7 +205,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.neh.Person[ id=" + id + " ]";
+        return name;
     }
     
 }

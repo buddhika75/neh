@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OpdVisitEditDlg" widgetVar="OpdVisitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOpdVisitTitle}">
+            <h:form id="OpdVisitEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{opdVisitController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_patient}" for="patient" />
+                        <p:selectOneMenu id="patient" value="#{opdVisitController.selected.patient}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="patientItem"
+                                           itemValue="#{patientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_encounterDate}" for="encounterDate" />
+                        <p:calendar id="encounterDate" pattern="MM/dd/yyyy" value="#{opdVisitController.selected.encounterDate}" title="#{bundle.EditOpdVisitTitle_encounterDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_dailyNo}" for="dailyNo" />
+                        <p:inputText id="dailyNo" value="#{opdVisitController.selected.dailyNo}" title="#{bundle.EditOpdVisitTitle_dailyNo}" />
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_intDailyNo}" for="intDailyNo" />
+                        <p:inputText id="intDailyNo" value="#{opdVisitController.selected.intDailyNo}" title="#{bundle.EditOpdVisitTitle_intDailyNo}" />
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_serialNo}" for="serialNo" />
+                        <p:inputText id="serialNo" value="#{opdVisitController.selected.serialNo}" title="#{bundle.EditOpdVisitTitle_serialNo}" />
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_intSerialNo}" for="intSerialNo" />
+                        <p:inputText id="intSerialNo" value="#{opdVisitController.selected.intSerialNo}" title="#{bundle.EditOpdVisitTitle_intSerialNo}" />
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_yearNo}" for="yearNo" />
+                        <p:inputText id="yearNo" value="#{opdVisitController.selected.yearNo}" title="#{bundle.EditOpdVisitTitle_yearNo}" />
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_ward}" for="ward" />
+                        <p:selectOneMenu id="ward" value="#{opdVisitController.selected.ward}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="wardItem"
+                                           itemValue="#{wardItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_unit}" for="unit" />
+                        <p:selectOneMenu id="unit" value="#{opdVisitController.selected.unit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="unitItem"
+                                           itemValue="#{unitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditOpdVisitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{opdVisitController.selected.id}" title="#{bundle.EditOpdVisitTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{opdVisitController.update}" value="#{bundle.Save}" update="display,:OpdVisitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OpdVisitEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OpdVisitEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

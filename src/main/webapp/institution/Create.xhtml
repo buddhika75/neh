@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstitutionCreateDlg" widgetVar="InstitutionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitutionTitle}">
+            <h:form id="InstitutionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{institutionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInstitutionLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{institutionController.selected.name}" title="#{bundle.CreateInstitutionTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateInstitutionLabel_parentInstitution}" for="parentInstitution" />
+                        <p:selectOneMenu id="parentInstitution" value="#{institutionController.selected.parentInstitution}" >
+                            <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"
+                                           var="parentInstitutionItem"
+                                           itemValue="#{parentInstitutionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateInstitutionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{institutionController.selected.id}" title="#{bundle.CreateInstitutionTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{institutionController.create}" value="#{bundle.Save}" update="display,:InstitutionListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstitutionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstitutionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

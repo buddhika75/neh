@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClosedUnitCreateDlg" widgetVar="ClosedUnitCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClosedUnitTitle}">
+            <h:form id="ClosedUnitCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{closedUnitController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClosedUnitLabel_closedDate}" for="closedDate" />
+                        <p:calendar id="closedDate" pattern="MM/dd/yyyy" value="#{closedUnitController.selected.closedDate}" title="#{bundle.EditClosedUnitTitle_closedDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateClosedUnitLabel_closedUnit}" for="closedUnit" />
+                        <p:selectOneMenu id="closedUnit" value="#{closedUnitController.selected.closedUnit}" >
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="closedUnitItem"
+                                           itemValue="#{closedUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateClosedUnitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{closedUnitController.selected.id}" title="#{bundle.CreateClosedUnitTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{closedUnitController.create}" value="#{bundle.Save}" update="display,:ClosedUnitListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClosedUnitCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClosedUnitCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

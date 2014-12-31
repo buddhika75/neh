@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EncounterCreateDlg" widgetVar="EncounterCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEncounterTitle}">
+            <h:form id="EncounterCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{encounterController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_patient}" for="patient" />
+                        <p:selectOneMenu id="patient" value="#{encounterController.selected.patient}" >
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="patientItem"
+                                           itemValue="#{patientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_encounterDate}" for="encounterDate" />
+                        <p:calendar id="encounterDate" pattern="MM/dd/yyyy" value="#{encounterController.selected.encounterDate}" title="#{bundle.EditEncounterTitle_encounterDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_dailyNo}" for="dailyNo" />
+                        <p:inputText id="dailyNo" value="#{encounterController.selected.dailyNo}" title="#{bundle.CreateEncounterTitle_dailyNo}" />
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_intDailyNo}" for="intDailyNo" />
+                        <p:inputText id="intDailyNo" value="#{encounterController.selected.intDailyNo}" title="#{bundle.CreateEncounterTitle_intDailyNo}" />
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_serialNo}" for="serialNo" />
+                        <p:inputText id="serialNo" value="#{encounterController.selected.serialNo}" title="#{bundle.CreateEncounterTitle_serialNo}" />
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_intSerialNo}" for="intSerialNo" />
+                        <p:inputText id="intSerialNo" value="#{encounterController.selected.intSerialNo}" title="#{bundle.CreateEncounterTitle_intSerialNo}" />
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_yearNo}" for="yearNo" />
+                        <p:inputText id="yearNo" value="#{encounterController.selected.yearNo}" title="#{bundle.CreateEncounterTitle_yearNo}" />
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_ward}" for="ward" />
+                        <p:selectOneMenu id="ward" value="#{encounterController.selected.ward}" >
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="wardItem"
+                                           itemValue="#{wardItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_unit}" for="unit" />
+                        <p:selectOneMenu id="unit" value="#{encounterController.selected.unit}" >
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="unitItem"
+                                           itemValue="#{unitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateEncounterLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{encounterController.selected.id}" title="#{bundle.CreateEncounterTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{encounterController.create}" value="#{bundle.Save}" update="display,:EncounterListForm:datalist,:growl" oncomplete="handleSubmit(args,'EncounterCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EncounterCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

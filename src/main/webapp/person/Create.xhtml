@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonCreateDlg" widgetVar="PersonCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonTitle}">
+            <h:form id="PersonCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{personController.selected.name}" title="#{bundle.CreatePersonTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_nic}" for="nic" />
+                        <p:inputText id="nic" value="#{personController.selected.nic}" title="#{bundle.CreatePersonTitle_nic}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_sex}" for="sex" />
+                        <p:inputText id="sex" value="#{personController.selected.sex}" title="#{bundle.CreatePersonTitle_sex}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{personController.selected.title}" title="#{bundle.CreatePersonTitle_title}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_nationality}" for="nationality" />
+                        <p:inputText id="nationality" value="#{personController.selected.nationality}" title="#{bundle.CreatePersonTitle_nationality}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_religion}" for="religion" />
+                        <p:inputText id="religion" value="#{personController.selected.religion}" title="#{bundle.CreatePersonTitle_religion}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_dob}" for="dob" />
+                        <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{personController.selected.dob}" title="#{bundle.EditPersonTitle_dob}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_age}" for="age" />
+                        <p:inputText id="age" value="#{personController.selected.age}" title="#{bundle.CreatePersonTitle_age}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_nameWithTitle}" for="nameWithTitle" />
+                        <p:inputText id="nameWithTitle" value="#{personController.selected.nameWithTitle}" title="#{bundle.CreatePersonTitle_nameWithTitle}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_address}" for="address" />
+                        <p:inputTextarea rows="4" cols="30" id="address" value="#{personController.selected.address}" title="#{bundle.CreatePersonTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_occupation}" for="occupation" />
+                        <p:selectOneMenu id="occupation" value="#{personController.selected.occupation}" >
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="occupationItem"
+                                           itemValue="#{occupationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_district}" for="district" />
+                        <p:selectOneMenu id="district" value="#{personController.selected.district}" >
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="districtItem"
+                                           itemValue="#{districtItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_telephoneNo}" for="telephoneNo" />
+                        <p:inputText id="telephoneNo" value="#{personController.selected.telephoneNo}" title="#{bundle.CreatePersonTitle_telephoneNo}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{personController.selected.id}" title="#{bundle.CreatePersonTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

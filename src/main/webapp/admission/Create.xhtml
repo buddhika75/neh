@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmissionCreateDlg" widgetVar="AdmissionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAdmissionTitle}">
+            <h:form id="AdmissionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admissionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_patient}" for="patient" />
+                        <p:selectOneMenu id="patient" value="#{admissionController.selected.patient}" >
+                            <f:selectItems value="#{patientController.itemsAvailableSelectOne}"
+                                           var="patientItem"
+                                           itemValue="#{patientItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_encounterDate}" for="encounterDate" />
+                        <p:calendar id="encounterDate" pattern="MM/dd/yyyy" value="#{admissionController.selected.encounterDate}" title="#{bundle.EditAdmissionTitle_encounterDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_dailyNo}" for="dailyNo" />
+                        <p:inputText id="dailyNo" value="#{admissionController.selected.dailyNo}" title="#{bundle.CreateAdmissionTitle_dailyNo}" />
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_intDailyNo}" for="intDailyNo" />
+                        <p:inputText id="intDailyNo" value="#{admissionController.selected.intDailyNo}" title="#{bundle.CreateAdmissionTitle_intDailyNo}" />
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_serialNo}" for="serialNo" />
+                        <p:inputText id="serialNo" value="#{admissionController.selected.serialNo}" title="#{bundle.CreateAdmissionTitle_serialNo}" />
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_intSerialNo}" for="intSerialNo" />
+                        <p:inputText id="intSerialNo" value="#{admissionController.selected.intSerialNo}" title="#{bundle.CreateAdmissionTitle_intSerialNo}" />
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_yearNo}" for="yearNo" />
+                        <p:inputText id="yearNo" value="#{admissionController.selected.yearNo}" title="#{bundle.CreateAdmissionTitle_yearNo}" />
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_ward}" for="ward" />
+                        <p:selectOneMenu id="ward" value="#{admissionController.selected.ward}" >
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="wardItem"
+                                           itemValue="#{wardItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_unit}" for="unit" />
+                        <p:selectOneMenu id="unit" value="#{admissionController.selected.unit}" >
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="unitItem"
+                                           itemValue="#{unitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAdmissionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{admissionController.selected.id}" title="#{bundle.CreateAdmissionTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{admissionController.create}" value="#{bundle.Save}" update="display,:AdmissionListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdmissionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdmissionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

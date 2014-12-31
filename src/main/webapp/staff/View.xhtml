@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StaffViewDlg" widgetVar="StaffViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStaffTitle}">
+            <h:form id="StaffViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{staffController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStaffLabel_userName}"/>
+                        <h:outputText value="#{staffController.selected.userName}" title="#{bundle.ViewStaffTitle_userName}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_password}"/>
+                        <h:outputText value="#{staffController.selected.password}" title="#{bundle.ViewStaffTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_name}"/>
+                        <h:outputText value="#{staffController.selected.name}" title="#{bundle.ViewStaffTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_nic}"/>
+                        <h:outputText value="#{staffController.selected.nic}" title="#{bundle.ViewStaffTitle_nic}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_sex}"/>
+                        <h:outputText value="#{staffController.selected.sex}" title="#{bundle.ViewStaffTitle_sex}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_title}"/>
+                        <h:outputText value="#{staffController.selected.title}" title="#{bundle.ViewStaffTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_nationality}"/>
+                        <h:outputText value="#{staffController.selected.nationality}" title="#{bundle.ViewStaffTitle_nationality}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_religion}"/>
+                        <h:outputText value="#{staffController.selected.religion}" title="#{bundle.ViewStaffTitle_religion}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_dob}"/>
+                        <h:outputText value="#{staffController.selected.dob}" title="#{bundle.ViewStaffTitle_dob}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewStaffLabel_age}"/>
+                        <h:outputText value="#{staffController.selected.age}" title="#{bundle.ViewStaffTitle_age}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_nameWithTitle}"/>
+                        <h:outputText value="#{staffController.selected.nameWithTitle}" title="#{bundle.ViewStaffTitle_nameWithTitle}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_address}"/>
+                        <h:outputText value="#{staffController.selected.address}" title="#{bundle.ViewStaffTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_occupation}"/>
+                        <h:outputText value="#{staffController.selected.occupation}" title="#{bundle.ViewStaffTitle_occupation}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_district}"/>
+                        <h:outputText value="#{staffController.selected.district}" title="#{bundle.ViewStaffTitle_district}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_telephoneNo}"/>
+                        <h:outputText value="#{staffController.selected.telephoneNo}" title="#{bundle.ViewStaffTitle_telephoneNo}"/>
+                        <h:outputText value="#{bundle.ViewStaffLabel_id}"/>
+                        <h:outputText value="#{staffController.selected.id}" title="#{bundle.ViewStaffTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StaffViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

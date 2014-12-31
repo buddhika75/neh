@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdmissionViewDlg" widgetVar="AdmissionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAdmissionTitle}">
+            <h:form id="AdmissionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{admissionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_patient}"/>
+                        <h:outputText value="#{admissionController.selected.patient}" title="#{bundle.ViewAdmissionTitle_patient}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_encounterDate}"/>
+                        <h:outputText value="#{admissionController.selected.encounterDate}" title="#{bundle.ViewAdmissionTitle_encounterDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_dailyNo}"/>
+                        <h:outputText value="#{admissionController.selected.dailyNo}" title="#{bundle.ViewAdmissionTitle_dailyNo}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_intDailyNo}"/>
+                        <h:outputText value="#{admissionController.selected.intDailyNo}" title="#{bundle.ViewAdmissionTitle_intDailyNo}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_serialNo}"/>
+                        <h:outputText value="#{admissionController.selected.serialNo}" title="#{bundle.ViewAdmissionTitle_serialNo}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_intSerialNo}"/>
+                        <h:outputText value="#{admissionController.selected.intSerialNo}" title="#{bundle.ViewAdmissionTitle_intSerialNo}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_yearNo}"/>
+                        <h:outputText value="#{admissionController.selected.yearNo}" title="#{bundle.ViewAdmissionTitle_yearNo}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_ward}"/>
+                        <h:outputText value="#{admissionController.selected.ward}" title="#{bundle.ViewAdmissionTitle_ward}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_unit}"/>
+                        <h:outputText value="#{admissionController.selected.unit}" title="#{bundle.ViewAdmissionTitle_unit}"/>
+                        <h:outputText value="#{bundle.ViewAdmissionLabel_id}"/>
+                        <h:outputText value="#{admissionController.selected.id}" title="#{bundle.ViewAdmissionTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AdmissionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

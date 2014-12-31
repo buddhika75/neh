@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WardEditDlg" widgetVar="WardEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditWardTitle}">
+            <h:form id="WardEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{wardController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditWardLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{wardController.selected.name}" title="#{bundle.EditWardTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditWardLabel_institution}" for="institution" />
+                        <p:selectOneMenu id="institution" value="#{wardController.selected.institution}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"
+                                           var="institutionItem"
+                                           itemValue="#{institutionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditWardLabel_perentUnit}" for="perentUnit" />
+                        <p:selectOneMenu id="perentUnit" value="#{wardController.selected.perentUnit}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="perentUnitItem"
+                                           itemValue="#{perentUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditWardLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{wardController.selected.id}" title="#{bundle.EditWardTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{wardController.update}" value="#{bundle.Save}" update="display,:WardListForm:datalist,:growl" oncomplete="handleSubmit(args, 'WardEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="WardEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

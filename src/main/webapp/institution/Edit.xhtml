@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstitutionEditDlg" widgetVar="InstitutionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditInstitutionTitle}">
+            <h:form id="InstitutionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{institutionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditInstitutionLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{institutionController.selected.name}" title="#{bundle.EditInstitutionTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditInstitutionLabel_parentInstitution}" for="parentInstitution" />
+                        <p:selectOneMenu id="parentInstitution" value="#{institutionController.selected.parentInstitution}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"
+                                           var="parentInstitutionItem"
+                                           itemValue="#{parentInstitutionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditInstitutionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{institutionController.selected.id}" title="#{bundle.EditInstitutionTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{institutionController.update}" value="#{bundle.Save}" update="display,:InstitutionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'InstitutionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstitutionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

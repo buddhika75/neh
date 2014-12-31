@@ -83,7 +83,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.neh.entity.Item[ id=" + id + " ]";
+        return name;
     }
     
 }

@@ -23,12 +23,23 @@ public class Unit implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     String name;
+    String code;
     @ManyToOne
     Institution institution;
     boolean retired;
     @ManyToOne
     Unit perentUnit;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    
+    
     public String getName() {
         return name;
     }
@@ -93,7 +104,7 @@ public class Unit implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.health.neh.Unit[ id=" + id + " ]";
+        return name;
     }
     
 }

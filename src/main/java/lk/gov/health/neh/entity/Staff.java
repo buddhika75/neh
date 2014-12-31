@@ -6,6 +6,7 @@
 package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 
@@ -16,6 +17,7 @@ import javax.persistence.Inheritance;
 @Entity
 @Inheritance
 public class Staff extends Person implements Serializable {
+    @Column(unique = true)
     String userName;
     String password;
 

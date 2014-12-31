@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnitCreateDlg" widgetVar="UnitCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUnitTitle}">
+            <h:form id="UnitCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unitController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUnitLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.CreateUnitTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateUnitLabel_institution}" for="institution" />
+                        <p:selectOneMenu id="institution" value="#{unitController.selected.institution}" >
+                            <f:selectItems value="#{institutionController.itemsAvailableSelectOne}"
+                                           var="institutionItem"
+                                           itemValue="#{institutionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUnitLabel_perentUnit}" for="perentUnit" />
+                        <p:selectOneMenu id="perentUnit" value="#{unitController.selected.perentUnit}" >
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="perentUnitItem"
+                                           itemValue="#{perentUnitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUnitLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{unitController.selected.id}" title="#{bundle.CreateUnitTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unitController.create}" value="#{bundle.Save}" update="display,:UnitListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnitCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UnitCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

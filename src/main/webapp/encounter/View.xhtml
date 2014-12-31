@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EncounterViewDlg" widgetVar="EncounterViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEncounterTitle}">
+            <h:form id="EncounterViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{encounterController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEncounterLabel_patient}"/>
+                        <h:outputText value="#{encounterController.selected.patient}" title="#{bundle.ViewEncounterTitle_patient}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_encounterDate}"/>
+                        <h:outputText value="#{encounterController.selected.encounterDate}" title="#{bundle.ViewEncounterTitle_encounterDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_dailyNo}"/>
+                        <h:outputText value="#{encounterController.selected.dailyNo}" title="#{bundle.ViewEncounterTitle_dailyNo}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_intDailyNo}"/>
+                        <h:outputText value="#{encounterController.selected.intDailyNo}" title="#{bundle.ViewEncounterTitle_intDailyNo}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_serialNo}"/>
+                        <h:outputText value="#{encounterController.selected.serialNo}" title="#{bundle.ViewEncounterTitle_serialNo}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_intSerialNo}"/>
+                        <h:outputText value="#{encounterController.selected.intSerialNo}" title="#{bundle.ViewEncounterTitle_intSerialNo}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_yearNo}"/>
+                        <h:outputText value="#{encounterController.selected.yearNo}" title="#{bundle.ViewEncounterTitle_yearNo}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_ward}"/>
+                        <h:outputText value="#{encounterController.selected.ward}" title="#{bundle.ViewEncounterTitle_ward}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_unit}"/>
+                        <h:outputText value="#{encounterController.selected.unit}" title="#{bundle.ViewEncounterTitle_unit}"/>
+                        <h:outputText value="#{bundle.ViewEncounterLabel_id}"/>
+                        <h:outputText value="#{encounterController.selected.id}" title="#{bundle.ViewEncounterTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EncounterViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
