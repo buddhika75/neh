@@ -5,6 +5,8 @@
  */
 package lk.gov.health.neh.jsf;
 
+import java.util.Calendar;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import lk.gov.health.neh.enums.Sex;
@@ -41,4 +43,28 @@ public class CommonController {
         return Sex.values();
     }
 
+    public static Date firstDateOfYear(Date date){
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.MONTH, Calendar.JANUARY);
+        c.set(Calendar.DATE,0);
+        c.set(Calendar.HOUR,0);
+        c.set(Calendar.MINUTE,0);
+        c.set(Calendar.SECOND,0);
+        c.set(Calendar.MILLISECOND,0);
+        return c.getTime();
+    }
+    
+     public static Date lastDateOfYear(Date date){
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.MONTH, Calendar.DECEMBER);
+        c.set(Calendar.DATE,31);
+        c.set(Calendar.HOUR,23);
+        c.set(Calendar.MINUTE,59);
+        c.set(Calendar.SECOND,59);
+        c.set(Calendar.MILLISECOND,999);
+        return c.getTime();
+    }
+    
 }

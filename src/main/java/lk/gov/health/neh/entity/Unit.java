@@ -29,7 +29,20 @@ public class Unit implements Serializable {
     boolean retired;
     @ManyToOne
     Unit perentUnit;
+    
+    @ManyToOne
+    Consultant consultant;
 
+    public Consultant getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(Consultant consultant) {
+        this.consultant = consultant;
+    }
+
+    
+    
     public String getCode() {
         return code;
     }

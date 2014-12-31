@@ -9,15 +9,20 @@
     <body>
 
         <ui:composition template="./../template.xhtml">
-
+            <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
             <ui:define name="body">
                 <h:form >
-                    <table >
+                    <p:commandButton ajax="false" value="Register" action="#{opdVisitController.registerOpdVisit()}" ></p:commandButton>
+                    <table border="1" style="padding: 3px; margin: 10px; width: 90%;" >
                         <tr>
-                            <td colspan="2" rowspan="2">
+                            <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                <h:selectOneMenu value="#{opdVisitController.selected.ward}" rendered="true" style="font-size: 30px;" >
+                                    <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="unit"
+                                                   itemLabel="#{unit.code}" itemValue="#{unit}" ></f:selectItems>
+                                </h:selectOneMenu>
                                 <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 30px; font-weight: bold;" ></h:outputLabel>
                             </td>
-                            <td colspan="4" rowspan="4" >
+                            <td colspan="4" rowspan="4" style="text-align: center;vertical-align: middle;" >
                                 <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                 <br/>
                                 <h:outputLabel value="Out Patient Department" style="font-size: 22px;"></h:outputLabel>
@@ -25,7 +30,9 @@
                             <td colspan="2" >
                                 <table >
                                     <tr>
-                                        <td>Date</td>
+                                        <td>
+                                            <h:outputLabel value="Date" styleClass="threeHunderedWidthInput" ></h:outputLabel>
+                                        </td>
                                         <td>
                                             <p:calendar value="#{opdVisitController.selected.encounterDate}" pattern="dd MMMM yyyy" ></p:calendar>
                                         </td>
@@ -100,7 +107,7 @@
                         <tr>
                             <td colspan="6">
                                 Occupation
-                                <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="ItemConverter" 
+                                <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="itemConverter" 
                                                 completeMethod="#{itemController.completeOccupations}"
                                                 var="occ" itemLabel="#{occ.name}" itemValue="#{occ}" forceSelection="true">
                                 </p:autoComplete>
@@ -126,8 +133,12 @@
                             </td>
                         </tr>
                         <tr>
-                            Presenting Complaint
-                            <p:inputTextarea value="#{opdVisitController}"
+                            <td colspan="3">
+                                <h:outputLabel value="Presenting Complaint" ></h:outputLabel>
+                                <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
+                                
+                            </td>
+                            
                         </tr>
                     </table> 
                 </h:form>

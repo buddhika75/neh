@@ -7,10 +7,12 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
@@ -20,11 +22,12 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Encounter implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Patient patient;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date encounterDate;
@@ -37,6 +40,63 @@ public class Encounter implements Serializable {
     Ward ward;
     @ManyToOne
     Unit unit;
+    @Lob
+    String presentingComplaint = "";
+    @Lob
+    String diagnosis = "";
+    String varnc = "";
+    String valnc = "";
+    String varc = "";
+    String valc="";
+
+    public String getVarnc() {
+        return varnc;
+    }
+
+    public void setVarnc(String varnc) {
+        this.varnc = varnc;
+    }
+
+    public String getValnc() {
+        return valnc;
+    }
+
+    public void setValnc(String valnc) {
+        this.valnc = valnc;
+    }
+
+    public String getVarc() {
+        return varc;
+    }
+
+    public void setVarc(String varc) {
+        this.varc = varc;
+    }
+
+    public String getValc() {
+        return valc;
+    }
+
+    public void setValc(String valc) {
+        this.valc = valc;
+    }
+    
+    
+    public String getPresentingComplaint() {
+        return presentingComplaint;
+    }
+
+    public void setPresentingComplaint(String presentingComplaint) {
+        this.presentingComplaint = presentingComplaint;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
     public Patient getPatient() {
         return patient;
@@ -109,10 +169,6 @@ public class Encounter implements Serializable {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
-    
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -146,5 +202,5 @@ public class Encounter implements Serializable {
     public String toString() {
         return "lk.gov.health.neh.entity.Encounter[ id=" + id + " ]";
     }
-    
+
 }

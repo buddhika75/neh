@@ -6,7 +6,10 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.OpdVisitFacade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +21,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.health.neh.entity.Patient;
+import lk.gov.health.neh.entity.Unit;
 
 @ManagedBean(name = "opdVisitController")
 @SessionScoped
@@ -55,6 +60,40 @@ public class OpdVisitController implements Serializable {
         return selected;
     }
 
+    public String addNewOpdVisit() {
+        selected = new OpdVisit();
+        Patient pt = new Patient();
+        selected.setPatient(pt);
+        selected.setEncounterDate(new Date()); 
+        initializeEmbeddableKey();
+        return "/opdVisit/opd_visit";
+    }
+
+    
+    public Long annualCount(){
+        String j = "Selectc count(o) from OpdVisit o where o.encounterDate between :fd and :td ";
+        Map m = new HashMap();
+        m.put("fd", new Date());
+        m.put("td", m);
+        return getFacade().findLongByJpql(j, m) ;
+    }
+    
+    
+    public Long todaysCount(){
+        String j = "Selectc count(o) from OpdVisit o where o.encounterDate=:ed ";
+        Map m = new HashMap();
+        m.put("ed", new Date());
+        return getFacade().findLongByJpql(j, m) ;
+    }
+    
+    public Long todaysCount(Unit u){
+        String j = "Selectc count(o) from OpdVisit o where o.encounterDate=:ed and o.unit=:u ";
+        Map m = new HashMap();
+        m.put("ed", new Date());
+        m.put("u", u);
+        return getFacade().findLongByJpql(j, m) ;
+    }
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -66,6 +105,24 @@ public class OpdVisitController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitUpdated"));
     }
 
+    public String registerOpdVisit(){
+        if(selected==null){
+            JsfUtil.addErrorMessage("Nothing to register");
+            return "";
+        }
+        if(selected.getId()==null){
+            
+            getFacade().create(selected);
+            JsfUtil.addSuccessMessage("Registered");
+            return addNewOpdVisit();
+        }else{
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+            return "";
+        }
+        
+    }
+    
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitDeleted"));
         if (!JsfUtil.isValidationFailed()) {

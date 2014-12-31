@@ -20,6 +20,9 @@
                 <h:form id="menuForm">
                     <p:menubar rendered="#{staffController.logged}" >
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="Patients">
+                            <p:menuitem ajax="false" value="OPD Visit" action="#{opdVisitController.addNewOpdVisit()}"/>
+                        </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Admission" outcome="/admission/List.xhtml" />
                             <p:menuitem value="ClosedUnit" outcome="/closedUnit/List.xhtml" />
