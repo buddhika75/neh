@@ -9,12 +9,15 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import lk.gov.health.neh.enums.EncounterType;
 
 /**
  *
@@ -31,6 +34,8 @@ public class Encounter implements Serializable {
     Patient patient;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date encounterDate;
+    @Enumerated(EnumType.STRING)
+    EncounterType encounterType;
     String dailyNo;
     int intDailyNo;
     String serialNo;
@@ -47,7 +52,18 @@ public class Encounter implements Serializable {
     String varnc = "";
     String valnc = "";
     String varc = "";
-    String valc="";
+    String valc = "";
+
+    public EncounterType getEncounterType() {
+        return encounterType;
+    }
+
+    public void setEncounterType(EncounterType encounterType) {
+        this.encounterType = encounterType;
+    }
+    
+    
+    
 
     public String getVarnc() {
         return varnc;
@@ -80,8 +96,7 @@ public class Encounter implements Serializable {
     public void setValc(String valc) {
         this.valc = valc;
     }
-    
-    
+
     public String getPresentingComplaint() {
         return presentingComplaint;
     }

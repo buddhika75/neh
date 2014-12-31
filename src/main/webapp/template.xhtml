@@ -22,6 +22,9 @@
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
                         <p:submenu label="Patients">
                             <p:menuitem ajax="false" value="OPD Visit" action="#{opdVisitController.addNewOpdVisit()}"/>
+                            <p:menuitem ajax="false" value="Casulty Visit" action="#{opdVisitController.addNewCasultyVisit()}"/>
+                            <p:menuitem ajax="false" value="Special Unit" action="#{opdVisitController.addNewSpecialUnitVisit() }"/>
+                            <p:menuitem ajax="false" value="OPD Visit Register" action="/opdVisit/opd_visit_register"/>
                         </p:submenu>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Admission" outcome="/admission/List.xhtml" />
