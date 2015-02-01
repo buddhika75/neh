@@ -10,5 +10,5 @@
         <property name="URL" value="jdbc:mysql://localhost:3306/neh?zeroDateTimeBehavior=convertToNull"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="dsNeh" object-type="user" pool-name="mysql_neh_rootPool"/>
+    <jdbc-resource enabled="true" jndi-name="dsHHH" object-type="user" pool-name="mysql_neh_rootPool"/>
 </resources>
