@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+            <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+            <ui:define name="body">
+                <h:form >
+                    <p:commandButton ajax="false" value="Register" action="#{opdVisitController.registerOpdVisit()}" ></p:commandButton>
+                    <table border="1" style="padding: 3px; margin: 10px; width: 90%;" >
+                        <tr>
+                            <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Consultant" for="cmbUnit" />
+                                        </td>
+                                        <td>
+                                            <h:selectOneMenu id="cmbUnit" value="#{opdVisitController.selected.unit}" rendered="true" style="font-size: 30px;" >
+                                                <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="unit"
+                                                               itemLabel="#{unit.code}" itemValue="#{unit}" ></f:selectItems>
+                                                <f:ajax execute="cmbUnit" render="txtDailyNo" listener="#{opdVisitController.updateDailyNo()}" ></f:ajax>
+                                            </h:selectOneMenu>
+                                        </td>
+                                        <td>
+                                            <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 30px; font-weight: bold;" ></h:outputLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Caualty Unit Consultant" for="casInstitution" />
+                                        </td>
+                                        <td>
+                                            <p:selectOneMenu id="casInstitution" value="#{closedUnitController.selected.casualtyReference}" >
+                                                 <f:selectItem itemLabel="Select a unit" ></f:selectItem>
+                                                <f:selectItems value="#{consultantController.itemsAvailableSelectOne}"
+                                                               var="con"
+                                                               itemValue="#{con}"
+                                                               itemLabel="#{con.name}"/>
+                                            </p:selectOneMenu>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td colspan="4" rowspan="4" style="text-align: center; vertical-align: middle;" >
+                                <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
+                                <br/>
+                                <h:outputLabel value="Close Unit Visit" style="font-size: 22px;"></h:outputLabel>
+                            </td>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td>
+                                            <h:outputLabel value="Date" styleClass="threeHunderedWidthInput" ></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <p:calendar value="#{opdVisitController.selected.encounterDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td>Daily No</td>
+                                        <td>
+                                            <p:inputText id="txtDailyNo" value="#{opdVisitController.selected.dailyNo}" ></p:inputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" rowspan="2">
+                                <table >
+                                    <tr>
+                                        <td>Serial No</td>
+                                        <td>
+                                            <p:inputText value="#{opdVisitController.selected.serialNo}" ></p:inputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td>Age</td>
+                                        <td>
+                                            <p:inputText value="#{opdVisitController.selected.patient.age}" ></p:inputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td>Sex</td>
+                                        <td>
+                                            <p:selectOneMenu value="#{opdVisitController.selected.patient.sex}" >
+                                                <f:selectItems value="#{commonController.sexs}" ></f:selectItems>
+                                            </p:selectOneMenu>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="8">
+                                Name
+                                <p:inputText value="#{opdVisitController.selected.patient.name}" maxlength="254" ></p:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                Address
+                                <p:inputTextarea value="#{opdVisitController.selected.patient.address}" ></p:inputTextarea>
+                            </td>
+                            <td colspan="2" >
+                                Telephone
+                                <p:inputTextarea value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputTextarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                Occupation
+                                <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="itemConverter" 
+                                                completeMethod="#{itemController.completeOccupations}"
+                                                var="occ" itemLabel="#{occ.name}" itemValue="#{occ}" forceSelection="true">
+                                </p:autoComplete>
+                            </td>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td colspan="2" >
+                                            VA - Non Aids
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            R/ Eye
+                                            <p:inputText ></p:inputText>
+                                        </td>
+                                        <td>
+                                            L/ Eye
+                                            <p:inputText ></p:inputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <h:outputLabel value="Presenting Complaint" ></h:outputLabel>
+                                <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
+
+                            </td>
+
+                        </tr>
+                    </table> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

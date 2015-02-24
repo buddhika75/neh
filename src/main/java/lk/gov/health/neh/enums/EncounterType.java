@@ -13,4 +13,5 @@ public enum EncounterType {
     OpdVisit,
     Casulty,
     SpecialUnitVisit,
+    CloseUnitVisit,
 }

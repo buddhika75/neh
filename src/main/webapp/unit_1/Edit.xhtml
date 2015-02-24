@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnitEditDlg" widgetVar="UnitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUnitTitle}">
+            <h:form id="UnitEditForm">
+                <h:panelGroup id="display">
+                       <p:panelGrid columns="2" rendered="#{unitController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUnitLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.CreateUnitTitle_name}" />
+                        <p:outputLabel value="Code" for="txtCode" />
+                        <p:inputText id="txtCode" value="#{unitController.selected.code}" title="Code" />
+                       
+                        <p:outputLabel value="Consultant" for="institution" />
+                        <p:selectOneMenu id="institution" value="#{unitController.selected.consultant}" >
+                            <f:selectItems value="#{consultantController.itemsAvailableSelectOne}"
+                                           var="con"
+                                           itemValue="#{con}"
+                                           itemLabel="#{con.name}"/>
+                        </p:selectOneMenu>
+                       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unitController.update}" value="#{bundle.Save}" update="display,:UnitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UnitEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UnitEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

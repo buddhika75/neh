@@ -153,6 +153,18 @@ public class OpdVisitController implements Serializable {
         initializeEmbeddableKey();
         return "/opdVisit/special_unit_visit";
     }
+    
+    public String addNewCloseUnitVisit() {
+        selected = new OpdVisit();
+        Patient pt = new Patient();
+        selected.setPatient(pt);
+        selected.setIntSerialNo(annualCount().intValue());
+        selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+        selected.setEncounterType(EncounterType.CloseUnitVisit);
+        selected.setEncounterDate(new Date());
+        initializeEmbeddableKey();
+        return "/opdVisit/close_unit_visit";
+    }
 
     public String stringConversionOfSerialNo(int sn) {
         Calendar c = Calendar.getInstance();
@@ -220,6 +232,8 @@ public class OpdVisitController implements Serializable {
                 return addNewCasultyVisit();
             } else if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
                 return addNewSpecialUnitVisit();
+            } else if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+                return addNewCloseUnitVisit();
             }
         } else {
             getFacade().edit(selected);

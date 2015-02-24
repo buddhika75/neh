@@ -20,6 +20,13 @@
                                            var="closedUnitItem"
                                            itemValue="#{closedUnitItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="Consultant" for="institution" />
+                        <p:selectOneMenu id="institution" value="#{closedUnitController.selected.casualtyReference}" >
+                            <f:selectItems value="#{consultantController.itemsAvailableSelectOne}"
+                                           var="con"
+                                           itemValue="#{con}"
+                                           itemLabel="#{con.name}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateClosedUnitLabel_id}" for="id" />
                         <p:inputText id="id" value="#{closedUnitController.selected.id}" title="#{bundle.CreateClosedUnitTitle_id}" />
                     </p:panelGrid>

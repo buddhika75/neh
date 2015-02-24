@@ -32,6 +32,9 @@ public class ClosedUnitController implements Serializable {
     }
 
     public ClosedUnit getSelected() {
+        if(selected == null){
+            selected = new ClosedUnit();
+        }
         return selected;
     }
 

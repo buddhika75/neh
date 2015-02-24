@@ -29,6 +29,8 @@ public class ClosedUnit implements Serializable {
     @ManyToOne
     Unit closedUnit;
     boolean retired;
+    @ManyToOne
+    Unit casualtyReference;
 
     public Date getClosedDate() {
         return closedDate;
@@ -52,6 +54,14 @@ public class ClosedUnit implements Serializable {
 
     public void setRetired(boolean retired) {
         this.retired = retired;
+    }
+
+    public Unit getCasualtyReference() {
+        return casualtyReference;
+    }
+
+    public void setCasualtyReference(Unit casualtyReference) {
+        this.casualtyReference = casualtyReference;
     }
 
     
