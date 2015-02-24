@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -114,6 +114,218 @@ public class Encounter implements Serializable {
    String cpstmediOther ="";
    String cOcularHxOther ="";
    String cSugicalHxOther ="";
+   
+   
+   
+   String snonAidREye;
+    String snonAidLEye;
+    String sCGlassREye;
+    String sCGlassLEye;
+    
+    Boolean sDM;
+    Boolean sHPT;
+    Boolean sIHD;
+    Boolean sBA;
+    Boolean sAllergy;
+    
+    
+    
+   Boolean  sTrauma;
+   Boolean sGlaucoma;
+   Boolean sLaserRx;
+   Boolean sAvastinIng;
+   Boolean sPST;
+   Boolean sCataractSx;
+   Boolean strab;
+   Boolean sTPPV;
+   Boolean sPKP;
+   Boolean sSquint;
+   
+   
+   String spstmediOther ="";
+   String sOcularHxOther ="";
+   String sSugicalHxOther ="";
+
+    public String getSnonAidREye() {
+        return snonAidREye;
+    }
+
+    public void setSnonAidREye(String snonAidREye) {
+        this.snonAidREye = snonAidREye;
+    }
+
+    public String getSnonAidLEye() {
+        return snonAidLEye;
+    }
+
+    public void setSnonAidLEye(String snonAidLEye) {
+        this.snonAidLEye = snonAidLEye;
+    }
+
+    public String getsCGlassREye() {
+        return sCGlassREye;
+    }
+
+    public void setsCGlassREye(String sCGlassREye) {
+        this.sCGlassREye = sCGlassREye;
+    }
+
+    public String getsCGlassLEye() {
+        return sCGlassLEye;
+    }
+
+    public void setsCGlassLEye(String sCGlassLEye) {
+        this.sCGlassLEye = sCGlassLEye;
+    }
+
+    public Boolean getsDM() {
+        return sDM;
+    }
+
+    public void setsDM(Boolean sDM) {
+        this.sDM = sDM;
+    }
+
+    public Boolean getsHPT() {
+        return sHPT;
+    }
+
+    public void setsHPT(Boolean sHPT) {
+        this.sHPT = sHPT;
+    }
+
+    public Boolean getsIHD() {
+        return sIHD;
+    }
+
+    public void setsIHD(Boolean sIHD) {
+        this.sIHD = sIHD;
+    }
+
+    public Boolean getsBA() {
+        return sBA;
+    }
+
+    public void setsBA(Boolean sBA) {
+        this.sBA = sBA;
+    }
+
+    public Boolean getsAllergy() {
+        return sAllergy;
+    }
+
+    public void setsAllergy(Boolean sAllergy) {
+        this.sAllergy = sAllergy;
+    }
+
+    public Boolean getsTrauma() {
+        return sTrauma;
+    }
+
+    public void setsTrauma(Boolean sTrauma) {
+        this.sTrauma = sTrauma;
+    }
+
+    public Boolean getsGlaucoma() {
+        return sGlaucoma;
+    }
+
+    public void setsGlaucoma(Boolean sGlaucoma) {
+        this.sGlaucoma = sGlaucoma;
+    }
+
+    public Boolean getsLaserRx() {
+        return sLaserRx;
+    }
+
+    public void setsLaserRx(Boolean sLaserRx) {
+        this.sLaserRx = sLaserRx;
+    }
+
+    public Boolean getsAvastinIng() {
+        return sAvastinIng;
+    }
+
+    public void setsAvastinIng(Boolean sAvastinIng) {
+        this.sAvastinIng = sAvastinIng;
+    }
+
+    public Boolean getsPST() {
+        return sPST;
+    }
+
+    public void setsPST(Boolean sPST) {
+        this.sPST = sPST;
+    }
+
+    public Boolean getsCataractSx() {
+        return sCataractSx;
+    }
+
+    public void setsCataractSx(Boolean sCataractSx) {
+        this.sCataractSx = sCataractSx;
+    }
+
+    public Boolean getStrab() {
+        return strab;
+    }
+
+    public void setStrab(Boolean strab) {
+        this.strab = strab;
+    }
+
+    public Boolean getsTPPV() {
+        return sTPPV;
+    }
+
+    public void setsTPPV(Boolean sTPPV) {
+        this.sTPPV = sTPPV;
+    }
+
+    public Boolean getsPKP() {
+        return sPKP;
+    }
+
+    public void setsPKP(Boolean sPKP) {
+        this.sPKP = sPKP;
+    }
+
+    public Boolean getsSquint() {
+        return sSquint;
+    }
+
+    public void setsSquint(Boolean sSquint) {
+        this.sSquint = sSquint;
+    }
+
+    public String getSpstmediOther() {
+        return spstmediOther;
+    }
+
+    public void setSpstmediOther(String spstmediOther) {
+        this.spstmediOther = spstmediOther;
+    }
+
+    public String getsOcularHxOther() {
+        return sOcularHxOther;
+    }
+
+    public void setsOcularHxOther(String sOcularHxOther) {
+        this.sOcularHxOther = sOcularHxOther;
+    }
+
+    public String getsSugicalHxOther() {
+        return sSugicalHxOther;
+    }
+
+    public void setsSugicalHxOther(String sSugicalHxOther) {
+        this.sSugicalHxOther = sSugicalHxOther;
+    }
+   
+   
+   
+   
+   
 
     public String getCnonAidREye() {
         return cnonAidREye;
