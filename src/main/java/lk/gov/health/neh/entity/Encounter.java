@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -85,7 +85,216 @@ public class Encounter implements Serializable {
    
    
    
+   
+     String cnonAidREye;
+    String cnonAidLEye;
+    String cCGlassREye;
+    String cCGlassLEye;
+    
+    Boolean cDM;
+    Boolean cHPT;
+    Boolean cIHD;
+    Boolean cBA;
+    Boolean cAllergy;
+    
+    
+    
+   Boolean  cTrauma;
+   Boolean cGlaucoma;
+   Boolean cLaserRx;
+   Boolean cAvastinIng;
+   Boolean cPST;
+   Boolean cCataractSx;
+   Boolean ctrab;
+   Boolean cTPPV;
+   Boolean cPKP;
+   Boolean cSquint;
+   
+   
+   String cpstmediOther ="";
+   String cOcularHxOther ="";
+   String cSugicalHxOther ="";
 
+    public String getCnonAidREye() {
+        return cnonAidREye;
+    }
+
+    public void setCnonAidREye(String cnonAidREye) {
+        this.cnonAidREye = cnonAidREye;
+    }
+
+    public String getCnonAidLEye() {
+        return cnonAidLEye;
+    }
+
+    public void setCnonAidLEye(String cnonAidLEye) {
+        this.cnonAidLEye = cnonAidLEye;
+    }
+
+    public String getcCGlassREye() {
+        return cCGlassREye;
+    }
+
+    public void setcCGlassREye(String cCGlassREye) {
+        this.cCGlassREye = cCGlassREye;
+    }
+
+    public String getcCGlassLEye() {
+        return cCGlassLEye;
+    }
+
+    public void setcCGlassLEye(String cCGlassLEye) {
+        this.cCGlassLEye = cCGlassLEye;
+    }
+
+    public Boolean getcDM() {
+        return cDM;
+    }
+
+    public void setcDM(Boolean cDM) {
+        this.cDM = cDM;
+    }
+
+    public Boolean getcHPT() {
+        return cHPT;
+    }
+
+    public void setcHPT(Boolean cHPT) {
+        this.cHPT = cHPT;
+    }
+
+    public Boolean getcIHD() {
+        return cIHD;
+    }
+
+    public void setcIHD(Boolean cIHD) {
+        this.cIHD = cIHD;
+    }
+
+    public Boolean getcBA() {
+        return cBA;
+    }
+
+    public void setcBA(Boolean cBA) {
+        this.cBA = cBA;
+    }
+
+    public Boolean getcAllergy() {
+        return cAllergy;
+    }
+
+    public void setcAllergy(Boolean cAllergy) {
+        this.cAllergy = cAllergy;
+    }
+
+    public Boolean getcTrauma() {
+        return cTrauma;
+    }
+
+    public void setcTrauma(Boolean cTrauma) {
+        this.cTrauma = cTrauma;
+    }
+
+    public Boolean getcGlaucoma() {
+        return cGlaucoma;
+    }
+
+    public void setcGlaucoma(Boolean cGlaucoma) {
+        this.cGlaucoma = cGlaucoma;
+    }
+
+    public Boolean getcLaserRx() {
+        return cLaserRx;
+    }
+
+    public void setcLaserRx(Boolean cLaserRx) {
+        this.cLaserRx = cLaserRx;
+    }
+
+    public Boolean getcAvastinIng() {
+        return cAvastinIng;
+    }
+
+    public void setcAvastinIng(Boolean cAvastinIng) {
+        this.cAvastinIng = cAvastinIng;
+    }
+
+    public Boolean getcPST() {
+        return cPST;
+    }
+
+    public void setcPST(Boolean cPST) {
+        this.cPST = cPST;
+    }
+
+    public Boolean getcCataractSx() {
+        return cCataractSx;
+    }
+
+    public void setcCataractSx(Boolean cCataractSx) {
+        this.cCataractSx = cCataractSx;
+    }
+
+    public Boolean getCtrab() {
+        return ctrab;
+    }
+
+    public void setCtrab(Boolean ctrab) {
+        this.ctrab = ctrab;
+    }
+
+    public Boolean getcTPPV() {
+        return cTPPV;
+    }
+
+    public void setcTPPV(Boolean cTPPV) {
+        this.cTPPV = cTPPV;
+    }
+
+    public Boolean getcPKP() {
+        return cPKP;
+    }
+
+    public void setcPKP(Boolean cPKP) {
+        this.cPKP = cPKP;
+    }
+
+    public Boolean getcSquint() {
+        return cSquint;
+    }
+
+    public void setcSquint(Boolean cSquint) {
+        this.cSquint = cSquint;
+    }
+
+    public String getCpstmediOther() {
+        return cpstmediOther;
+    }
+
+    public void setCpstmediOther(String cpstmediOther) {
+        this.cpstmediOther = cpstmediOther;
+    }
+
+    public String getcOcularHxOther() {
+        return cOcularHxOther;
+    }
+
+    public void setcOcularHxOther(String cOcularHxOther) {
+        this.cOcularHxOther = cOcularHxOther;
+    }
+
+    public String getcSugicalHxOther() {
+        return cSugicalHxOther;
+    }
+
+    public void setcSugicalHxOther(String cSugicalHxOther) {
+        this.cSugicalHxOther = cSugicalHxOther;
+    }
+   
+   
+    
+    
+    
     public EncounterType getEncounterType() {
         return encounterType;
     }
