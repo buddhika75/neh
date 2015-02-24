@@ -53,6 +53,38 @@ public class Encounter implements Serializable {
     String valnc = "";
     String varc = "";
     String valc = "";
+    
+    String nonAidREye;
+    String nonAidLEye;
+    String CGlassREye;
+    String CGlassLEye;
+    
+    Boolean DM;
+    Boolean HPT;
+    Boolean IHD;
+    Boolean BA;
+    Boolean Allergy;
+    
+    
+    
+   Boolean  Trauma;
+   Boolean Glaucoma;
+   Boolean LaserRx;
+   Boolean AvastinIng;
+   Boolean PST;
+   Boolean CataractSx;
+   Boolean trab;
+   Boolean TPPV;
+   Boolean PKP;
+   Boolean Squint;
+   
+   
+   String pstmediOther ="";
+   String OcularHxOther ="";
+   String SugicalHxOther ="";
+   
+   
+   
 
     public EncounterType getEncounterType() {
         return encounterType;
@@ -61,9 +93,185 @@ public class Encounter implements Serializable {
     public void setEncounterType(EncounterType encounterType) {
         this.encounterType = encounterType;
     }
+
+    public String getNonAidREye() {
+        return nonAidREye;
+    }
+
+    public void setNonAidREye(String nonAidREye) {
+        this.nonAidREye = nonAidREye;
+    }
+
+    public String getNonAidLEye() {
+        return nonAidLEye;
+    }
+
+    public void setNonAidLEye(String nonAidLEye) {
+        this.nonAidLEye = nonAidLEye;
+    }
+
+    public String getCGlassREye() {
+        return CGlassREye;
+    }
+
+    public void setCGlassREye(String CGlassREye) {
+        this.CGlassREye = CGlassREye;
+    }
+
+    public String getCGlassLEye() {
+        return CGlassLEye;
+    }
+
+    public void setCGlassLEye(String CGlassLEye) {
+        this.CGlassLEye = CGlassLEye;
+    }
+
+    public Boolean getDM() {
+        return DM;
+    }
+
+    public void setDM(Boolean DM) {
+        this.DM = DM;
+    }
+
+    public Boolean getHPT() {
+        return HPT;
+    }
+
+    public void setHPT(Boolean HPT) {
+        this.HPT = HPT;
+    }
+
+    public Boolean getIHD() {
+        return IHD;
+    }
+
+    public void setIHD(Boolean IHD) {
+        this.IHD = IHD;
+    }
+
+    public Boolean getBA() {
+        return BA;
+    }
+
+    public void setBA(Boolean BA) {
+        this.BA = BA;
+    }
+
+    public Boolean getAllergy() {
+        return Allergy;
+    }
+
+    public void setAllergy(Boolean Allergy) {
+        this.Allergy = Allergy;
+    }
+
+    public Boolean getTrauma() {
+        return Trauma;
+    }
+
+    public void setTrauma(Boolean Trauma) {
+        this.Trauma = Trauma;
+    }
+
+    public Boolean getGlaucoma() {
+        return Glaucoma;
+    }
+
+    public void setGlaucoma(Boolean Glaucoma) {
+        this.Glaucoma = Glaucoma;
+    }
+
+    public Boolean getLaserRx() {
+        return LaserRx;
+    }
+
+    public void setLaserRx(Boolean LaserRx) {
+        this.LaserRx = LaserRx;
+    }
+
+    public Boolean getAvastinIng() {
+        return AvastinIng;
+    }
+
+    public void setAvastinIng(Boolean AvastinIng) {
+        this.AvastinIng = AvastinIng;
+    }
+
+    public Boolean getPST() {
+        return PST;
+    }
+
+    public void setPST(Boolean PST) {
+        this.PST = PST;
+    }
+
+    public Boolean getCataractSx() {
+        return CataractSx;
+    }
+
+    public void setCataractSx(Boolean CataractSx) {
+        this.CataractSx = CataractSx;
+    }
+
+    public Boolean getTrab() {
+        return trab;
+    }
+
+    public void setTrab(Boolean trab) {
+        this.trab = trab;
+    }
+
+    public Boolean getTPPV() {
+        return TPPV;
+    }
+
+    public void setTPPV(Boolean TPPV) {
+        this.TPPV = TPPV;
+    }
+
+    public Boolean getPKP() {
+        return PKP;
+    }
+
+    public void setPKP(Boolean PKP) {
+        this.PKP = PKP;
+    }
+
+    public Boolean getSquint() {
+        return Squint;
+    }
+
+    public void setSquint(Boolean Squint) {
+        this.Squint = Squint;
+    }
+
+    public String getPstmediOther() {
+        return pstmediOther;
+    }
+
+    public void setPstmediOther(String pstmediOther) {
+        this.pstmediOther = pstmediOther;
+    }
+
+    public String getOcularHxOther() {
+        return OcularHxOther;
+    }
+
+    public void setOcularHxOther(String OcularHxOther) {
+        this.OcularHxOther = OcularHxOther;
+    }
+
+    public String getSugicalHxOther() {
+        return SugicalHxOther;
+    }
+
+    public void setSugicalHxOther(String SugicalHxOther) {
+        this.SugicalHxOther = SugicalHxOther;
+    }
     
     
-    
+     
 
     public String getVarnc() {
         return varnc;

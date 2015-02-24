@@ -139,8 +139,147 @@
                                 <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
                                 
                             </td>
-                            
+                          <td colspan="3">
+                                <h:outputLabel value="Diagnosis" ></h:outputLabel>
+                                <h:inputTextarea value="#{opdVisitController.selected.diagnosis}" ></h:inputTextarea>
+
+                            </td>
+                            <td colspan="2" >
+                                <table >
+                                    <tr>
+                                        <td colspan="2" style="font-size: 14px;" >
+                                            VA - C Glass
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            R/ Eye
+                                            <p:inputText value="#{opdVisitController.selected.CGlassREye}"></p:inputText>
+                                        </td>
+                                        <td>
+                                            L/ Eye
+                                            <p:inputText value="#{opdVisitController.selected.CGlassLEye}"></p:inputText>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+
+
                         </tr>
+                        <tr colspan="8">
+
+
+                            <td  colspan="3" style="font-size: 16px;" align="center ">Past Medical Hx
+
+
+                                <table  align="center">
+                                    <tr>
+                                        <td colspan="2">DM</td>
+                                        <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.DM }">  </p:selectBooleanCheckbox></td>
+                                        <td colspan="2">HPT</td>
+                                        <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.HPT}">  </p:selectBooleanCheckbox>  </td>
+                                    </tr>
+
+                                    <tr>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">IHD</td>
+                                        <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.IHD}">  </p:selectBooleanCheckbox></td>
+                                         <td colspan="2">BA</td>
+                                         <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.BA}">  </p:selectBooleanCheckbox></td>
+
+                                    </tr>
+                                    <tr>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Allery</td>
+                                        <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.allergy}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+
+                                    <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.pstmediOther} " maxlength="500" ></p:inputTextarea></td></tr>
+                                </table>
+
+
+
+                            </td>
+
+                            <td  colspan="2" style="font-size: 16px;" align="center ">Ocular Hx 
+                                <table align="canter">
+                                    <tr>
+                                        <td colspan="2">Trauma </td>
+                                        <td align="canter "><p:selectBooleanCheckbox  value="#{opdVisitController.selected.trauma}">  </p:selectBooleanCheckbox></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Glaucoma </td>
+                                        <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.glaucoma}">  </p:selectBooleanCheckbox>  </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">Laser Rx </td>
+                                        <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.laserRx}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="2">Avastin Inj</td>
+                                        <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.avastinIng}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">PST </td>
+                                        <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.PST}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+
+                                    <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.ocularHxOther} " maxlength="500" ></p:inputTextarea></td></tr>
+
+
+
+                                </table>
+
+
+
+
+                            </td>
+                            <td  colspan="2" style="font-size: 16px;" align="center ">Surgical Hx
+
+                                <table align="canter">
+                                    <tr>
+                                        <td colspan="2">Cataract Sx </td>
+                                        <td align="canter "><p:selectBooleanCheckbox  value="#{opdVisitController.selected.cataractSx}">  </p:selectBooleanCheckbox></td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">Trab</td> 
+                                        <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.trab}">  </p:selectBooleanCheckbox>  </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Tppv</td>
+                                        <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.TPPV}">  </p:selectBooleanCheckbox></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">PKP/DLK</td>
+                                        <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.PKP}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Squint</td>
+                                        <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.squint}">  </p:selectBooleanCheckbox></td>
+                                    </tr>
+
+                                    <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.sugicalHxOther} " maxlength="500" ></p:inputTextarea></td></tr>
+                                </table>
+
+
+                            </td>
+                        </tr>
+
+
+
                     </table> 
                 </h:form>
             </ui:define>
