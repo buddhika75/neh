@@ -22,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.ws.rs.OPTIONS;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.enums.EncounterType;
@@ -83,6 +84,9 @@ public class OpdVisitController implements Serializable {
     }
 
     public OpdVisit getSelected() {
+        if (selected == null){
+            selected = new OpdVisit();
+        }
         return selected;
     }
 
@@ -214,6 +218,10 @@ public class OpdVisitController implements Serializable {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitUpdated"));
     }
 
+    public void clear() {
+        selected = null;
+    }
+    
     public String registerOpdVisit() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
@@ -226,13 +234,14 @@ public class OpdVisitController implements Serializable {
 
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
+            
             if (selected.getEncounterType() == EncounterType.OpdVisit) {
                 return addNewOpdVisit();
             } else if (selected.getEncounterType() == EncounterType.Casulty) {
                 return addNewCasultyVisit();
             } else if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
                 return addNewSpecialUnitVisit();
-            } else if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+            } else if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
                 return addNewCloseUnitVisit();
             }
         } else {
