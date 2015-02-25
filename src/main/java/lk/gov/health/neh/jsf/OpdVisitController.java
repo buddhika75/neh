@@ -221,7 +221,7 @@ public class OpdVisitController implements Serializable {
         selected = null;
     }
 
-    public void opdViitRegister() {
+    public void opdVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
         }
@@ -231,24 +231,69 @@ public class OpdVisitController implements Serializable {
             selected.setPatient(pt);
             selected.setIntSerialNo(annualCount().intValue());
             selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterType(EncounterType.OpdVisit);
             selected.setEncounterDate(new Date());
-            selected.setNonAidREye(selected.getNonAidREye());
-            selected.setNonAidLEye(selected.getNonAidLEye());
-            selected.setCGlassREye(selected.getCGlassREye());
-            selected.setCGlassLEye(selected.getCGlassLEye());
-            selected.setPresentingComplaint(selected.getPresentingComplaint());
-            selected.setDiagnosis(selected.getDiagnosis());
-            selected.setDM(selected.getDM());
-            selected.setHPT(selected.getHPT());
-            selected.setIHD(selected.getIHD());
-            selected.setBA(selected.getBA());
-            selected.setAllergy(selected.getAllergy());
-            selected.setPstmediOther(selected.getPstmediOther());
-            selected.setTrauma(selected.getTrauma());
-            selected.setGlaucoma(selected.getGlaucoma());
-            selected.setLaserRx(selected.getLaserRx());
-            selected.setOcularHxOther(selected.getOcularHxOther());
+            selected.setEncounterType(EncounterType.OpdVisit);
+
+            getFacade().create(getSelected());
+            JsfUtil.addSuccessMessage("Registered");
+        }else{
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+        }
+    }
+    public void casualtyVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        }
+        if (selected.getId() == null) {
+            selected = new OpdVisit();
+            Patient pt = new Patient();
+            selected.setPatient(pt);
+            selected.setIntSerialNo(annualCount().intValue());
+            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+            selected.setEncounterDate(new Date());
+            selected.setEncounterType(EncounterType.Casulty);
+            
+            getFacade().create(selected);
+            JsfUtil.addSuccessMessage("Registered");
+        }else{
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+        }
+    }
+    public void closedUnitVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        }
+        if (selected.getId() == null) {
+            selected = new OpdVisit();
+            Patient pt = new Patient();
+            selected.setPatient(pt);
+            selected.setIntSerialNo(annualCount().intValue());
+            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+            selected.setEncounterDate(new Date());
+            selected.setEncounterType(EncounterType.CloseUnitVisit);
+            
+            getFacade().create(selected);
+            JsfUtil.addSuccessMessage("Registered");
+        }else{
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+        }
+    }
+    
+    public void specialVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        }
+        if (selected.getId() == null) {
+            selected = new OpdVisit();
+            Patient pt = new Patient();
+            selected.setPatient(pt);
+            selected.setIntSerialNo(annualCount().intValue());
+            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+            selected.setEncounterDate(new Date());
+            selected.setEncounterType(EncounterType.SpecialUnitVisit);
             
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
