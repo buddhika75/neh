@@ -84,7 +84,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public OpdVisit getSelected() {
-        if (selected == null){
+        if (selected == null) {
             selected = new OpdVisit();
         }
         return selected;
@@ -133,7 +133,6 @@ public class OpdVisitController implements Serializable {
 //            
 //        }
 //    }
-    
     public String addNewCasultyVisit() {
         selected = new OpdVisit();
         Patient pt = new Patient();
@@ -157,7 +156,7 @@ public class OpdVisitController implements Serializable {
         initializeEmbeddableKey();
         return "/opdVisit/special_unit_visit";
     }
-    
+
     public String addNewCloseUnitVisit() {
         selected = new OpdVisit();
         Patient pt = new Patient();
@@ -221,7 +220,44 @@ public class OpdVisitController implements Serializable {
     public void clear() {
         selected = null;
     }
-    
+
+    public void opdViitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        }
+        if (selected.getId() == null) {
+            selected = new OpdVisit();
+            Patient pt = new Patient();
+            selected.setPatient(pt);
+            selected.setIntSerialNo(annualCount().intValue());
+            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+            selected.setEncounterType(EncounterType.OpdVisit);
+            selected.setEncounterDate(new Date());
+            selected.setNonAidREye(selected.getNonAidREye());
+            selected.setNonAidLEye(selected.getNonAidLEye());
+            selected.setCGlassREye(selected.getCGlassREye());
+            selected.setCGlassLEye(selected.getCGlassLEye());
+            selected.setPresentingComplaint(selected.getPresentingComplaint());
+            selected.setDiagnosis(selected.getDiagnosis());
+            selected.setDM(selected.getDM());
+            selected.setHPT(selected.getHPT());
+            selected.setIHD(selected.getIHD());
+            selected.setBA(selected.getBA());
+            selected.setAllergy(selected.getAllergy());
+            selected.setPstmediOther(selected.getPstmediOther());
+            selected.setTrauma(selected.getTrauma());
+            selected.setGlaucoma(selected.getGlaucoma());
+            selected.setLaserRx(selected.getLaserRx());
+            selected.setOcularHxOther(selected.getOcularHxOther());
+            
+            getFacade().create(selected);
+            JsfUtil.addSuccessMessage("Registered");
+        }else{
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+        }
+    }
+
     public String registerOpdVisit() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
@@ -234,7 +270,7 @@ public class OpdVisitController implements Serializable {
 
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
-            
+
             if (selected.getEncounterType() == EncounterType.OpdVisit) {
                 return addNewOpdVisit();
             } else if (selected.getEncounterType() == EncounterType.Casulty) {
@@ -249,7 +285,7 @@ public class OpdVisitController implements Serializable {
             JsfUtil.addSuccessMessage("Updated");
             return "";
         }
-        return  "";
+        return "";
     }
 
     public void destroy() {
