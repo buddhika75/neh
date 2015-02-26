@@ -40,6 +40,9 @@ public class OpdVisitController implements Serializable {
     Date toDate;
     List<OpdVisit> visits;
     Unit casultyUnit;
+    Unit opdVisit;
+    Unit closedUnitVisit;
+    Unit speUnit;
 
     public Date getFromDate() {
         if (fromDate == null) {
@@ -74,6 +77,46 @@ public class OpdVisitController implements Serializable {
 
     public List<OpdVisit> getVisits() {
         return visits;
+    }
+
+    public OpdVisitFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(OpdVisitFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Unit getCasultyUnit() {
+        return casultyUnit;
+    }
+
+    public void setCasultyUnit(Unit casultyUnit) {
+        this.casultyUnit = casultyUnit;
+    }
+
+    public Unit getOpdVisit() {
+        return opdVisit;
+    }
+
+    public void setOpdVisit(Unit opdVisit) {
+        this.opdVisit = opdVisit;
+    }
+
+    public Unit getClosedUnitVisit() {
+        return closedUnitVisit;
+    }
+
+    public void setClosedUnitVisit(Unit closedUnitVisit) {
+        this.closedUnitVisit = closedUnitVisit;
+    }
+
+    public Unit getSpeUnit() {
+        return speUnit;
+    }
+
+    public void setSpeUnit(Unit speUnit) {
+        this.speUnit = speUnit;
     }
 
     public void setVisits(List<OpdVisit> visits) {
@@ -224,64 +267,30 @@ public class OpdVisitController implements Serializable {
     public void opdVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
-        }
-        if (selected.getId() == null) {
-            selected = new OpdVisit();
-            Patient pt = new Patient();
-            selected.setPatient(pt);
-            selected.setIntSerialNo(annualCount().intValue());
-            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterDate(new Date());
+        } else {
             selected.setEncounterType(EncounterType.OpdVisit);
-
-            getFacade().create(getSelected());
-            JsfUtil.addSuccessMessage("Registered");
-        }else{
-            getFacade().edit(selected);
-            JsfUtil.addSuccessMessage("Updated");
+            registerOpdVisit();
         }
     }
+
     public void casualtyVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
-        }
-        if (selected.getId() == null) {
-            selected = new OpdVisit();
-            Patient pt = new Patient();
-            selected.setPatient(pt);
-            selected.setIntSerialNo(annualCount().intValue());
-            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterDate(new Date());
+        } else {
             selected.setEncounterType(EncounterType.Casulty);
-            
-            getFacade().create(selected);
-            JsfUtil.addSuccessMessage("Registered");
-        }else{
-            getFacade().edit(selected);
-            JsfUtil.addSuccessMessage("Updated");
+            registerOpdVisit();
         }
     }
+
     public void closedUnitVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
-        }
-        if (selected.getId() == null) {
-            selected = new OpdVisit();
-            Patient pt = new Patient();
-            selected.setPatient(pt);
-            selected.setIntSerialNo(annualCount().intValue());
-            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterDate(new Date());
+        } else {
             selected.setEncounterType(EncounterType.CloseUnitVisit);
-            
-            getFacade().create(selected);
-            JsfUtil.addSuccessMessage("Registered");
-        }else{
-            getFacade().edit(selected);
-            JsfUtil.addSuccessMessage("Updated");
+            registerOpdVisit();
         }
     }
-    
+
     public void specialVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
@@ -294,10 +303,10 @@ public class OpdVisitController implements Serializable {
             selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
             selected.setEncounterDate(new Date());
             selected.setEncounterType(EncounterType.SpecialUnitVisit);
-            
+
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
-        }else{
+        } else {
             getFacade().edit(selected);
             JsfUtil.addSuccessMessage("Updated");
         }
@@ -310,6 +319,15 @@ public class OpdVisitController implements Serializable {
         }
         if (selected.getEncounterType() == EncounterType.Casulty) {
             casultyUnit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            opdVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+            closedUnitVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+            speUnit = selected.getUnit();
         }
         if (selected.getId() == null) {
 
