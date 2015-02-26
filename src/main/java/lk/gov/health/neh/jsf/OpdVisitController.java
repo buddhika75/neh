@@ -40,6 +40,9 @@ public class OpdVisitController implements Serializable {
     Date toDate;
     List<OpdVisit> visits;
     Unit casultyUnit;
+    Unit opdVisit;
+    Unit closedUnitVisit;
+    Unit speUnit;
 
     public Date getFromDate() {
         if (fromDate == null) {
@@ -74,6 +77,46 @@ public class OpdVisitController implements Serializable {
 
     public List<OpdVisit> getVisits() {
         return visits;
+    }
+
+    public OpdVisitFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(OpdVisitFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Unit getCasultyUnit() {
+        return casultyUnit;
+    }
+
+    public void setCasultyUnit(Unit casultyUnit) {
+        this.casultyUnit = casultyUnit;
+    }
+
+    public Unit getOpdVisit() {
+        return opdVisit;
+    }
+
+    public void setOpdVisit(Unit opdVisit) {
+        this.opdVisit = opdVisit;
+    }
+
+    public Unit getClosedUnitVisit() {
+        return closedUnitVisit;
+    }
+
+    public void setClosedUnitVisit(Unit closedUnitVisit) {
+        this.closedUnitVisit = closedUnitVisit;
+    }
+
+    public Unit getSpeUnit() {
+        return speUnit;
+    }
+
+    public void setSpeUnit(Unit speUnit) {
+        this.speUnit = speUnit;
     }
 
     public void setVisits(List<OpdVisit> visits) {
@@ -221,7 +264,34 @@ public class OpdVisitController implements Serializable {
         selected = null;
     }
 
-    public void opdViitRegister() {
+    public void opdVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        } else {
+            selected.setEncounterType(EncounterType.OpdVisit);
+            registerOpdVisit();
+        }
+    }
+
+    public void casualtyVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        } else {
+            selected.setEncounterType(EncounterType.Casulty);
+            registerOpdVisit();
+        }
+    }
+
+    public void closedUnitVisitRegister() {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+        } else {
+            selected.setEncounterType(EncounterType.CloseUnitVisit);
+            registerOpdVisit();
+        }
+    }
+
+    public void specialVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
         }
@@ -231,28 +301,12 @@ public class OpdVisitController implements Serializable {
             selected.setPatient(pt);
             selected.setIntSerialNo(annualCount().intValue());
             selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterType(EncounterType.OpdVisit);
             selected.setEncounterDate(new Date());
-            selected.setNonAidREye(selected.getNonAidREye());
-            selected.setNonAidLEye(selected.getNonAidLEye());
-            selected.setCGlassREye(selected.getCGlassREye());
-            selected.setCGlassLEye(selected.getCGlassLEye());
-            selected.setPresentingComplaint(selected.getPresentingComplaint());
-            selected.setDiagnosis(selected.getDiagnosis());
-            selected.setDM(selected.getDM());
-            selected.setHPT(selected.getHPT());
-            selected.setIHD(selected.getIHD());
-            selected.setBA(selected.getBA());
-            selected.setAllergy(selected.getAllergy());
-            selected.setPstmediOther(selected.getPstmediOther());
-            selected.setTrauma(selected.getTrauma());
-            selected.setGlaucoma(selected.getGlaucoma());
-            selected.setLaserRx(selected.getLaserRx());
-            selected.setOcularHxOther(selected.getOcularHxOther());
-            
+            selected.setEncounterType(EncounterType.SpecialUnitVisit);
+
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
-        }else{
+        } else {
             getFacade().edit(selected);
             JsfUtil.addSuccessMessage("Updated");
         }
@@ -265,6 +319,15 @@ public class OpdVisitController implements Serializable {
         }
         if (selected.getEncounterType() == EncounterType.Casulty) {
             casultyUnit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            opdVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+            closedUnitVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+            speUnit = selected.getUnit();
         }
         if (selected.getId() == null) {
 

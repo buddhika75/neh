@@ -13,7 +13,7 @@
             <ui:define name="body">
                 <h:form >
                     <h:panelGrid columns="3">
-                        <p:commandButton icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.registerOpdVisit()}" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.closedUnitVisitRegister()}" ></p:commandButton>
                         <p:commandButton value="Print" type="button" icon="ui-icon-print">
                             <p:printer target="opdVisit" />
                         </p:commandButton>
@@ -32,11 +32,19 @@
                                     <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 30px; font-weight: bold;" ></h:outputLabel>
                                 </td>
                                 <td colspan="4" rowspan="4" style="text-align: center;vertical-align: middle;" >
-                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="125px"></h:graphicImage>
+                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="100px"></h:graphicImage>
+                                    <br/>
+                                    <h:outputLabel value="ශ්‍රි ලංකා ජාතික අක්ෂි රෝහල"  style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="බාහිර රෝගී අංශය"  style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="இலங்கை தேசிய கண் வைத்தியசாலை" style="font-size: 11px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="அவுட் நோயாளி பிரிவு"></h:outputLabel>
                                     <br/>
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Closed Unit Visit" style="font-size: 22px;"></h:outputLabel>
+                                    <h:outputLabel value="Out Patient Department" style="font-size: 22px;"></h:outputLabel>
                                 </td>
                                 <td colspan="2" >
                                     <table >
@@ -138,6 +146,7 @@
                                                 L/ Eye
                                                 <p:inputText value="#{opdVisitController.selected.nonAidLEye}"></p:inputText>
                                             </td>
+                                            
                                         </tr>
 
                                     </table>
@@ -168,10 +177,10 @@
                                         <tr>
                                             <td>
                                                 R/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.CGlassREye}"></p:inputText>
+                                                <p:inputText value="#{opdVisitController.selected.cglassREye}"></p:inputText>
                                                 <br/>
                                                 L/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.CGlassLEye}"></p:inputText>
+                                                <p:inputText value="#{opdVisitController.selected.cglassLEye}"></p:inputText>
                                             </td>
                                         </tr>
                                     </table>
@@ -189,9 +198,9 @@
                                     <table  align="center">
                                         <tr>
                                             <td colspan="2">DM</td>
-                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.DM }">  </p:selectBooleanCheckbox></td>
+                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.dm }">  </p:selectBooleanCheckbox></td>
                                             <td colspan="2">HPT</td>
-                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.HPT}">  </p:selectBooleanCheckbox>  </td>
+                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.hpt}">  </p:selectBooleanCheckbox>  </td>
                                         </tr>
 
                                         <tr>
@@ -200,9 +209,9 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">IHD</td>
-                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.IHD}">  </p:selectBooleanCheckbox></td>
+                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.ihd}">  </p:selectBooleanCheckbox></td>
                                             <td colspan="2">BA</td>
-                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.BA}">  </p:selectBooleanCheckbox></td>
+                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.ba}">  </p:selectBooleanCheckbox></td>
 
                                         </tr>
                                         <tr>
@@ -243,7 +252,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">PST </td>
-                                            <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.PST}">  </p:selectBooleanCheckbox></td>
+                                            <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.pst}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
                                         <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.ocularHxOther}" maxlength="500" ></p:inputTextarea></td></tr>
@@ -272,12 +281,12 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">Tppv</td>
-                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.TPPV}">  </p:selectBooleanCheckbox></td>
+                                            <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.tppv}">  </p:selectBooleanCheckbox></td>
 
                                         </tr>
                                         <tr>
                                             <td colspan="2">PKP/DLK</td>
-                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.PKP}">  </p:selectBooleanCheckbox></td>
+                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.pkp}">  </p:selectBooleanCheckbox></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">Squint</td>
