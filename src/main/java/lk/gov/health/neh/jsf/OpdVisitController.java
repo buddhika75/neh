@@ -44,6 +44,8 @@ public class OpdVisitController implements Serializable {
     Unit closedUnitVisit;
     Unit speUnit;
 
+    boolean printPreview = false;
+
     public Date getFromDate() {
         if (fromDate == null) {
             fromDate = new Date();
@@ -60,6 +62,14 @@ public class OpdVisitController implements Serializable {
             toDate = new Date();
         }
         return toDate;
+    }
+
+    public boolean isPrintPreview() {
+        return printPreview;
+    }
+
+    public void setPrintPreview(boolean printPreview) {
+        this.printPreview = printPreview;
     }
 
     public void listVisits() {
@@ -268,8 +278,7 @@ public class OpdVisitController implements Serializable {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
         } else {
-            selected.setEncounterType(EncounterType.OpdVisit);
-            registerOpdVisit();
+            register(EncounterType.OpdVisit);
         }
     }
 
@@ -277,8 +286,7 @@ public class OpdVisitController implements Serializable {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
         } else {
-            selected.setEncounterType(EncounterType.Casulty);
-            registerOpdVisit();
+            register(EncounterType.Casulty);
         }
     }
 
@@ -286,30 +294,17 @@ public class OpdVisitController implements Serializable {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
         } else {
-            selected.setEncounterType(EncounterType.CloseUnitVisit);
-            registerOpdVisit();
+            register(EncounterType.CloseUnitVisit);
         }
     }
 
     public void specialVisitRegister() {
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
-        }
-        if (selected.getId() == null) {
-            selected = new OpdVisit();
-            Patient pt = new Patient();
-            selected.setPatient(pt);
-            selected.setIntSerialNo(annualCount().intValue());
-            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-            selected.setEncounterDate(new Date());
-            selected.setEncounterType(EncounterType.SpecialUnitVisit);
-
-            getFacade().create(selected);
-            JsfUtil.addSuccessMessage("Registered");
         } else {
-            getFacade().edit(selected);
-            JsfUtil.addSuccessMessage("Updated");
+            register(EncounterType.SpecialUnitVisit);
         }
+
     }
 
     public String registerOpdVisit() {
@@ -333,6 +328,7 @@ public class OpdVisitController implements Serializable {
 
             getFacade().create(selected);
             JsfUtil.addSuccessMessage("Registered");
+            printPreview = true;
 
             if (selected.getEncounterType() == EncounterType.OpdVisit) {
                 return addNewOpdVisit();
@@ -347,6 +343,59 @@ public class OpdVisitController implements Serializable {
             getFacade().edit(selected);
             JsfUtil.addSuccessMessage("Updated");
             return "";
+        }
+        return "";
+    }
+
+    public String register(EncounterType encounter) {
+        if (selected == null) {
+            JsfUtil.addErrorMessage("Nothing to register");
+            return "";
+        }
+        if (selected.getEncounterType() == EncounterType.Casulty) {
+            casultyUnit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            opdVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+            closedUnitVisit = selected.getUnit();
+        }
+        if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+            speUnit = selected.getUnit();
+        }
+        if (selected.getId() == null) {
+
+            getFacade().create(selected);
+            JsfUtil.addSuccessMessage("Registered");
+            printPreview = true;
+
+//            if (encounter == EncounterType.OpdVisit) {
+//                return addNewOpdVisit();
+//            } else if (encounter == EncounterType.Casulty) {
+//                return addNewCasultyVisit();
+//            } else if (encounter == EncounterType.SpecialUnitVisit) {
+//                return addNewSpecialUnitVisit();
+//            } else if (encounter == EncounterType.CloseUnitVisit) {
+//                return addNewCloseUnitVisit();
+//            }
+        } else {
+            getFacade().edit(selected);
+            JsfUtil.addSuccessMessage("Updated");
+            return "";
+        }
+        return "";
+    }
+
+    public String recreateForm() {
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            return addNewOpdVisit();
+        } else if (selected.getEncounterType() == EncounterType.Casulty) {
+            return addNewCasultyVisit();
+        } else if (selected.getEncounterType() == EncounterType.SpecialUnitVisit) {
+            return addNewSpecialUnitVisit();
+        } else if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+            return addNewCloseUnitVisit();
         }
         return "";
     }
