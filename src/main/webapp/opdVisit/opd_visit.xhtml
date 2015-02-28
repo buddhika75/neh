@@ -306,13 +306,13 @@
 
                     </p:panel>
                     <p:panel id="opdVisitPrint">
-                        <table border="2" style="padding: 3px; margin: 10px; width: 90%;" >
+                        <table border="2" style="padding: 3px; margin: 10px; width: 90%; border: solid;; border-color: black" >
                             <tr>
-                                <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                <td rowspan="2" style="text-align: center; vertical-align: middle; border: solid; border-color: black">
                                     
-                                    <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 30px; font-weight: bold;" ></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
                                 </td>
-                                <td colspan="4" rowspan="4" style="text-align: center;vertical-align: middle;" >
+                                <td colspan="2" rowspan="4" style="text-align: center;vertical-align: middle; border: solid; border-color: black" >
                                     <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="100px"></h:graphicImage>
                                     <br/>
                                     <h:outputLabel value="ශ්‍රි ලංකා ජාතික අක්ෂි රෝහල"  style="font-size: 18px;"></h:outputLabel>
@@ -327,7 +327,7 @@
                                     <br/>
                                     <h:outputLabel value="Out Patient Department print" style="font-size: 22px;"></h:outputLabel>
                                 </td>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>
@@ -341,7 +341,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>Daily No</td>
@@ -353,7 +353,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" rowspan="2">
+                                <td rowspan="2" style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>Serial No</td>
@@ -363,7 +363,7 @@
                                         </tr>
                                     </table>
                                 </td>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>Age</td>
@@ -375,7 +375,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>Sex</td>
@@ -387,43 +387,41 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="8">
+                                <td colspan="4" style="border: solid; border-color: black">
                                     Name
                                     <p:outputLabel value="#{opdVisitController.selected.patient.name}" ></p:outputLabel>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6">
+                                <td colspan="3" style="border: solid; border-color: black">
                                     Address
                                     <p:outputLabel value="#{opdVisitController.selected.patient.address}" ></p:outputLabel>
                                 </td>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     Telephone
                                     <p:outputLabel value="#{opdVisitController.selected.patient.telephoneNo}" ></p:outputLabel>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6">
+                                <td colspan="3" style="border: solid; border-color: black">
                                     Occupation
-                                    <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="itemConverter" 
-                                                    completeMethod="#{itemController.completeOccupations}"
-                                                    var="occ" itemLabel="#{occ.name}" itemValue="#{occ}" forceSelection="true">
-                                    </p:autoComplete>
+                                    <p:outputLabel value="#{opdVisitController.selected.patient.occupation}">
+                                    </p:outputLabel>
                                 </td>
-                                <td colspan="2" >
+                                <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td colspan="2" style="font-size: 14px;">
+                                            <td style="font-size: 14px; ">
                                                 VA - Non Aids
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 R/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.nonAidREye }"></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.nonAidREye }"></p:outputLabel>
                                                 <br/>
                                                 L/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.nonAidLEye}"></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.nonAidLEye}"></p:outputLabel>
                                             </td>
 
                                         </tr>
@@ -436,17 +434,17 @@
 
                             </tr>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="2" style="border: solid; border-color: black">
                                     <h:outputLabel value="Presenting Complaint" ></h:outputLabel>
-                                    <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
+                                    <p:outputLabel value="#{opdVisitController.selected.presentingComplaint}" ></p:outputLabel>
 
                                 </td>
-                                <td colspan="3">
+                                <td colspan="1" style="border: solid; border-color: black">
                                     <h:outputLabel value="Diagnosis" ></h:outputLabel>
-                                    <h:inputTextarea value="#{opdVisitController.selected.diagnosis}" ></h:inputTextarea>
+                                    <p:outputLabel value="#{opdVisitController.selected.diagnosis}" ></p:outputLabel>
 
                                 </td>
-                                <td colspan="2" >
+                                <td colspan="1" style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td colspan="2" style="font-size: 14px;" >
@@ -456,10 +454,10 @@
                                         <tr>
                                             <td>
                                                 R/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.cglassREye}"></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.cglassREye}"></p:outputLabel>
                                                 <br/>
                                                 L/ Eye
-                                                <p:inputText value="#{opdVisitController.selected.cglassLEye}"></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.cglassLEye}"></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -468,10 +466,10 @@
 
 
                             </tr>
-                            <tr colspan="8">
+                            <tr colspan="3">
 
 
-                                <td  colspan="3" style="font-size: 16px;" align="center ">Past Medical Hx
+                                <td  colspan="1" style="font-size: 16px; border: solid; border-color: black" align="center ">Past Medical Hx
 
 
                                     <table  align="center">
@@ -501,14 +499,14 @@
                                             <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.allergy}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
-                                        <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.pstmediOther}" maxlength="500" ></p:inputTextarea></td></tr>
+                                        <tr><td colspan="2">Other</td><td> <p:outputLabel value="#{opdVisitController.selected.pstmediOther}"></p:outputLabel></td></tr>
                                     </table>
 
 
 
                                 </td>
 
-                                <td  colspan="2" style="font-size: 16px;" align="center ">Ocular Hx 
+                                <td  colspan="1" style="font-size: 16px; border: solid; border-color: black" align="center ">Ocular Hx 
                                     <table align="canter">
                                         <tr>
                                             <td colspan="2">Trauma </td>
@@ -534,7 +532,7 @@
                                             <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.pst}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
-                                        <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.ocularHxOther}" maxlength="500" ></p:inputTextarea></td></tr>
+                                        <tr><td colspan="2">Other</td><td> <p:outputLabel value="#{opdVisitController.selected.ocularHxOther}"></p:outputLabel></td></tr>
 
 
 
@@ -544,9 +542,9 @@
 
 
                                 </td>
-                                <td  colspan="2" style="font-size: 16px;" align="center ">Surgical Hx
-
-                                    <table align="canter">
+                                <td  colspan="2" style="font-size: 16px; border: solid; border-color: black" align="center ">
+                                    Surgical Hx
+                                    <table>
                                         <tr>
                                             <td colspan="2">Cataract Sx </td>
                                             <td align="canter "><p:selectBooleanCheckbox  value="#{opdVisitController.selected.cataractSx}">  </p:selectBooleanCheckbox></td>
@@ -572,7 +570,7 @@
                                             <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.squint}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
-                                        <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.sugicalHxOther}" maxlength="500" ></p:inputTextarea></td></tr>
+                                        <tr><td colspan="2">Other</td><td> <p:outputLabel value="#{opdVisitController.selected.sugicalHxOther}"></p:outputLabel></td></tr>
                                     </table>
 
 
