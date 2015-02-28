@@ -17,13 +17,13 @@
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" ></p:commandButton>
                         <p:commandButton value="Print" type="button" icon="ui-icon-print">
-                            <p:printer target="opdVisit" />
+                            <p:printer target="opdVisitPrint" />
                         </p:commandButton>
                         <p:commandButton icon="ui-icon-refresh" ajax="false" value="Clear" action="#{opdVisitController.clear()}" ></p:commandButton>
 
                     </h:panelGrid>
 
-                    <p:panel id="opdVisit" rendered="#{opdVisitController.printPreview}">
+                    <p:panel id="opdVisit">
                         <table border="2" style="padding: 3px; margin: 10px; width: 90%;" >
                             <tr>
                                 <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
@@ -305,15 +305,11 @@
                         </table>
 
                     </p:panel>
-                    <p:panel id="opdVisitPrint" >
+                    <p:panel id="opdVisitPrint">
                         <table border="2" style="padding: 3px; margin: 10px; width: 90%;" >
                             <tr>
                                 <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
-                                    <h:selectOneMenu id="cmbUnitp" value="#{opdVisitController.selected.unit}" rendered="true" style="font-size: 30px;" >
-                                        <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="unit"
-                                                       itemLabel="#{unit.code}" itemValue="#{unit}" ></f:selectItems>
-                                        <f:ajax execute="cmbUnitp" render="txtDailyNop" listener="#{opdVisitController.updateDailyNo()}" ></f:ajax>
-                                    </h:selectOneMenu>
+                                    
                                     <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 30px; font-weight: bold;" ></h:outputLabel>
                                 </td>
                                 <td colspan="4" rowspan="4" style="text-align: center;vertical-align: middle;" >
@@ -338,7 +334,7 @@
                                                 <h:outputLabel value="Date" styleClass="threeHunderedWidthInput" ></h:outputLabel>
                                             </td>
                                             <td>
-                                                <p:calendar value="#{opdVisitController.selected.encounterDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                                                <p:outputLabel value="#{opdVisitController.selected.encounterDate}"></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -350,7 +346,7 @@
                                         <tr>
                                             <td>Daily No</td>
                                             <td>
-                                                <p:inputText id="txtDailyNop" value="#{opdVisitController.selected.dailyNo}" ></p:inputText>
+                                                <p:outputLabel id="txtDailyNop" value="#{opdVisitController.selected.dailyNo}" ></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -362,7 +358,7 @@
                                         <tr>
                                             <td>Serial No</td>
                                             <td>
-                                                <p:inputText value="#{opdVisitController.selected.serialNo}" ></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.serialNo}" ></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -372,7 +368,7 @@
                                         <tr>
                                             <td>Age</td>
                                             <td>
-                                                <p:inputText value="#{opdVisitController.selected.patient.age}" ></p:inputText>
+                                                <p:outputLabel value="#{opdVisitController.selected.patient.age}" ></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -384,9 +380,7 @@
                                         <tr>
                                             <td>Sex</td>
                                             <td>
-                                                <p:selectOneMenu value="#{opdVisitController.selected.patient.sex}" >
-                                                    <f:selectItems value="#{commonController.sexs}" ></f:selectItems>
-                                                </p:selectOneMenu>
+                                                <p:outputLabel value="#{opdVisitController.selected.patient.sex}" ></p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -395,17 +389,17 @@
                             <tr>
                                 <td colspan="8">
                                     Name
-                                    <p:inputText value="#{opdVisitController.selected.patient.name}" maxlength="254" ></p:inputText>
+                                    <p:outputLabel value="#{opdVisitController.selected.patient.name}" ></p:outputLabel>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="6">
                                     Address
-                                    <p:inputTextarea value="#{opdVisitController.selected.patient.address}" ></p:inputTextarea>
+                                    <p:outputLabel value="#{opdVisitController.selected.patient.address}" ></p:outputLabel>
                                 </td>
                                 <td colspan="2" >
                                     Telephone
-                                    <p:inputTextarea value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputTextarea>
+                                    <p:outputLabel value="#{opdVisitController.selected.patient.telephoneNo}" ></p:outputLabel>
                                 </td>
                             </tr>
                             <tr>
