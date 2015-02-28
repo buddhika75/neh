@@ -172,6 +172,7 @@ public class OpdVisitController implements Serializable {
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
         initializeEmbeddableKey();
+        printPreview = false;
         return "/opdVisit/opd_visit";
     }
 
@@ -187,6 +188,9 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
+        
+        printPreview = false;
+        
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -199,6 +203,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String addNewSpecialUnitVisit() {
+        printPreview = false;
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -211,6 +216,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String addNewCloseUnitVisit() {
+        printPreview = false;
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -247,7 +253,7 @@ public class OpdVisitController implements Serializable {
             return;
         }
         selected.setIntDailyNo(todaysCount(selected.getUnit()).intValue());
-        selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
+        selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo() + 1);
         System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
     }
 
