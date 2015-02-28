@@ -21,8 +21,7 @@
                                            var="closedUnitItem"
                                            itemValue="#{closedUnitItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditClosedUnitLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{closedUnitController.selected.id}" title="#{bundle.EditClosedUnitTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{closedUnitController.update}" value="#{bundle.Save}" update="display,:ClosedUnitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClosedUnitEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClosedUnitEditDialog.hide()"/>

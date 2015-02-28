@@ -28,8 +28,7 @@
                                            var="perentUnitItem"
                                            itemValue="#{perentUnitItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditWardLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{wardController.selected.id}" title="#{bundle.EditWardTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{wardController.update}" value="#{bundle.Save}" update="display,:WardListForm:datalist,:growl" oncomplete="handleSubmit(args, 'WardEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="WardEditDialog.hide()"/>

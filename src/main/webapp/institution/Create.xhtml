@@ -20,8 +20,6 @@
                                            var="parentInstitutionItem"
                                            itemValue="#{parentInstitutionItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateInstitutionLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{institutionController.selected.id}" title="#{bundle.CreateInstitutionTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{institutionController.create}" value="#{bundle.Save}" update="display,:InstitutionListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstitutionCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InstitutionCreateDialog.hide()"/>
