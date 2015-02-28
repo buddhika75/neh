@@ -48,8 +48,7 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditPersonLabel_telephoneNo}" for="telephoneNo" />
                         <p:inputText id="telephoneNo" value="#{personController.selected.telephoneNo}" title="#{bundle.EditPersonTitle_telephoneNo}" />
-                        <p:outputLabel value="#{bundle.EditPersonLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{personController.selected.id}" title="#{bundle.EditPersonTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personController.update}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonEditDialog.hide()"/>

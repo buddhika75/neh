@@ -46,8 +46,7 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_telephoneNo}" for="telephoneNo" />
                         <p:inputText id="telephoneNo" value="#{personController.selected.telephoneNo}" title="#{bundle.CreatePersonTitle_telephoneNo}" />
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{personController.selected.id}" title="#{bundle.CreatePersonTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonCreateDialog.hide()"/>

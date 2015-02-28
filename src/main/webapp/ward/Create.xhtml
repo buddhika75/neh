@@ -26,8 +26,7 @@
                                            var="perentUnitItem"
                                            itemValue="#{perentUnitItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateWardLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{wardController.selected.id}" title="#{bundle.CreateWardTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{wardController.create}" value="#{bundle.Save}" update="display,:WardListForm:datalist,:growl" oncomplete="handleSubmit(args,'WardCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="WardCreateDialog.hide()"/>
