@@ -309,7 +309,7 @@
                         <table border="2" style="padding: 3px; margin: 10px; width: 90%; border: solid;; border-color: black" >
                             <tr>
                                 <td rowspan="2" style="text-align: center; vertical-align: middle; border: solid; border-color: black">
-                                    
+
                                     <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
                                 </td>
                                 <td colspan="2" rowspan="4" style="text-align: center;vertical-align: middle; border: solid; border-color: black" >
@@ -325,16 +325,16 @@
                                     <br/>
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Out Patient Department print" style="font-size: 22px;"></h:outputLabel>
+                                    <h:outputLabel value="Out Patient Department" style="font-size: 22px;"></h:outputLabel>
                                 </td>
                                 <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
                                             <td>
-                                                <h:outputLabel value="Date" styleClass="threeHunderedWidthInput" ></h:outputLabel>
+                                                <h:outputLabel value="Date  :  " styleClass="threeHunderedWidthInput" style="font-size: 18px;"></h:outputLabel>
                                             </td>
                                             <td>
-                                                <p:outputLabel value="#{opdVisitController.selected.encounterDate}"></p:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.encounterDate}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -344,9 +344,9 @@
                                 <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td>Daily No</td>
+                                            <td><h:outputLabel value="Daily No  :  " style="font-size: 18px;"></h:outputLabel></td>
                                             <td>
-                                                <p:outputLabel id="txtDailyNop" value="#{opdVisitController.selected.dailyNo}" ></p:outputLabel>
+                                                <h:outputLabel id="txtDailyNop" value="#{opdVisitController.selected.dailyNo}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -356,9 +356,9 @@
                                 <td rowspan="2" style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td>Serial No</td>
+                                            <td><h:outputLabel value="Serial No  :  " style="font-size: 18px;"></h:outputLabel></td>
                                             <td>
-                                                <p:outputLabel value="#{opdVisitController.selected.serialNo}" ></p:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.serialNo}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -366,9 +366,9 @@
                                 <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td>Age</td>
+                                            <td><h:outputLabel value="Age  :  " style="font-size: 18px;"></h:outputLabel></td>
                                             <td>
-                                                <p:outputLabel value="#{opdVisitController.selected.patient.age}" ></p:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.patient.age}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -378,9 +378,9 @@
                                 <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td>Sex</td>
+                                            <td><h:outputLabel value="Sex  :  " style="font-size: 18px;"></h:outputLabel></td>
                                             <td>
-                                                <p:outputLabel value="#{opdVisitController.selected.patient.sex}" ></p:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.patient.sex}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
                                         </tr>
                                     </table>
@@ -388,40 +388,40 @@
                             </tr>
                             <tr>
                                 <td colspan="4" style="border: solid; border-color: black">
-                                    Name
-                                    <p:outputLabel value="#{opdVisitController.selected.patient.name}" ></p:outputLabel>
+                                    <h:outputLabel value="Name  :  " style="font-size: 18px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.name}" style="font-size: 16px;"></h:outputLabel>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" style="border: solid; border-color: black">
-                                    Address
-                                    <p:outputLabel value="#{opdVisitController.selected.patient.address}" ></p:outputLabel>
+                                    <h:outputLabel value="Address  :  " style="font-size: 18px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.address}" style="font-size: 16px;"></h:outputLabel>
                                 </td>
                                 <td style="border: solid; border-color: black">
-                                    Telephone
-                                    <p:outputLabel value="#{opdVisitController.selected.patient.telephoneNo}" ></p:outputLabel>
+                                    <h:outputLabel value="Telephone  :  " style="font-size: 18px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.telephoneNo}" style="font-size: 16px;"></h:outputLabel>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="3" style="border: solid; border-color: black">
-                                    Occupation
-                                    <p:outputLabel value="#{opdVisitController.selected.patient.occupation}">
-                                    </p:outputLabel>
+                                    <h:outputLabel value="Occupation  :  " style="font-size: 18px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.occupation}" style="font-size: 16px;">
+                                    </h:outputLabel>
                                 </td>
                                 <td style="border: solid; border-color: black">
                                     <table >
                                         <tr>
-                                            <td style="font-size: 14px; ">
-                                                VA - Non Aids
+                                            <td style="font-size: 18px; ">
+                                                <h:outputLabel value="VA - Non Aids"></h:outputLabel>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                R/ Eye
-                                                <p:outputLabel value="#{opdVisitController.selected.nonAidREye }"></p:outputLabel>
+                                                <h:outputLabel value="R/ Eye  :  " style="font-size: 18px;"></h:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.nonAidREye }" style="font-size: 16px;"></h:outputLabel>
                                                 <br/>
-                                                L/ Eye
-                                                <p:outputLabel value="#{opdVisitController.selected.nonAidLEye}"></p:outputLabel>
+                                                <h:outputLabel value="L/ Eye  :  " style="font-size: 18px;"></h:outputLabel>
+                                                <h:outputLabel value="#{opdVisitController.selected.nonAidLEye}" style="font-size: 16px;"></h:outputLabel>
                                             </td>
 
                                         </tr>
@@ -567,7 +567,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">Squint</td>
-                                            <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.squint}">  </p:selectBooleanCheckbox></td>
+                                            <td>  <p:selectBooleanCheckbox value="#{opdVisitController.selected.squint}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
                                         <tr><td colspan="2">Other</td><td> <p:outputLabel value="#{opdVisitController.selected.sugicalHxOther}"></p:outputLabel></td></tr>
@@ -577,6 +577,94 @@
                                 </td>
                             </tr>
                         </table>
+                        <table border="2" style="padding: 3px; margin: 10px; width: 90%; border: solid;; border-color: black" >
+                            <tr>
+                                <td rowspan="2" style="text-align: center; vertical-align: middle; border: solid; border-color: black">
+
+                                    <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
+                                </td>
+                                <td colspan="2" rowspan="4" style="text-align: center;vertical-align: middle; border: solid; border-color: black" >
+                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="100px"></h:graphicImage>
+                                    <br/>
+                                    <h:outputLabel value="ශ්‍රි ලංකා ජාතික අක්ෂි රෝහල"  style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="බාහිර රෝගී අංශය"  style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="இலங்கை தேசிய கண் வைத்தியசாலை" style="font-size: 11px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="அவுட் நோயாளி பிரிவு"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="Out Patient Departmeவ" style="font-size: 22px;"></h:outputLabel>
+                                </td>
+                                <td style="border: solid; border-color: black">
+                                    <table >
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel value="Date  :  " styleClass="threeHunderedWidthInput" style="font-size: 18px;"></h:outputLabel>
+                                            </td>
+                                            <td>
+                                                <h:outputLabel value="#{opdVisitController.selected.encounterDate}" style="font-size: 16px;"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: solid; border-color: black">
+                                    <table >
+                                        <tr>
+                                            <td><h:outputLabel value="Daily No  :  " style="font-size: 18px;"></h:outputLabel></td>
+                                            <td>
+                                                <h:outputLabel id="txtDailyNop2" value="#{opdVisitController.selected.dailyNo}" style="font-size: 16px;"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="border: solid; border-color: black">
+                                    <table >
+                                        <tr>
+                                            <td><h:outputLabel value="Serial No  :  " style="font-size: 18px;"></h:outputLabel></td>
+                                            <td>
+                                                <h:outputLabel value="#{opdVisitController.selected.serialNo}" style="font-size: 16px;"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="border: solid; border-color: black">
+                                    <table >
+                                        <tr>
+                                            <td><h:outputLabel value="Age  :  " style="font-size: 18px;"></h:outputLabel></td>
+                                            <td>
+                                                <h:outputLabel value="#{opdVisitController.selected.patient.age}" style="font-size: 16px;"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: solid; border-color: black">
+                                    <table >
+                                        <tr>
+                                            <td><h:outputLabel value="Sex  :  " style="font-size: 18px;"></h:outputLabel></td>
+                                            <td>
+                                                <h:outputLabel value="#{opdVisitController.selected.patient.sex}" style="font-size: 16px;"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border: solid; border-color: black">
+                                    <h:outputLabel value="Name  :  " style="font-size: 18px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.name}" style="font-size: 16px;"></h:outputLabel>
+                                </td>
+                            </tr>
+                        </table>
+
                     </p:panel>
                 </h:form>
             </ui:define>
