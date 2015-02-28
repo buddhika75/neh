@@ -14,16 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{patientController.selected != null}">
                         <p:outputLabel value="#{bundle.EditPatientLabel_name}" for="name" />
                         <p:inputText id="name" value="#{patientController.selected.name}" title="#{bundle.EditPatientTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditPatientLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{patientController.selected.title}" title="#{bundle.EditPatientTitle_title}" />
                         <p:outputLabel value="#{bundle.EditPatientLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{patientController.selected.nic}" title="#{bundle.EditPatientTitle_nic}" />
                         <p:outputLabel value="#{bundle.EditPatientLabel_sex}" for="sex" />
                         <p:inputText id="sex" value="#{patientController.selected.sex}" title="#{bundle.EditPatientTitle_sex}" />
-                        <p:outputLabel value="#{bundle.EditPatientLabel_title}" for="title" />
-                        <p:inputText id="title" value="#{patientController.selected.title}" title="#{bundle.EditPatientTitle_title}" />
-                        <p:outputLabel value="#{bundle.EditPatientLabel_nationality}" for="nationality" />
-                        <p:inputText id="nationality" value="#{patientController.selected.nationality}" title="#{bundle.EditPatientTitle_nationality}" />
-                        <p:outputLabel value="#{bundle.EditPatientLabel_religion}" for="religion" />
-                        <p:inputText id="religion" value="#{patientController.selected.religion}" title="#{bundle.EditPatientTitle_religion}" />
                         <p:outputLabel value="#{bundle.EditPatientLabel_dob}" for="dob" />
                         <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{patientController.selected.dob}" title="#{bundle.EditPatientTitle_dob}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditPatientLabel_age}" for="age" />
@@ -32,13 +28,19 @@
                         <p:inputText id="nameWithTitle" value="#{patientController.selected.nameWithTitle}" title="#{bundle.EditPatientTitle_nameWithTitle}" />
                         <p:outputLabel value="#{bundle.EditPatientLabel_address}" for="address" />
                         <p:inputTextarea rows="4" cols="30" id="address" value="#{patientController.selected.address}" title="#{bundle.EditPatientTitle_address}" />
-                        <p:outputLabel value="#{bundle.EditPatientLabel_occupation}" for="occupation" />
+                        <p:outputLabel value="#{bundle.EditPatientLabel_telephoneNo}" for="telephoneNo" />
+                        <p:inputText id="telephoneNo" value="#{patientController.selected.telephoneNo}" title="#{bundle.EditPatientTitle_telephoneNo}" />
+                         <p:outputLabel value="#{bundle.EditPatientLabel_occupation}" for="occupation" />
                         <p:selectOneMenu id="occupation" value="#{patientController.selected.occupation}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
                                            var="occupationItem"
                                            itemValue="#{occupationItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPatientLabel_nationality}" for="nationality" />
+                        <p:inputText id="nationality" value="#{patientController.selected.nationality}" title="#{bundle.EditPatientTitle_nationality}" />
+                        <p:outputLabel value="#{bundle.EditPatientLabel_religion}" for="religion" />
+                        <p:inputText id="religion" value="#{patientController.selected.religion}" title="#{bundle.EditPatientTitle_religion}" />
                         <p:outputLabel value="#{bundle.EditPatientLabel_district}" for="district" />
                         <p:selectOneMenu id="district" value="#{patientController.selected.district}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -46,10 +48,6 @@
                                            var="districtItem"
                                            itemValue="#{districtItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditPatientLabel_telephoneNo}" for="telephoneNo" />
-                        <p:inputText id="telephoneNo" value="#{patientController.selected.telephoneNo}" title="#{bundle.EditPatientTitle_telephoneNo}" />
-                        <p:outputLabel value="#{bundle.EditPatientLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{patientController.selected.id}" title="#{bundle.EditPatientTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{patientController.update}" value="#{bundle.Save}" update="display,:PatientListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PatientEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PatientEditDialog.hide()"/>

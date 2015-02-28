@@ -172,6 +172,7 @@ public class OpdVisitController implements Serializable {
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
         initializeEmbeddableKey();
+        printPreview = false;
         return "/opdVisit/opd_visit";
     }
 
@@ -187,6 +188,9 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
+        
+        printPreview = false;
+        
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -199,6 +203,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String addNewSpecialUnitVisit() {
+        printPreview = false;
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -211,6 +216,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String addNewCloseUnitVisit() {
+        printPreview = false;
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -223,8 +229,9 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
+        int snt = sn + 1;
         Calendar c = Calendar.getInstance();
-        return sn + "/" + c.get(Calendar.YEAR);
+        return snt + "/" + c.get(Calendar.YEAR);
     }
 
     public Long annualCount() {

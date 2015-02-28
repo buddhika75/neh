@@ -18,52 +18,38 @@
                         <p:inputText id="title" value="#{staffController.selected.title}" title="#{bundle.CreateStaffTitle_title}" />
                         <p:outputLabel value="#{bundle.CreateStaffLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{staffController.selected.nic}" title="#{bundle.CreateStaffTitle_nic}" />
-                         <p:outputLabel value="#{bundle.CreateStaffLabel_sex}" for="sex" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_sex}" for="sex" />
                         <p:inputText id="sex" value="#{staffController.selected.sex}" title="#{bundle.CreateStaffTitle_sex}" />
-                         <p:outputLabel value="#{bundle.CreateStaffLabel_dob}" for="dob" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_dob}" for="dob" />
                         <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{staffController.selected.dob}" title="#{bundle.EditStaffTitle_dob}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateStaffLabel_age}" for="age" />
                         <p:inputText id="age" value="#{staffController.selected.age}" title="#{bundle.CreateStaffTitle_age}" />
-                         <p:outputLabel value="#{bundle.CreateStaffLabel_nameWithTitle}" for="nameWithTitle" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_nameWithTitle}" for="nameWithTitle" />
                         <p:inputText id="nameWithTitle" value="#{staffController.selected.nameWithTitle}" title="#{bundle.CreateStaffTitle_nameWithTitle}" />
-                         <p:outputLabel value="#{bundle.CreateStaffLabel_address}" for="address" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_address}" for="address" />
                         <p:inputTextarea rows="4" cols="30" id="address" value="#{staffController.selected.address}" title="#{bundle.CreateStaffTitle_address}" />
                         <p:outputLabel value="#{bundle.CreateStaffLabel_telephoneNo}" for="telephoneNo" />
                         <p:inputText id="telephoneNo" value="#{staffController.selected.telephoneNo}" title="#{bundle.CreateStaffTitle_telephoneNo}" />
                         <p:outputLabel value="#{bundle.CreateStaffLabel_occupation}" for="occupation" />
                         <p:selectOneMenu id="occupation" value="#{staffController.selected.occupation}" >
-                            <p:outputLabel value="#{bundle.CreateStaffLabel_nationality}" for="nationality" />
-                        <p:inputText id="nationality" value="#{staffController.selected.nationality}" title="#{bundle.CreateStaffTitle_nationality}" />
-                         <p:outputLabel value="#{bundle.CreateStaffLabel_religion}" for="religion" />
-                        <p:inputText id="religion" value="#{staffController.selected.religion}" title="#{bundle.CreateStaffTitle_religion}" />
-                        <p:outputLabel value="#{bundle.CreateStaffLabel_district}" for="district" />
-                        <p:selectOneMenu id="district" value="#{staffController.selected.district}" >
-                        <p:outputLabel value="#{bundle.CreateStaffLabel_userName}" for="userName" />
-                        <p:inputText id="userName" value="#{staffController.selected.userName}" title="#{bundle.CreateStaffTitle_userName}" />
-                        <p:outputLabel value="#{bundle.CreateStaffLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{staffController.selected.password}" title="#{bundle.CreateStaffTitle_password}" />
-                        
-                       
-                       
-                        
-                        
-                       
-                       
-                        
-                       
-                       
-                        
                             <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
                                            var="occupationItem"
                                            itemValue="#{occupationItem}"/>
                         </p:selectOneMenu>
-                        
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_nationality}" for="nationality" />
+                        <p:inputText id="nationality" value="#{staffController.selected.nationality}" title="#{bundle.CreateStaffTitle_nationality}" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_religion}" for="religion" />
+                        <p:inputText id="religion" value="#{staffController.selected.religion}" title="#{bundle.CreateStaffTitle_religion}" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_district}" for="district" />
+                        <p:selectOneMenu id="district" value="#{staffController.selected.district}" >
                             <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
                                            var="districtItem"
                                            itemValue="#{districtItem}"/>
                         </p:selectOneMenu>
-                        
-                        
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_userName}" for="userName" />
+                        <p:inputText id="userName" value="#{staffController.selected.userName}" title="#{bundle.CreateStaffTitle_userName}" />
+                        <p:outputLabel value="#{bundle.CreateStaffLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{staffController.selected.password}" title="#{bundle.CreateStaffTitle_password}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{staffController.create}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args,'StaffCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StaffCreateDialog.hide()"/>

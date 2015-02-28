@@ -12,22 +12,15 @@
             <h:form id="ConsultantEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{consultantController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_userName}" for="userName" />
-                        <p:inputText id="userName" value="#{consultantController.selected.userName}" title="#{bundle.EditConsultantTitle_userName}" />
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{consultantController.selected.password}" title="#{bundle.EditConsultantTitle_password}" />
+                        
                         <p:outputLabel value="#{bundle.EditConsultantLabel_name}" for="name" />
                         <p:inputText id="name" value="#{consultantController.selected.name}" title="#{bundle.EditConsultantTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_title}" for="title" />
+                        <p:inputText id="title" value="#{consultantController.selected.title}" title="#{bundle.EditConsultantTitle_title}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{consultantController.selected.nic}" title="#{bundle.EditConsultantTitle_nic}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_sex}" for="sex" />
                         <p:inputText id="sex" value="#{consultantController.selected.sex}" title="#{bundle.EditConsultantTitle_sex}" />
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_title}" for="title" />
-                        <p:inputText id="title" value="#{consultantController.selected.title}" title="#{bundle.EditConsultantTitle_title}" />
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_nationality}" for="nationality" />
-                        <p:inputText id="nationality" value="#{consultantController.selected.nationality}" title="#{bundle.EditConsultantTitle_nationality}" />
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_religion}" for="religion" />
-                        <p:inputText id="religion" value="#{consultantController.selected.religion}" title="#{bundle.EditConsultantTitle_religion}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_dob}" for="dob" />
                         <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{consultantController.selected.dob}" title="#{bundle.EditConsultantTitle_dob}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditConsultantLabel_age}" for="age" />
@@ -36,6 +29,8 @@
                         <p:inputText id="nameWithTitle" value="#{consultantController.selected.nameWithTitle}" title="#{bundle.EditConsultantTitle_nameWithTitle}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_address}" for="address" />
                         <p:inputTextarea rows="4" cols="30" id="address" value="#{consultantController.selected.address}" title="#{bundle.EditConsultantTitle_address}" />
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_telephoneNo}" for="telephoneNo" />
+                        <p:inputText id="telephoneNo" value="#{consultantController.selected.telephoneNo}" title="#{bundle.EditConsultantTitle_telephoneNo}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_occupation}" for="occupation" />
                         <p:selectOneMenu id="occupation" value="#{consultantController.selected.occupation}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -43,6 +38,10 @@
                                            var="occupationItem"
                                            itemValue="#{occupationItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_nationality}" for="nationality" />
+                        <p:inputText id="nationality" value="#{consultantController.selected.nationality}" title="#{bundle.EditConsultantTitle_nationality}" />
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_religion}" for="religion" />
+                        <p:inputText id="religion" value="#{consultantController.selected.religion}" title="#{bundle.EditConsultantTitle_religion}" />
                         <p:outputLabel value="#{bundle.EditConsultantLabel_district}" for="district" />
                         <p:selectOneMenu id="district" value="#{consultantController.selected.district}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -50,10 +49,11 @@
                                            var="districtItem"
                                            itemValue="#{districtItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_telephoneNo}" for="telephoneNo" />
-                        <p:inputText id="telephoneNo" value="#{consultantController.selected.telephoneNo}" title="#{bundle.EditConsultantTitle_telephoneNo}" />
-                        <p:outputLabel value="#{bundle.EditConsultantLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{consultantController.selected.id}" title="#{bundle.EditConsultantTitle_id}" />
+                        
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_userName}" for="userName" />
+                        <p:inputText id="userName" value="#{consultantController.selected.userName}" title="#{bundle.EditConsultantTitle_userName}" />
+                        <p:outputLabel value="#{bundle.EditConsultantLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{consultantController.selected.password}" title="#{bundle.EditConsultantTitle_password}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{consultantController.update}" value="#{bundle.Save}" update="display,:ConsultantListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConsultantEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ConsultantEditDialog.hide()"/>
