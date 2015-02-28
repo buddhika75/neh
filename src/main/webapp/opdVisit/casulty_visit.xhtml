@@ -13,8 +13,8 @@
             <ui:define name="body">
                 <h:form >
                     <h:panelGrid columns="3">
-                        <p:commandButton icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.casualtyVisitRegister()}" ></p:commandButton>
-                        <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.casualtyVisitRegister()}" rendered="#{opdVisitController.printPreview ne true}"></p:commandButton>
+                        <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" rendered="#{opdVisitController.printPreview eq true}"></p:commandButton>
                         <p:commandButton value="Print" type="button" icon="ui-icon-print" rendered="#{opdVisitController.printPreview eq true}">
                             <p:printer target="opdVisitPrint" />
                         </p:commandButton>

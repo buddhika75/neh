@@ -229,8 +229,9 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
+        int snt = sn + 1;
         Calendar c = Calendar.getInstance();
-        return sn + "/" + c.get(Calendar.YEAR);
+        return snt + "/" + c.get(Calendar.YEAR);
     }
 
     public Long annualCount() {
@@ -253,7 +254,7 @@ public class OpdVisitController implements Serializable {
             return;
         }
         selected.setIntDailyNo(todaysCount(selected.getUnit()).intValue());
-        selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo() + 1);
+        selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
         System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
     }
 

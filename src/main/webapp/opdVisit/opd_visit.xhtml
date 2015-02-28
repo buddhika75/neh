@@ -15,11 +15,10 @@
                     <h:panelGrid columns="4">
                         <p:commandButton  icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.opdVisitRegister()}"  rendered="#{opdVisitController.printPreview ne true}">
                         </p:commandButton>
-                        <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" ></p:commandButton>
+                        <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" rendered="#{opdVisitController.printPreview eq true}"></p:commandButton>
                         <p:commandButton value="Print" type="button" icon="ui-icon-print" rendered="#{opdVisitController.printPreview eq true}">
                             <p:printer target="opdVisitPrint" />
                         </p:commandButton>
-<!--                        <p:commandButton icon="ui-icon-refresh" ajax="false" value="Clear" action="#{opdVisitController.clear()}" ></p:commandButton>-->
 
                     </h:panelGrid>
 
