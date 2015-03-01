@@ -45,6 +45,7 @@ public class OpdVisitController implements Serializable {
     Unit speUnit;
 
     boolean printPreview = false;
+    boolean viewPrint = false;
 
     public Date getFromDate() {
         if (fromDate == null) {
@@ -68,6 +69,14 @@ public class OpdVisitController implements Serializable {
         return printPreview;
     }
 
+    public boolean isViewPrint() {
+        return viewPrint;
+    }
+
+    public void setViewPrint(boolean viewPrint) {
+        this.viewPrint = viewPrint;
+    }
+
     public void setPrintPreview(boolean printPreview) {
         this.printPreview = printPreview;
     }
@@ -79,6 +88,13 @@ public class OpdVisitController implements Serializable {
         m.put("td", toDate);
         j = "select v from OpdVisit v where v.encounterDate between :fd and :td";
         visits = getFacade().findBySQL(j, m);
+    }
+    
+    
+    public String viewForm() {
+        viewPrint = true;
+        printPreview = true;
+        return "/opdVisit/opd_visit";
     }
 
     public void setToDate(Date toDate) {

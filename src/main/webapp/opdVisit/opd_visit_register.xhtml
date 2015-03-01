@@ -56,6 +56,11 @@
                             <p:column headerText="Presenting Complaint" sortBy="#{v.presentingComplaint}" filterBy="#{v.presentingComplaint}" filterMatchMode="contains" >
                                 <h:outputLabel value="#{v.presentingComplaint}" ></h:outputLabel>
                             </p:column>
+                            <p:column headerText="Form">
+                                <p:commandButton action="#{opdVisitController.viewForm()}" value="View">
+                                    <f:setPropertyActionListener value="#{v}" target="#{opdVisitController.selected}"></f:setPropertyActionListener>
+                                </p:commandButton>
+                            </p:column>
                         </p:dataTable>
 
                     </h:form>
