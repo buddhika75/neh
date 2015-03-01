@@ -8,13 +8,14 @@ package lk.gov.health.neh.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author buddhika
  */
 @Entity
-@Inheritance
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Consultant extends Staff implements Serializable {
     
 }

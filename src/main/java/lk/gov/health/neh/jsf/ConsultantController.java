@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.health.neh.session.PersonFacade;
 
 @ManagedBean(name = "consultantController")
 @SessionScoped
@@ -27,6 +28,8 @@ public class ConsultantController implements Serializable {
     private lk.gov.health.neh.session.ConsultantFacade ejbFacade;
     private List<Consultant> items = null;
     private Consultant selected;
+    @EJB
+    PersonFacade personFacade;
 
     public ConsultantController() {
     }
@@ -50,7 +53,13 @@ public class ConsultantController implements Serializable {
     }
 
     public Consultant prepareCreate() {
+        System.out.println("selected = " + selected);
+        if (selected != null) {
+            System.out.println("selected.getId() = " + selected.getId());
+        }
         selected = new Consultant();
+        System.out.println("selected = " + selected);
+        System.out.println("selected.getId() = " + selected.getId());
         initializeEmbeddableKey();
         return selected;
     }
@@ -82,13 +91,21 @@ public class ConsultantController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+        System.out.println("selected = " + selected);
+        System.out.println("selected.getId() = " + selected.getId());
+        System.out.println("selected.getName() = " + selected.getName());
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                if (persistAction == PersistAction.DELETE) {
+                    System.out.println("deleting");
+                    personFacade.remove(selected);
+                } else if (persistAction == PersistAction.CREATE) {
+                    System.out.println("creating");
+                    personFacade.create(selected);
                 } else {
-                    getFacade().remove(selected);
+                    System.out.println("editing  ");
+                    personFacade.edit(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {

@@ -121,18 +121,26 @@ public class ItemController implements Serializable {
         return getFacade().findAll();
     }
 
-    public List<Item> completeOccupations(String qry){
-        if(qry==null){
+    public List<Item> completeOccupations(String qry) {
+        return completeItem(qry, ItemType.Occupation);
+    }
+    
+    public List<Item> completeDistricts(String qry) {
+        return completeItem(qry, ItemType.District);
+    }
+
+    public List<Item> completeItem(String qry, ItemType it) {
+        if (qry == null) {
             return new ArrayList<Item>();
         }
         String j;
         Map m = new HashMap();
-        m.put("it", ItemType.Occupation);
+        m.put("it", it);
         m.put("n", qry.toUpperCase());
         j = "Select i from Item i where i.retired=false and i.itemType=:it and upper(i.name) like :n order by i.name";
         return getFacade().findBySQL(j, m);
     }
-    
+
     @FacesConverter(forClass = Item.class)
     public static class ItemControllerConverter implements Converter {
 
@@ -174,7 +182,6 @@ public class ItemController implements Serializable {
 
     }
 
-    
     @FacesConverter("itemConverter")
     public static class ItemConverter implements Converter {
 
@@ -216,5 +223,4 @@ public class ItemController implements Serializable {
 
     }
 
-    
 }

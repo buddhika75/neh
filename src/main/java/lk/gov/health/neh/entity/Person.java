@@ -7,6 +7,7 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,7 +31,7 @@ import lk.gov.health.neh.enums.Title;
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     String name;
     String nic;
@@ -59,6 +60,26 @@ public class Person implements Serializable {
     Item district;
     String telephoneNo;
 
+    @Column(unique = true)
+    String userName;
+    String password;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     
     
     public String getName() {
