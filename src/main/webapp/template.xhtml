@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="title">#{bundle.AppName}</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
         <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/images/neh.ico"/>
@@ -18,10 +18,10 @@
 
         <p:panel header="#{bundle.AppName}" >
 
-            <table style="width: 99%; padding: 1px;margin: auto; text-align: center; border: 1px solid green;">
+            <table style="width: 100%; margin: auto; text-align: center;">
                 <tr>
                     <td>
-                        <table style="width: 96%; padding: 1%;margin: auto; text-align: center; border: 1px solid red;">
+                        <table style="width: 100%; margin: auto; text-align: center;">
                             <h:panelGroup rendered="#{!staffController.logged}">
                                 <tr >
                                     <td  >
@@ -67,54 +67,66 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="text-align: center;">
                         <h:panelGroup rendered="#{staffController.logged}" >
-                            <ui:insert name="body"/>
+                            <ui:insert name="body">
+                                Use menu to access functions.
+                            </ui:insert>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{!staffController.logged}" >
 
-                            <p:carousel itemStyleClass="carItem" autoPlayInterval="2000"
-                                        effect="easeInStrong" circular="true">  
-                                <p:graphicImage library="images" name="slide1.jpg"/>  
-                                <p:graphicImage library="images" name="slide2.jpg"/>  
-                                <p:graphicImage library="images" name="slide4.jpg"/>  
-                                <p:graphicImage library="images" name="slide5.jpg"/>  
-                            </p:carousel>  
+                            <table >
+                                <tr>
+                                    <td>
+                                        <p:panel header="Loggin" >
+                                            <h:form >
 
-                            <p:panel header="Loggin" >
-                                <h:form >
+                                                <table >
+                                                    <tr>
+                                                        <td>
+                                                            User Name
+                                                        </td>
+                                                        <td><p:spacer width="10" ></p:spacer>
+                                                        </td>
+                                                        <td>
+                                                            <p:inputText value="#{staffController.userName}" ></p:inputText>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Password
+                                                        </td>
+                                                        <td><p:spacer width="10" ></p:spacer>
+                                                        </td>
+                                                        <td>
+                                                            <p:password value="#{staffController.password}" ></p:password>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" >
+                                                            <p:commandButton ajax="false" action="#{staffController.login()}" value="Login" ></p:commandButton>
+                                                        </td>
+                                                    </tr>
+                                                </table>
 
-                                    <table >
-                                        <tr>
-                                            <td>
-                                                User Name
-                                            </td>
-                                            <td><p:spacer width="10" ></p:spacer>
-                                            </td>
-                                            <td>
-                                                <p:inputText value="#{staffController.userName}" ></p:inputText>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Password
-                                            </td>
-                                            <td><p:spacer width="10" ></p:spacer>
-                                            </td>
-                                            <td>
-                                                <p:password value="#{staffController.password}" ></p:password>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" >
-                                                <p:commandButton ajax="false" action="#{staffController.login()}" value="Login" ></p:commandButton>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                            </h:form>
 
-                                </h:form>
+                                        </p:panel>
+                                    </td>
+                                    <td>
+                                        <p:carousel itemStyleClass="carItem" autoPlayInterval="2000"
+                                                    numVisible="1"   effect="easeInStrong" circular="true" style="text-align: center;">  
+                                            <p:graphicImage library="images" name="slide1.jpg" style="width: 880px!important; height: 220px;"/>  
+                                            <p:graphicImage library="images" name="slide2.jpg"  style="width: 880px!important; height: 220px;"/>  
+                                            <p:graphicImage library="images" name="slide4.jpg"  style="width: 880px!important; height: 220px;"/>  
+                                            <p:graphicImage library="images" name="slide5.jpg"  style="width: 880px!important; height: 220px;"/>  
+                                        </p:carousel>
+                                    </td>
+                                </tr>
+                            </table>
 
-                            </p:panel>
+
+
                         </h:panelGroup>
                     </td>
                 </tr>
@@ -122,8 +134,10 @@
                     <td>
                         <ui:insert name="footer">
                             <h:form >
-                                <p:commandLink value="You are logged as #{staffController.loggedStaff.userName}. Logout" action="#{staffController.logout()}" ajax="false" ></p:commandLink>
+                                <p:commandLink rendered="#{staffController.logged}"
+                                    value="You are logged as #{staffController.loggedStaff.userName}. Logout" action="#{staffController.logout()}" ajax="false" ></p:commandLink>
                             </h:form>
+                            <p:outputLabel value="Please login to continue ... " rendered="#{!staffController.logged}" ></p:outputLabel>
                         </ui:insert>
                     </td>
                 </tr>

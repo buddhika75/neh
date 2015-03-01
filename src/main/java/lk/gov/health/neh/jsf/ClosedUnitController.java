@@ -7,7 +7,9 @@ import lk.gov.health.neh.session.ClosedUnitFacade;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,11 +58,20 @@ public class ClosedUnitController implements Serializable {
     public ClosedUnit prepareCreate() {
         selected = new ClosedUnit();
         selected.setClosedDate(new Date());
+        
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
+        String j;
+        Map m = new HashMap();
+        j="select c from ClosedUnit c where c.closedDate=:cd";
+        m.put("cd", selected.getClosedDate());
+        if(getFacade().findFirstBySQL(j, m)!=null){
+            JsfUtil.addErrorMessage("Date already added. Please edit and change");
+            return;
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClosedUnitCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
