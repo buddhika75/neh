@@ -260,6 +260,7 @@ public class OpdVisitController implements Serializable {
 
     public Long todaysCount() {
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed ";
+        //hhhhh
         Map m = new HashMap();
         m.put("ed", new Date());
         return getFacade().findLongByJpql(j, m);
