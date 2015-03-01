@@ -39,7 +39,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClosedUnitTitle_closedUnit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.closedUnit}"/>
+                            <h:outputText value="#{item.closedUnit.name}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{closedUnitController.prepareCreate}" update=":ClosedUnitCreateForm" oncomplete="PF('ClosedUnitCreateDialog').show()"/>

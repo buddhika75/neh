@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{closedUnitController.selected != null}">
                         <p:outputLabel value="#{bundle.EditClosedUnitLabel_closedDate}" for="closedDate" />
-                        <p:calendar id="closedDate" pattern="MM/dd/yyyy" value="#{closedUnitController.selected.closedDate}" title="#{bundle.EditClosedUnitTitle_closedDate}"  showOn="button"/>
+                        <p:calendar disabled="true" id="closedDate" pattern="MM/dd/yyyy" value="#{closedUnitController.selected.closedDate}" title="#{bundle.EditClosedUnitTitle_closedDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditClosedUnitLabel_closedUnit}" for="closedUnit" />
                         <p:selectOneMenu id="closedUnit" value="#{closedUnitController.selected.closedUnit}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

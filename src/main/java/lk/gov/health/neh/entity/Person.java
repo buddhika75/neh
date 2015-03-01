@@ -29,9 +29,10 @@ import lk.gov.health.neh.enums.Title;
  */
 @Entity
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     String name;
     String nic;
@@ -43,9 +44,7 @@ public class Person implements Serializable {
     Nationality nationality;
     @Enumerated(EnumType.STRING)
     Religion religion;
-    
-    
-    
+
     boolean retired;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date dob;
@@ -60,28 +59,6 @@ public class Person implements Serializable {
     Item district;
     String telephoneNo;
 
-    @Column(unique = true)
-    String userName;
-    String password;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    
-    
     public String getName() {
         return name;
     }
@@ -193,8 +170,6 @@ public class Person implements Serializable {
     public void setTelephoneNo(String telephoneNo) {
         this.telephoneNo = telephoneNo;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -228,5 +203,5 @@ public class Person implements Serializable {
     public String toString() {
         return name;
     }
-    
+
 }
