@@ -250,6 +250,9 @@ public class OpdVisitController implements Serializable {
     }
 
     public void updateDailyNo() {
+        System.out.println("updating numbers");
+        System.out.println("selected = " + selected);
+        System.out.println("selected.getUnit() = " + selected.getUnit());
         if (selected == null || selected.getUnit() == null) {
             return;
         }
@@ -263,7 +266,9 @@ public class OpdVisitController implements Serializable {
         Map m = new HashMap();
         m.put("ed", new Date());
         m.put("u", u);
-        return getFacade().findLongByJpql(j, m);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        return getFacade().findLongByJpql(j, m)+1;
     }
 
     public void create() {
