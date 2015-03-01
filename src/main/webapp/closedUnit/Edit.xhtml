@@ -21,7 +21,6 @@
                                            var="closedUnitItem"
                                            itemValue="#{closedUnitItem}"/>
                         </p:selectOneMenu>
-                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{closedUnitController.update}" value="#{bundle.Save}" update="display,:ClosedUnitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClosedUnitEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClosedUnitEditDialog.hide()"/>

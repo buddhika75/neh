@@ -17,9 +17,7 @@
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewClosedUnitLabel_closedUnit}"/>
-                        <h:outputText value="#{closedUnitController.selected.closedUnit}" title="#{bundle.ViewClosedUnitTitle_closedUnit}"/>
-                        <h:outputText value="#{bundle.ViewClosedUnitLabel_id}"/>
-                        <h:outputText value="#{closedUnitController.selected.id}" title="#{bundle.ViewClosedUnitTitle_id}"/>
+                        <h:outputText value="#{closedUnitController.selected.closedUnit.name}" title="#{bundle.ViewClosedUnitTitle_closedUnit}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ClosedUnitViewDialog.hide()"/>
                 </h:panelGroup>

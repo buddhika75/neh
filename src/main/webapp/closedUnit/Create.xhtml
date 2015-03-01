@@ -20,14 +20,6 @@
                                            var="closedUnitItem"
                                            itemValue="#{closedUnitItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="Consultant" for="institution" />
-                        <p:selectOneMenu id="institution" value="#{closedUnitController.selected.casualtyReference}" >
-                            <f:selectItems value="#{consultantController.itemsAvailableSelectOne}"
-                                           var="con"
-                                           itemValue="#{con}"
-                                           itemLabel="#{con.name}"/>
-                        </p:selectOneMenu>
-                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{closedUnitController.create}" value="#{bundle.Save}" update="display,:ClosedUnitListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClosedUnitCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ClosedUnitCreateDialog.hide()"/>

@@ -6,6 +6,7 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.ClosedUnitFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -54,6 +55,7 @@ public class ClosedUnitController implements Serializable {
 
     public ClosedUnit prepareCreate() {
         selected = new ClosedUnit();
+        selected.setClosedDate(new Date());
         initializeEmbeddableKey();
         return selected;
     }
