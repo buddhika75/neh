@@ -275,11 +275,14 @@ public class OpdVisitController implements Serializable {
     }
 
     public Long todaysCount(Unit u) {
+        long count;
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed and o.unit=:u ";
         Map m = new HashMap();
         m.put("ed", new Date());
         m.put("u", u);
-        return getFacade().findLongByJpql(j, m);
+        long a = getFacade().findLongByJpql(j, m);
+        count = a + 1;
+        return count;
     }
 
     public void create() {
