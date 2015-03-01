@@ -14,38 +14,49 @@
                     <p:panelGrid columns="2" rendered="#{consultantController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_name}" for="name" />
                         <p:inputText id="name" value="#{consultantController.selected.name}" title="#{bundle.CreateConsultantTitle_name}" />
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_title}" for="title" />
-                        <p:inputText id="title" value="#{consultantController.selected.title}" title="#{bundle.CreateConsultantTitle_title}" />
+                        <p:selectOneMenu id="title" value="#{consultantController.selected.title}" >
+                            <f:selectItems value="#{enumController.titles}"/>
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{consultantController.selected.nic}" title="#{bundle.CreateConsultantTitle_nic}" />
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_sex}" for="sex" />
-                        <p:inputText id="sex" value="#{consultantController.selected.sex}" title="#{bundle.CreateConsultantTitle_sex}" />
+                        <p:selectOneMenu id="sex" value="#{consultantController.selected.sex}" >
+                            <f:selectItems value="#{enumController.sex}"/>
+                        </p:selectOneMenu>
+
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_dob}" for="dob" />
                         <p:calendar id="dob" pattern="MM/dd/yyyy" value="#{consultantController.selected.dob}" title="#{bundle.EditConsultantTitle_dob}"  showOn="button"/>
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_age}" for="age" />
                         <p:inputText id="age" value="#{consultantController.selected.age}" title="#{bundle.CreateConsultantTitle_age}" />
-                        <p:outputLabel value="#{bundle.CreateConsultantLabel_nameWithTitle}" for="nameWithTitle" />
-                        <p:inputText id="nameWithTitle" value="#{consultantController.selected.nameWithTitle}" title="#{bundle.CreateConsultantTitle_nameWithTitle}" />
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_address}" for="address" />
                         <p:inputTextarea rows="4" cols="30" id="address" value="#{consultantController.selected.address}" title="#{bundle.CreateConsultantTitle_address}" />
-                         <p:outputLabel value="#{bundle.CreateConsultantLabel_telephoneNo}" for="telephoneNo" />
+
+                        <p:outputLabel value="#{bundle.CreateConsultantLabel_telephoneNo}" for="telephoneNo" />
                         <p:inputText id="telephoneNo" value="#{consultantController.selected.telephoneNo}" title="#{bundle.CreateConsultantTitle_telephoneNo}" />
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_occupation}" for="occupation" />
-                        <p:selectOneMenu id="occupation" value="#{consultantController.selected.occupation}" >
-                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
-                                           var="occupationItem"
-                                           itemValue="#{occupationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateConsultantLabel_nationality}" for="nationality" />
-                        <p:inputText id="nationality" value="#{consultantController.selected.nationality}" title="#{bundle.CreateConsultantTitle_nationality}" />
-                        <p:outputLabel value="#{bundle.CreateConsultantLabel_religion}" for="religion" />
-                        <p:inputText id="religion" value="#{consultantController.selected.religion}" title="#{bundle.CreateConsultantTitle_religion}" />
+                        <p:autoComplete  id="occupation" value="#{consultantController.selected.occupation}" 
+                                         completeMethod="#{itemController.completeOccupations}"
+                                         var="occupationItem"
+                                         itemValue="#{occupationItem}"
+                                         itemLabel="#{occupationItem.name}">
+                        </p:autoComplete>
+
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_district}" for="district" />
-                        <p:selectOneMenu id="district" value="#{consultantController.selected.district}" >
-                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
-                                           var="districtItem"
-                                           itemValue="#{districtItem}"/>
-                        </p:selectOneMenu>
+                        <p:autoComplete  id="district" value="#{consultantController.selected.district}" 
+                                         completeMethod="#{itemController.completeDistricts}"
+                                         var="dist"
+                                         itemValue="#{dist}"
+                                         itemLabel="#{dist.name}">
+                        </p:autoComplete>
+                        
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_userName}" for="userName" />
                         <p:inputText id="userName" value="#{consultantController.selected.userName}" title="#{bundle.CreateConsultantTitle_userName}" />
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_password}" for="password" />
