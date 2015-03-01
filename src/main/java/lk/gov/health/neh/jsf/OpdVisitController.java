@@ -260,16 +260,12 @@ public class OpdVisitController implements Serializable {
 
     public Long todaysCount() {
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed ";
-        //hhhhh
         Map m = new HashMap();
         m.put("ed", new Date());
         return getFacade().findLongByJpql(j, m);
     }
 
     public void updateDailyNo() {
-        System.out.println("updating numbers");
-        System.out.println("selected = " + selected);
-        System.out.println("selected.getUnit() = " + selected.getUnit());
         if (selected == null || selected.getUnit() == null) {
             return;
         }
@@ -279,13 +275,14 @@ public class OpdVisitController implements Serializable {
     }
 
     public Long todaysCount(Unit u) {
+        long count;
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed and o.unit=:u ";
         Map m = new HashMap();
         m.put("ed", new Date());
         m.put("u", u);
-        System.out.println("m = " + m);
-        System.out.println("j = " + j);
-        return getFacade().findLongByJpql(j, m)+1;
+        long a = getFacade().findLongByJpql(j, m);
+        count = a + 1;
+        return count;
     }
 
     public void create() {
