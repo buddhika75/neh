@@ -51,6 +51,7 @@ public class OpdVisitController implements Serializable {
     boolean printPreview = false;
     boolean viewPrint = false;
 
+    
     public Date getFromDate() {
         if (fromDate == null) {
             fromDate = new Date();
@@ -84,6 +85,8 @@ public class OpdVisitController implements Serializable {
     public void setPrintPreview(boolean printPreview) {
         this.printPreview = printPreview;
     }
+
+    
 
     public void listVisits() {
         String j;
@@ -456,7 +459,7 @@ public class OpdVisitController implements Serializable {
         initializeEmbeddableKey();
         return "/opdVisit/close_unit_visit";
     }
-
+    
     public String stringConversionOfSerialNo(int sn) {
         int snt = sn + 1;
         Calendar c = Calendar.getInstance();
@@ -489,6 +492,7 @@ public class OpdVisitController implements Serializable {
 
     public Long todaysCount(Unit u) {
         long count;
+        //select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed and o.unit=:u ";
         Map m = new HashMap();
         m.put("ed", new Date());
@@ -626,6 +630,32 @@ public class OpdVisitController implements Serializable {
         return "";
     }
     
+    public List<ClosedUnit> getFindTodayCasualtyUnit() {
+        String j;
+        Map m = new HashMap();
+        j = "select c from ClosedUnit c where c.closedDate=:cd";
+        m.put("cd", new Date());
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        List<ClosedUnit> c = getClosedUnitFacade().findBySQL(j, m);
+        return c;
+    }
+
+    public ClosedUnitFacade getClosedUnitFacade() {
+        return closedUnitFacade;
+    }
+
+    public void setClosedUnitFacade(ClosedUnitFacade closedUnitFacade) {
+        this.closedUnitFacade = closedUnitFacade;
+    }
+
+    public UnitFacade getUnitFacade() {
+        return unitFacade;
+    }
+
+    public void setUnitFacade(UnitFacade unitFacade) {
+        this.unitFacade = unitFacade;
+    }
     
 
     public String recreateForm() {

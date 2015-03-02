@@ -45,6 +45,8 @@ public class Encounter implements Serializable {
     Ward ward;
     @ManyToOne
     Unit unit;
+    @ManyToOne
+    ClosedUnit closedUnit;
     @Lob
     String presentingComplaint = "";
     @Lob
@@ -387,6 +389,16 @@ public class Encounter implements Serializable {
     public void setUnit(Unit unit) {
         this.unit = unit;
     }
+
+    public ClosedUnit getClosedUnit() {
+        return closedUnit;
+    }
+
+    public void setClosedUnit(ClosedUnit closedUnit) {
+        this.closedUnit = closedUnit;
+    }
+    
+    
 
     public Long getId() {
         return id;
