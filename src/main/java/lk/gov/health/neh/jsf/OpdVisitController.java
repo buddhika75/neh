@@ -22,10 +22,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.ws.rs.OPTIONS;
+import javax.persistence.TemporalType;
+import lk.gov.health.neh.entity.ClosedUnit;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
+import lk.gov.health.neh.entity.Ward;
 import lk.gov.health.neh.enums.EncounterType;
+import lk.gov.health.neh.session.ClosedUnitFacade;
+import lk.gov.health.neh.session.UnitFacade;
 
 @ManagedBean(name = "opdVisitController")
 @SessionScoped
@@ -89,8 +93,7 @@ public class OpdVisitController implements Serializable {
         j = "select v from OpdVisit v where v.encounterDate between :fd and :td";
         visits = getFacade().findBySQL(j, m);
     }
-    
-    
+
     public String viewForm() {
         viewPrint = true;
         printPreview = true;
@@ -187,11 +190,198 @@ public class OpdVisitController implements Serializable {
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
+        selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date()));
+        updateDailyNo();
         initializeEmbeddableKey();
         printPreview = false;
         return "/opdVisit/opd_visit";
     }
 
+    @EJB
+    ClosedUnitFacade closedUnitFacade;
+    @EJB
+    UnitFacade unitFacade;
+
+    public boolean todayUnitIsClosed(Date cd, Unit unit) {
+        System.out.println("checking today is closed");
+        String j;
+        Map m = new HashMap();
+        j = "select c from ClosedUnit c where c.closedDate=:cd and c.closedUnit=:cu";
+        m.put("cd", cd);
+        m.put("cu", unit);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        List<ClosedUnit> c = closedUnitFacade.findBySQL(j, m);
+        System.out.println("c = " + c);
+        System.out.println("c != null = " + c.isEmpty());
+        return !c.isEmpty();
+    }
+
+    ClosedUnit todaysClosedUnit;
+
+    public String saveTodaysClosedUnit(){
+        getTodaysClosedUnit();
+        closedUnitFacade.edit(todaysClosedUnit);
+        return "";
+    }
+    
+    public ClosedUnit getTodaysClosedUnit() {
+        if(todaysClosedUnit==null){
+            todaysClosedUnit=findTodayClosedUnit(new Date());
+        }
+        if(!CommonController.twoDaysEqual(new Date(), todaysClosedUnit.getClosedDate())){
+            todaysClosedUnit=findTodayClosedUnit(new Date());
+        }
+        return todaysClosedUnit;
+    }
+
+    public void setTodaysClosedUnit(ClosedUnit todaysClosedUnit) {
+        this.todaysClosedUnit = todaysClosedUnit;
+    }
+    
+    
+    
+    public ClosedUnit findTodayClosedUnit(Date date) {
+        System.out.println("getting today's open units");
+        String j;
+        Map m = new HashMap();
+        j = "select c from ClosedUnit c where c.closedDate=:cd";
+        m.put("cd", date);
+        ClosedUnit c = closedUnitFacade.findFirstBySQL(j, m);
+        if(c==null){
+            c=new ClosedUnit();
+            c.setClosedDate(date);
+            closedUnitFacade.create(c);
+        }
+        return c;
+    }
+    
+    public List<Unit> todayOpenUnits(Date cd) {
+//        System.out.println("getting today's open units");
+        String j;
+        Map m = new HashMap();
+        j = "select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
+        m.put("cd", cd);
+        m.put("uc", Ward.class);
+//        System.out.println("m = " + m);
+//        System.out.println("j = " + j);
+        List<Unit> c = unitFacade.findBySQL(j, m);
+//        System.out.println("c = " + c);
+//        System.out.println("c != null = " + c.isEmpty());
+        return c;
+    }
+
+    public Unit nextOpdUnit(EncounterType et, Date ed) {
+        System.out.println("calculating next opd unit");
+        List<Unit> units = todayOpenUnits(ed);
+        System.out.println("units available = " + units);
+        Unit selectedUnit=null;
+        long selectedCount=1000000;
+        String j;
+        Map m;
+        for (Unit u : units) {
+            m = new HashMap();
+            System.out.println("u = " + u);
+            m.put("et", et);
+            m.put("ed", ed);
+            m.put("u", u);
+            j = "select count(v) "
+                    + "from OpdVisit v "
+                    + "where v.unit=:u "
+                    + "and v.encounterDate=:ed "
+                    + "and v.encounterType=:et ";
+            Long count = getFacade().findLongByJpql(j, m, TemporalType.DATE);
+            
+            System.out.println("count = " + count);
+            System.out.println("selectedCount = " + selectedCount);
+            
+            if(count<=selectedCount){
+                System.out.println("setting it as the selected count");
+                selectedCount = count;
+                selectedUnit=u;
+            }
+        }
+
+        return selectedUnit;
+    }
+
+//    public Unit nextOpdUnit(EncounterType et, Date ed) {
+//        System.out.println("calculating next opd unit");
+////        System.out.println("ed = " + ed);
+////        System.out.println("et = " + et);
+//        String j;
+//        Map m = new HashMap();
+//        m.put("et", et);
+//        m.put("ed", ed);
+////        System.out.println("m = " + m);
+//        j = "select v.unit from OpdVisit v where v.encounterDate=:ed and v.encounterType=:et group by v.unit order by count(v) desc";
+////        System.out.println("j = " + j);
+//        List<Object> ts = getFacade().findAggregates(j, m, TemporalType.DATE);
+//        System.out.println("Used Units by descending order = " + ts);
+//        Unit u;
+//
+//        List<Unit> units = todayOpenUnits(ed);
+//        System.out.println("units available = " + units);
+//        System.out.println("checking new unit or from already units");
+////        System.out.println("units.size() = " + units.size());
+////        System.out.println("ts.size() = " + ts.size());
+////        System.out.println("units.size() < ts.size() = " + (units.size() < ts.size()));
+//        if (units.size() > ts.size()) {
+//
+//            System.out.println("still some units are yet to fill.");
+//            for (Unit tu : units) {
+//                boolean alreadyGiven = false;
+//                System.out.println("available unit = " + tu);
+//                for (Object t : ts) {
+//                    u = (Unit) t;
+//                    System.out.println("given unit = " + u);
+//
+//                    if (tu.equals(u)) {
+//                        System.out.println("already given.");
+//                        alreadyGiven = true;
+//                    }
+//                }
+//                if (!alreadyGiven) {
+//                    System.out.println("not reviously given.");
+//                    return tu;
+//                }
+//
+//            }
+//
+//        } else {
+//
+//            System.out.println("all units are used. now checking least filled.");
+//
+//            j = "select v.unit, count(v) from OpdVisit v where v.encounterDate=:ed and v.encounterType=:et group by v.unit order by 2 desc";
+//            System.out.println("j = " + j);
+//            List<Object[]> tss = getFacade().findAggregates(j, m, TemporalType.DATE);
+//            System.out.println("tss = " + tss);
+//
+//            for (Object tso[] : tss) {
+//                Object t = tso[0];
+//                System.out.println("selected unit = " + t);
+//                System.out.println("count = " + tso[1]);
+//            }
+//
+//            for (Object tso[] : tss) {
+//
+//                Object t = tso[0];
+//                System.out.println("selected unit = " + t);
+//                System.out.println("count = " + tso[1]);
+//                if (t instanceof Unit) {
+//                    u = (Unit) t;
+//                    System.out.println("u = " + u);
+//                    if (!todayUnitIsClosed(ed, u)) {
+//                        System.out.println("selected u = " + u);
+//                        return u;
+//                    }
+//                }
+//            }
+//
+//        }
+//        System.out.println("returning null");
+//        return null;
+//    }
 //    public Unit findNextUnit(){
 //        String j;
 //        Map m = new HashMap();
@@ -204,9 +394,9 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
-        
+
         printPreview = false;
-        
+
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);

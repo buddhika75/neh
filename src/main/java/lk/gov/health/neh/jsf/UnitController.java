@@ -6,7 +6,9 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.UnitFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.health.neh.entity.Ward;
 
 @ManagedBean(name = "unitController")
 @SessionScoped
@@ -110,11 +113,25 @@ public class UnitController implements Serializable {
     }
 
     public List<Unit> getItemsAvailableSelectMany() {
-        return getFacade().findAll();
+        String j;
+        Map m = new HashMap();
+        j = "select u from Unit u where type(u)!=:uc order by u.name";
+        m.put("uc", Ward.class);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        List<Unit> c = getFacade().findBySQL(j, m);
+        return c;
     }
 
     public List<Unit> getItemsAvailableSelectOne() {
-        return getFacade().findAll();
+        String j;
+        Map m = new HashMap();
+        j = "select u from Unit u where type(u)!=:uc order by u.name";
+        m.put("uc", Ward.class);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        List<Unit> c = getFacade().findBySQL(j, m);
+        return c;
     }
 
     @FacesConverter(forClass = Unit.class)

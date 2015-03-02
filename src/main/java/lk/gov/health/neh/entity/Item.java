@@ -7,10 +7,13 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lk.gov.health.neh.enums.ItemType;
 
 /**
  *
@@ -18,6 +21,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Item implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +29,8 @@ public class Item implements Serializable {
     String name;
     @ManyToOne
     Item parentItem;
+    @Enumerated(EnumType.STRING)
+    ItemType itemType;
     boolean retired;
 
     public String getName() {
@@ -50,8 +56,6 @@ public class Item implements Serializable {
     public void setRetired(boolean retired) {
         this.retired = retired;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -61,6 +65,17 @@ public class Item implements Serializable {
         this.id = id;
     }
 
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,5 +100,5 @@ public class Item implements Serializable {
     public String toString() {
         return name;
     }
-    
+
 }

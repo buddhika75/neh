@@ -9,14 +9,16 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author buddhika
  */
 @Entity
-@Inheritance
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Staff extends Person implements Serializable {
+
     @Column(unique = true)
     String userName;
     String password;
@@ -36,7 +38,5 @@ public class Staff extends Person implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
+
 }

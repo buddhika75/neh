@@ -7,6 +7,7 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,6 +29,7 @@ import lk.gov.health.neh.enums.Title;
  */
 @Entity
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,9 +44,7 @@ public class Person implements Serializable {
     Nationality nationality;
     @Enumerated(EnumType.STRING)
     Religion religion;
-    
-    
-    
+
     boolean retired;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date dob;
@@ -59,8 +59,6 @@ public class Person implements Serializable {
     Item district;
     String telephoneNo;
 
-    
-    
     public String getName() {
         return name;
     }
@@ -172,8 +170,6 @@ public class Person implements Serializable {
     public void setTelephoneNo(String telephoneNo) {
         this.telephoneNo = telephoneNo;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -207,5 +203,5 @@ public class Person implements Serializable {
     public String toString() {
         return name;
     }
-    
+
 }
