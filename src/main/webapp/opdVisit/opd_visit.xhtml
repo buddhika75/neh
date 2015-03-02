@@ -402,70 +402,66 @@
                                 </td>
                             </tr>
                             <tr style="text-align: left" height="40px">
-                                <td colspan="4" style=" border-color: black">
+                                <td colspan="2" style=" border-color: black">
                                     <h:outputLabel value="Occupation  :  " style="font-size: 14px;"></h:outputLabel>
                                     <h:outputLabel value="#{opdVisitController.selected.patient.occupation}" style="font-size: 14px;">
                                     </h:outputLabel>
                                 </td>
-                            </tr>
-                            <tr style="text-align: left">
                                 <td colspan="2" style=" border-color: black">
+                                    
                                     <table >
-                                        <tr>
-                                            <td style="font-size: 14px; ">
-                                                <h:outputLabel value="VA - Non Aids"></h:outputLabel>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputLabel value="R/ Eye  :  " style="font-size: 14px;"></h:outputLabel>
-                                            </td>
-                                            <td style="border-color: black; border-style: solid" width="40px" height="20px">
-                                                <h:outputLabel value="#{opdVisitController.selected.nonAidREye }" style="font-size: 14px;"></h:outputLabel>
-                                            </td>
-                                            <td>
-                                                <h:outputLabel value="L/ Eye  :  " style="font-size: 14px;"></h:outputLabel>
-                                            </td>
-                                            <td style="border-color: black; border-style: solid" width="40px" height="20px">
-                                                <h:outputLabel value="#{opdVisitController.selected.nonAidLEye}" style="font-size: 14px;"></h:outputLabel>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-size: 14px;" >
+                                            <h:outputLabel value="VA - Non Aids"></h:outputLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputLabel value="R/ Eye  :  " style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                        <td style="border-color: black; border-style: solid" width="30px" height="15px">
+                                            <h:outputLabel value="#{opdVisitController.selected.nonAidREye }" style="font-size: 14px;"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:outputLabel value="L/ Eye  :  " style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                        <td  style="border-color: black; border-style: solid" width="30px" height="15px">
+                                            <h:outputLabel value="#{opdVisitController.selected.nonAidLEye}" style="font-size: 14px;"></h:outputLabel>
+                                        </td>
+                                    </tr>
+                                </table>
 
-                                    </table>
-
-                                </td>
-                                <td colspan="2" style=" border-color: black">
-                                    <table >
-                                        <tr>
-                                            <td colspan="2" style="font-size: 14px;" >
-                                                <h:outputLabel value="VA With Glass"></h:outputLabel>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h:outputLabel value="R/ Eye  :  " style="font-size: 14px"></h:outputLabel>
-                                            </td>
-                                            <td style="border-color: black; border-style: solid" width="40px" height="20px">
-                                                <h:outputLabel value="#{opdVisitController.selected.cglassREye}" style="font-size: 14px"></h:outputLabel>
-                                            </td>
-                                            <td>
-                                                <h:outputLabel value="L/ Eye  :  " style="font-size: 14px"></h:outputLabel>
-                                            </td>
-                                            <td  style="border-color: black; border-style: solid" width="40px" height="20px">
-                                                <h:outputLabel value="#{opdVisitController.selected.cglassLEye}" style="font-size: 14px"></h:outputLabel>
-                                            </td>
-                                        </tr>
-                                    </table>
                                 </td>
                             </tr>
                             <tr style="text-align: left">
-                                <td colspan="4" style=" border-color: black" height="60px">
+                                <td colspan="2" style=" border-color: black" height="60px">
                                     <h:outputLabel value="Presenting Complaint  :  " style="font-size: 14px;"></h:outputLabel>
                                     <h:outputLabel value="#{opdVisitController.selected.presentingComplaint}" style="font-size: 14px;"></h:outputLabel>
 
                                 </td>
-
-
+                                <td colspan="2" style=" border-color: black">
+                                <table >
+                                    <tr>
+                                        <td colspan="2" style="font-size: 14px;" >
+                                            <h:outputLabel value="VA With Glass"></h:outputLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h:outputLabel value="R/ Eye  :  " style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                        <td style="border-color: black; border-style: solid" width="30px" height="15px">
+                                            <h:outputLabel value="#{opdVisitController.selected.cglassREye}" style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                        <td>
+                                            <h:outputLabel value="L/ Eye  :  " style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                        <td  style="border-color: black; border-style: solid" width="30px" height="15px">
+                                            <h:outputLabel value="#{opdVisitController.selected.cglassLEye}" style="font-size: 14px"></h:outputLabel>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </td>
 
 
 
@@ -477,6 +473,7 @@
 
                                 </td>
                             </tr>
+
                             <tr colspan="3">
 
 
