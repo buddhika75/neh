@@ -218,10 +218,17 @@ public class OpdVisitController implements Serializable {
     }
 
     ClosedUnit todaysClosedUnit;
+    ClosedUnit todaysCasualtyUnit;
 
     public String saveTodaysClosedUnit(){
         getTodaysClosedUnit();
         closedUnitFacade.edit(todaysClosedUnit);
+        return "";
+    }
+    
+    public String saveTodaysCasualtyUnit(){
+        getTodaysClosedUnit();
+        closedUnitFacade.edit(todaysCasualtyUnit);
         return "";
     }
     
@@ -234,9 +241,25 @@ public class OpdVisitController implements Serializable {
         }
         return todaysClosedUnit;
     }
+    
+    
 
     public void setTodaysClosedUnit(ClosedUnit todaysClosedUnit) {
         this.todaysClosedUnit = todaysClosedUnit;
+    }
+
+    public ClosedUnit getTodaysCasualtyUnit() {
+        if(todaysCasualtyUnit==null){
+            todaysCasualtyUnit=findTodayClosedUnit(new Date());
+        }
+        if(!CommonController.twoDaysEqual(new Date(), todaysCasualtyUnit.getClosedDate())){
+            todaysCasualtyUnit=findTodayClosedUnit(new Date());
+        }
+        return todaysCasualtyUnit;
+    }
+
+    public void setTodaysCasualtyUnit(ClosedUnit todaysCasualtyUnit) {
+        this.todaysCasualtyUnit = todaysCasualtyUnit;
     }
     
     
@@ -602,6 +625,8 @@ public class OpdVisitController implements Serializable {
         }
         return "";
     }
+    
+    
 
     public String recreateForm() {
         if (selected.getEncounterType() == EncounterType.OpdVisit) {
