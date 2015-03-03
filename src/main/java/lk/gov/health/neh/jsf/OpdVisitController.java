@@ -222,10 +222,15 @@ public class OpdVisitController implements Serializable {
 
     ClosedUnit todaysClosedUnit;
     ClosedUnit todaysCasualtyUnit;
+    Unit indexNo;
 
     public String saveTodaysClosedUnit(){
         getTodaysClosedUnit();
         closedUnitFacade.edit(todaysClosedUnit);
+        return "";
+    }
+    public String saveindexNumber(){
+        unitFacade.edit(indexNo);
         return "";
     }
     
@@ -234,6 +239,7 @@ public class OpdVisitController implements Serializable {
         closedUnitFacade.edit(todaysCasualtyUnit);
         return "";
     }
+    
     
     public ClosedUnit getTodaysClosedUnit() {
         if(todaysClosedUnit==null){
@@ -244,7 +250,18 @@ public class OpdVisitController implements Serializable {
         }
         return todaysClosedUnit;
     }
-    
+
+    public Unit getIndexNo() {
+        if(indexNo == null){
+            indexNo = new Unit();
+        }
+        return indexNo;
+    }
+
+    public void setIndexNo(Unit indexNo) {
+        this.indexNo = indexNo;
+    }
+
     
 
     public void setTodaysClosedUnit(ClosedUnit todaysClosedUnit) {
@@ -461,7 +478,7 @@ public class OpdVisitController implements Serializable {
     }
     
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 1;
+        int snt = sn + 2681;
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
     }
