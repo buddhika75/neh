@@ -46,13 +46,13 @@
                                     <br/>
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Out Patient Department" style="font-size: 22px;"></h:outputLabel>
+                                    <h:outputLabel value="Out Patient Division" style="font-size: 22px;"></h:outputLabel>
                                 </td>
                                 <td colspan="2" >
                                     <table >
                                         <tr>
-                                            <td>
-                                                <h:panelGrid columns="1">
+                                            <td colspan="8" align="left">
+                                                <h:panelGrid columns="1" >
 
                                                     <h:outputLabel value="දිනය" styleClass="threeHunderedWidthInput" ></h:outputLabel>
                                                     <h:outputLabel value="தேதி" styleClass="threeHunderedWidthInput" ></h:outputLabel>
@@ -70,7 +70,7 @@
                                 <td colspan="2" >
                                     <table >
                                         <tr>
-                                            <td>
+                                            <td colspan="8" align="left">
                                                 <h:panelGrid columns="1">
                                                     <h:outputLabel value="දෛනික අංකය" styleClass="threeHunderedWidthInput" ></h:outputLabel>
                                                     <h:outputLabel value="தினமும் எந்த" styleClass="threeHunderedWidthInput" ></h:outputLabel> 
@@ -88,7 +88,7 @@
                                 <td colspan="2" rowspan="2">
                                     <table >
                                         <tr>
-                                            <td>
+                                            <td colspan="8" align="left">
                                                 <h:panelGrid columns="1">
 
 
@@ -106,7 +106,7 @@
                                 <td colspan="2" >
                                     <table >
                                         <tr>
-                                            <td>
+                                            <td colspan="8" align="left">
                                                 <h:panelGrid columns="1">
                                                     <h:outputLabel value="වයස" style="threeHunderedWidthInput"></h:outputLabel>
                                                     <h:outputLabel value="வயது" style="threeHunderedWidthInput"></h:outputLabel>
@@ -124,7 +124,7 @@
                                 <td colspan="2" >
                                     <table >
                                         <tr>
-                                            <td>
+                                            <td colspan="8" align="left">
                                                 <h:panelGrid columnClasses="1">
                                                     <h:outputLabel value="ස්ත්රී පුරුෂ භාවය" style="threeHunderedWidthInput"></h:outputLabel>
                                                     <h:outputLabel value="பாலினம்" style="threeHunderedWidthInput"></h:outputLabel>
@@ -141,42 +141,50 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="8">
-                                    <h:panelGrid columnClasses="1">
-                                        <h:outputLabel value="නම" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="பெயர்" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="name" style="threeHunderedWidthInput"></h:outputLabel>
+                                <td colspan="8" align="left">
+                                    <h:panelGrid columns="2">
+                                        <h:panelGrid columnClasses="1">
+                                            <h:outputLabel value="නම" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="பெயர்" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="name" style="threeHunderedWidthInput"></h:outputLabel>
+                                        </h:panelGrid>
+                                        <p:inputText value="#{opdVisitController.selected.patient.name}" maxlength="254" size="50"></p:inputText>
                                     </h:panelGrid>
-                                    <p:inputText value="#{opdVisitController.selected.patient.name}" maxlength="254" ></p:inputText>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6">
-                                    <h:panelGrid columnClasses="1">
-                                        <h:outputLabel value="ලිපිනය" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="முகவரி" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="Address" style="threeHunderedWidthInput"></h:outputLabel>
+                                <td colspan="6" align="left">
+                                    <h:panelGrid columns="2">
+                                        <h:panelGrid columnClasses="1">
+                                            <h:outputLabel value="ලිපිනය" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="முகவரி" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="Address" style="threeHunderedWidthInput"></h:outputLabel>
+                                        </h:panelGrid>
+                                        <p:inputTextarea value="#{opdVisitController.selected.patient.address}" ></p:inputTextarea>
                                     </h:panelGrid>
-                                    <p:inputTextarea value="#{opdVisitController.selected.patient.address}" ></p:inputTextarea>
                                 </td>
-                                <td colspan="2" >
-                                    <h:panelGrid columnClasses="1">
-                                        <h:outputLabel value="දුරකථන අංකය" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="தொலைபேசி எண்ணிக்கை" style="threeHunderedWidthInput"></h:outputLabel>
-                                        <h:outputLabel value="Telephone number" style="threeHunderedWidthInput"></h:outputLabel>
+                                <td colspan="2" align="left" >
+                                    <h:panelGrid columns="2">
+                                        <h:panelGrid columnClasses="1">
+                                            <h:outputLabel value="දුරකථන අංකය" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="தொலைபேசி எண்ணிக்கை" style="threeHunderedWidthInput"></h:outputLabel>
+                                            <h:outputLabel value="Telephone number" style="threeHunderedWidthInput"></h:outputLabel>
+                                        </h:panelGrid>
+                                        <p:inputTextarea value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputTextarea>
                                     </h:panelGrid>
-                                    <p:inputTextarea value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputTextarea>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="6">
-                                    Occupation
-                                    <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="itemConverter" 
-                                                    completeMethod="#{itemController.completeOccupations}"
-                                                    var="occ" itemLabel="#{occ.name}" itemValue="#{occ}" forceSelection="true">
-                                    </p:autoComplete>
+                                <td colspan="6" align="left">
+                                    <h:panelGrid columns="2">
+                                        Occupation
+                                        <p:autoComplete value="#{opdVisitController.selected.patient.occupation}" converter="itemConverter" 
+                                                        completeMethod="#{itemController.completeOccupations}"
+                                                        var="occ" itemLabel="#{occ.name}" itemValue="#{occ}" forceSelection="true">
+                                        </p:autoComplete>
+                                    </h:panelGrid>
                                 </td>
-                                <td colspan="2" >
+                                <td colspan="2" align="left">
                                     <table >
                                         <tr>
                                             <td colspan="2" style="font-size: 14px;">
@@ -202,17 +210,20 @@
 
                             </tr>
                             <tr>
-                                <td colspan="3">
-                                    <h:outputLabel value="Presenting Complaint" ></h:outputLabel>
-                                    <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
+                                <td colspan="3" align="left">
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="Presenting Complaint" ></h:outputLabel>
+                                        <h:inputTextarea value="#{opdVisitController.selected.presentingComplaint}" ></h:inputTextarea>
+                                    </h:panelGrid>
+                                </td>
+                                <td colspan="3" align="left">
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="Diagnosis" ></h:outputLabel>
+                                        <h:inputTextarea value="#{opdVisitController.selected.diagnosis}" ></h:inputTextarea>
+                                    </h:panelGrid>
 
                                 </td>
-                                <td colspan="3">
-                                    <h:outputLabel value="Diagnosis" ></h:outputLabel>
-                                    <h:inputTextarea value="#{opdVisitController.selected.diagnosis}" ></h:inputTextarea>
-
-                                </td>
-                                <td colspan="2" >
+                                <td colspan="2" align="left">
                                     <table >
                                         <tr>
                                             <td colspan="2" style="font-size: 14px;" >
@@ -237,62 +248,73 @@
                             <tr colspan="8">
 
 
-                                <td  colspan="3" style="font-size: 16px;" align="center ">Past Medical Hx
+                                <td  colspan="3" style="font-size: 16px;" align="left">
+                                    
 
 
-                                    <table  align="center">
+                                    <table>
                                         <tr>
-                                            <td colspan="2">DM</td>
+                                            <td colspan="3" height="40px">
+                                                <h:outputLabel value="Past Medical Hx"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="left">DM</td>
                                             <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.dm }">  </p:selectBooleanCheckbox></td>
-                                            <td colspan="2">HPT</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="left">HPT</td>
                                             <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.hpt}">  </p:selectBooleanCheckbox>  </td>
                                         </tr>
 
                                         <tr>
-
-
+                                            <td colspan="2" align="left">IHD</td>
+                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.ihd}">  </p:selectBooleanCheckbox></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">IHD</td>
-                                            <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.ihd}">  </p:selectBooleanCheckbox></td>
-                                            <td colspan="2">BA</td>
+                                            <td colspan="2" align="left">BA</td>
                                             <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.ba}">  </p:selectBooleanCheckbox></td>
 
                                         </tr>
-                                        <tr>
 
-                                        </tr>
                                         <tr>
-                                            <td colspan="2">Allery</td>
+                                            <td colspan="2" align="left">Allery</td>
                                             <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.allergy}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
-                                        <tr><td colspan="2">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.pstmediOther}" maxlength="500" ></p:inputTextarea></td></tr>
+                                        <tr><td colspan="2" align="left">Other</td><td> <p:inputTextarea value="#{opdVisitController.selected.pstmediOther}" maxlength="500" ></p:inputTextarea></td></tr>
                                     </table>
 
 
 
                                 </td>
+                                 <td  colspan="2" style="font-size: 16px;" align="left">
+                                    
 
-                                <td  colspan="2" style="font-size: 16px;" align="center ">Ocular Hx 
                                     <table align="canter">
                                         <tr>
-                                            <td colspan="2">Trauma </td>
+                                            <td colspan="3" height="40px">
+                                                <h:outputLabel value="Ocular Hx"></h:outputLabel>
+                                            </td>
+                                        </tr>
+                                
+                                        <tr>
+                                            <td colspan="2" align="left">Trauma </td>
                                             <td align="canter "><p:selectBooleanCheckbox  value="#{opdVisitController.selected.trauma}">  </p:selectBooleanCheckbox></td>
 
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Glaucoma </td>
+                                            <td colspan="2" align="left">Glaucoma </td>
                                             <td> <p:selectBooleanCheckbox  value="#{opdVisitController.selected.glaucoma}">  </p:selectBooleanCheckbox>  </td>
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2">Laser Rx </td>
+                                            <td colspan="2" align="left">Laser Rx </td>
                                             <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.laserRx}">  </p:selectBooleanCheckbox></td>
                                         </tr>
                                         <tr>
 
-                                            <td colspan="2">Avastin Inj</td>
+                                            <td colspan="2" align="left">Avastin Inj</td>
                                             <td><p:selectBooleanCheckbox  value="#{opdVisitController.selected.avastinIng}">  </p:selectBooleanCheckbox></td>
                                         </tr>
                                         <tr>
@@ -310,9 +332,15 @@
 
 
                                 </td>
-                                <td  colspan="2" style="font-size: 16px;" align="center ">Surgical Hx
+                                <td  colspan="2" style="font-size: 16px;" align="left">
+                                    
 
                                     <table align="canter">
+                                        <tr>
+                                            <td colspan="3" height="40px">
+                                                <h:outputLabel value="Surgical Hx"></h:outputLabel>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td colspan="2">Cataract Sx </td>
                                             <td align="canter "><p:selectBooleanCheckbox  value="#{opdVisitController.selected.cataractSx}">  </p:selectBooleanCheckbox></td>
@@ -347,7 +375,7 @@
                         </table>
 
                     </p:panel>
-                    <p:panel id="opdVisitPrint" rendered="#{opdVisitController.printPreview eq true}" style="border-color: white">
+                    <p:panel id="opdVisitPrint" rendered="#{opdVisitController.printPreview ne true}" style="border-color: white">
                         <table border="1" style="border-color: black">
                             <tr>
                                 <td rowspan="2" style="text-align: center; vertical-align: middle; border-color: black">
@@ -367,7 +395,7 @@
                                     <br/>
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 12px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Out Patient Department" style="font-size: 14px;"></h:outputLabel>
+                                    <h:outputLabel value="Out Patient Division" style="font-size: 14px;"></h:outputLabel>
                                 </td>
                                 <td style=" border-color: black; text-align: left">
                                     <table >
@@ -385,7 +413,7 @@
                                             </td>
                                             <td>
                                                 <h:outputLabel id="lblDate" value="#{opdVisitController.selected.encounterDate}" style="font-size: 14px;">
-                                                   <f:convertDateTime pattern="dd mm yyyy"></f:convertDateTime>
+                                                    <f:convertDateTime pattern="dd mm yyyy"></f:convertDateTime>
                                                 </h:outputLabel>
                                             </td>
                                         </tr>
@@ -668,7 +696,7 @@
                                 <td  colspan="1" style="font-size: 14px;  border-color: black">
                                     <table>
                                         <tr  align="left">
-                                            <td  class="3" height="40px">
+                                            <td  colspan="3" height="40px">
                                                 <h:outputLabel value="Ocular Hx" style="font-size: 14px"></h:outputLabel>
                                             </td>
                                         </tr>
