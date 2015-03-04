@@ -26,12 +26,8 @@
                         <table border="2" style="padding: 3px; margin: 10px; width: 90%;" >
                             <tr>
                                 <td colspan="2" rowspan="2" style="text-align: center; vertical-align: middle;">
-                                    <h:selectOneMenu id="cmbUnit" value="#{opdVisitController.selected.unit}" rendered="true" style="font-size: 18px;" >
-                                        <f:selectItem itemLabel="Select Item"></f:selectItem>
-                                        <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="unit"
-                                                       itemLabel="#{unit.code}" itemValue="#{unit}" ></f:selectItems>
-                                        <f:ajax execute="cmbUnit" render="txtDailyNo" listener="#{opdVisitController.updateDailyNo()}" ></f:ajax>
-                                    </h:selectOneMenu>
+                                    <h:outputLabel value="lblUnit" value="#{opdVisitController.todaysClosedUnit.closedUnit.name}"></h:outputLabel>
+                                    <f:ajax execute="lblUnit" render="txtDailyNo" listener="#{opdVisitController.updateDailyNo()}" ></f:ajax>
                                 </td>
                                 <td colspan="4" rowspan="4" style="text-align: center;vertical-align: middle;" >
                                     <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="100px"></h:graphicImage>
@@ -383,7 +379,7 @@
                             <tr>
                                 <td rowspan="2" style="text-align: center; vertical-align: middle; border-color: black">
 
-                                    <h:outputLabel value="#{opdVisitController.selected.unit.code}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.todaysClosedUnit.closedUnit.name}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
                                 </td>
                                 <td colspan="2" rowspan="4" style="text-align: center;vertical-align: middle;  border-color: black" >
                                     <h:graphicImage value="/resources/eyeLogo.jpg" width="100px" height="75px"></h:graphicImage>
