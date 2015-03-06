@@ -437,7 +437,12 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
-
+ 
+        if (todaysClosedUnit.getClosedUnit() == null){
+            JsfUtil.addErrorMessage("Set Todays Casualty Unit");
+            return "";
+        }
+        
         printPreview = false;
 
         selected = new OpdVisit();
@@ -445,6 +450,8 @@ public class OpdVisitController implements Serializable {
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+        selected.setIntDailyNo(todaysCasualtyCount().intValue());
+        selected.setDailyNo(stringConversionOfDailyNo(selected.getIntDailyNo()));
         selected.setEncounterDate(new Date());
         selected.setEncounterType(EncounterType.Casulty);
         initializeEmbeddableKey();
@@ -471,6 +478,7 @@ public class OpdVisitController implements Serializable {
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+        
         selected.setEncounterType(EncounterType.CloseUnitVisit);
         selected.setEncounterDate(new Date());
         initializeEmbeddableKey();
@@ -481,6 +489,11 @@ public class OpdVisitController implements Serializable {
         int snt = sn + 27981; //27981 because neh next sereal number is 28124 bt they tested 144 bills then (28124-144+1)
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
+    }
+    
+    public String stringConversionOfDailyNo(int sn) {
+        int snt = sn + 1;
+        return todaysClosedUnit.getClosedUnit().getCode()+" "+snt;
     }
 
     public Long annualCount() {
@@ -497,6 +510,18 @@ public class OpdVisitController implements Serializable {
         m.put("ed", new Date());
         return getFacade().findLongByJpql(j, m);
     }
+    
+    
+    public Long todaysCasualtyCount() {
+        String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed "
+                + " and o.encounterType=:ec ";
+        Map m = new HashMap();
+        m.put("ed", new Date());
+        m.put("ec", EncounterType.Casulty);
+         System.out.println("getFacade().findLongByJpql(j, m) = " + getFacade().findLongByJpql(j, m));
+        return getFacade().findLongByJpql(j, m);
+       
+    }
 
     public void updateDailyNo() {
         if (selected == null || selected.getUnit() == null) {
@@ -506,7 +531,8 @@ public class OpdVisitController implements Serializable {
         selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
         System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
     }
-
+    
+     
     public Long todaysCount(Unit u) {
         long count;
         //select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd
@@ -518,6 +544,20 @@ public class OpdVisitController implements Serializable {
         count = a + 1;
         return count;
     }
+    
+//    public Long todaysCasualtyCount(Unit u) {
+//
+//        String j;
+//        long count;
+//        Map m = new HashMap();
+//        j = "select count(c) from ClosedUnit c where c.closedDate=:cd";
+//        m.put("u", u);
+//        m.put("cd", new Date());
+//        long c = closedUnitFacade.findLongByJpql(j, m);
+//        count = c + 1;
+//        return count;
+//        
+//    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitCreated"));
@@ -608,6 +648,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String register(EncounterType encounter) {
+        System.out.println("Method in");
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
             return "";
@@ -627,6 +668,7 @@ public class OpdVisitController implements Serializable {
         if (selected.getId() == null) {
 
             getFacade().create(selected);
+            System.out.println("Create");
             JsfUtil.addSuccessMessage("Registered");
             printPreview = true;
 
@@ -641,6 +683,7 @@ public class OpdVisitController implements Serializable {
 //            }
         } else {
             getFacade().edit(selected);
+            System.out.println("Updated");
             JsfUtil.addSuccessMessage("Updated");
             return "";
         }
@@ -676,6 +719,8 @@ public class OpdVisitController implements Serializable {
     
 
     public String recreateForm() {
+        System.out.println("Recreate  form");
+        System.out.println("selected.getEncounterType() = " + selected.getEncounterType());
         if (selected.getEncounterType() == EncounterType.OpdVisit) {
             return addNewOpdVisit();
         } else if (selected.getEncounterType() == EncounterType.Casulty) {
