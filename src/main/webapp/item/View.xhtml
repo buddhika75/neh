@@ -16,8 +16,8 @@
                         <h:outputText value="#{itemController.selected.name}" title="#{bundle.ViewItemTitle_name}"/>
                         <h:outputText value="#{bundle.ViewItemLabel_parentItem}"/>
                         <h:outputText value="#{itemController.selected.parentItem}" title="#{bundle.ViewItemTitle_parentItem}"/>
-                        <h:outputText value="#{bundle.ViewItemLabel_id}"/>
-                        <h:outputText value="#{itemController.selected.id}" title="#{bundle.ViewItemTitle_id}"/>
+                        <h:outputText value="Type"/>
+                        <h:outputText value="#{itemController.selected.itemType}" title="Type"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ItemViewDialog.hide()"/>
                 </h:panelGroup>

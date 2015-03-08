@@ -7,10 +7,13 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lk.gov.health.neh.enums.ConsultantRole;
 
 /**
  *
@@ -29,6 +32,8 @@ public class Unit implements Serializable {
     boolean retired;
     @ManyToOne
     Unit perentUnit;
+    @Enumerated(EnumType.STRING)
+    ConsultantRole consultantRole;
     
     @ManyToOne
     Consultant consultant;
@@ -41,8 +46,16 @@ public class Unit implements Serializable {
         this.consultant = consultant;
     }
 
+    public ConsultantRole getConsultantRole() {
+        return consultantRole;
+    }
+
+    public void setConsultantRole(ConsultantRole consultantRole) {
+        this.consultantRole = consultantRole;
+    }
+
     
-    
+
     public String getCode() {
         return code;
     }

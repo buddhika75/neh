@@ -7,6 +7,8 @@ package lk.gov.health.neh.jsf;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import lk.gov.health.neh.enums.ConsultantRole;
+import lk.gov.health.neh.enums.ItemType;
 import lk.gov.health.neh.enums.Sex;
 import lk.gov.health.neh.enums.Title;
 
@@ -28,7 +30,15 @@ public class EnumController {
         return Title.values();
     }
     
+    public ConsultantRole[] getConsultantRoles(){
+        return ConsultantRole.values();
+    }
+    
     public Sex[] getSex(){
         return Sex.values();
+    }
+    
+    public ItemType[] getItemTypes(){
+        return ItemType.values();
     }
 }

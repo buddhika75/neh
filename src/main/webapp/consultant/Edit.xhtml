@@ -34,7 +34,7 @@
                         <p:outputLabel value="#{bundle.EditConsultantLabel_occupation}" for="occupation" />
                         <p:selectOneMenu id="occupation" value="#{consultantController.selected.occupation}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{itemController.occupationList()}"
                                            var="occupationItem"
                                            itemValue="#{occupationItem}"/>
                         </p:selectOneMenu>
@@ -45,7 +45,7 @@
                         <p:outputLabel value="#{bundle.EditConsultantLabel_district}" for="district" />
                         <p:selectOneMenu id="district" value="#{consultantController.selected.district}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{itemController.districtList()}"
                                            var="districtItem"
                                            itemValue="#{districtItem}"/>
                         </p:selectOneMenu>

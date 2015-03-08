@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{itemController.selected != null}">
                         <p:outputLabel value="#{bundle.EditItemLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{itemController.selected.name}" title="#{bundle.EditItemTitle_name}" />
+                        <p:inputTextarea maxlength="500" id="name" value="#{itemController.selected.name}" title="#{bundle.EditItemTitle_name}" />
                         <p:outputLabel value="#{bundle.EditItemLabel_parentItem}" for="parentItem" />
                         <p:selectOneMenu id="parentItem" value="#{itemController.selected.parentItem}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -21,8 +21,10 @@
                                            var="parentItemItem"
                                            itemValue="#{parentItemItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditItemLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{itemController.selected.id}" title="#{bundle.EditItemTitle_id}" />
+                        <p:outputLabel value="Type" for="type" />
+                         <p:selectOneMenu id="type" value="#{itemController.selected.itemType}" >
+                             <f:selectItems value="#{enumController.itemTypes}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{itemController.update}" value="#{bundle.Save}" update="display,:ItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ItemEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ItemEditDialog.hide()"/>

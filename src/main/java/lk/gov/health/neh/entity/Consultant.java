@@ -7,8 +7,11 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import lk.gov.health.neh.enums.ConsultantRole;
 
 /**
  *
@@ -17,5 +20,9 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Consultant extends Staff implements Serializable {
+    
+    
+    
+    
     
 }

@@ -27,6 +27,7 @@ import lk.gov.health.neh.entity.ClosedUnit;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.entity.Ward;
+import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.session.ClosedUnitFacade;
 import lk.gov.health.neh.session.UnitFacade;
@@ -100,7 +101,17 @@ public class OpdVisitController implements Serializable {
     public String viewForm() {
         viewPrint = true;
         printPreview = true;
+        if(selected.getEncounterType() == EncounterType.OpdVisit){
         return "/opdVisit/opd_visit";
+        }
+        if(selected.getEncounterType() == EncounterType.Casulty){
+        return "/opdVisit/casulty_visit";
+        }
+        if(selected.getEncounterType() == EncounterType.CloseUnitVisit){
+        return "/opdVisit/close_unit_visit";
+        }else
+        return "/opdVisit/special_unit_visit";
+        
     }
 
     public void setToDate(Date toDate) {
@@ -193,7 +204,7 @@ public class OpdVisitController implements Serializable {
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
-        selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date()));
+        selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date(), ConsultantRole.OPD));
         updateDailyNo();
         initializeEmbeddableKey();
         printPreview = false;
@@ -285,7 +296,7 @@ public class OpdVisitController implements Serializable {
     
     
     public ClosedUnit findTodayClosedUnit(Date date) {
-        System.out.println("getting today's open units");
+        System.out.println("getting today's closed unit");
         String j;
         Map m = new HashMap();
         j = "select c from ClosedUnit c where c.closedDate=:cd";
@@ -300,11 +311,13 @@ public class OpdVisitController implements Serializable {
     }
     
     public List<Unit> todayOpenUnits(Date cd) {
-//        System.out.println("getting today's open units");
+        
+        System.out.println("getting today's open units");
         String j;
         Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
+        j = "select u from Unit u where type(u)!=:uc and u.consultantRole=:cr and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
         m.put("cd", cd);
+        m.put("cr", ConsultantRole.OPD);
         m.put("uc", Ward.class);
 //        System.out.println("m = " + m);
 //        System.out.println("j = " + j);
@@ -313,8 +326,8 @@ public class OpdVisitController implements Serializable {
 //        System.out.println("c != null = " + c.isEmpty());
         return c;
     }
-
-    public Unit nextOpdUnit(EncounterType et, Date ed) {
+//0788044212
+    public Unit nextOpdUnit(EncounterType et, Date ed, ConsultantRole cr) {
         System.out.println("calculating next opd unit");
         List<Unit> units = todayOpenUnits(ed);
         System.out.println("units available = " + units);
@@ -328,11 +341,14 @@ public class OpdVisitController implements Serializable {
             m.put("et", et);
             m.put("ed", ed);
             m.put("u", u);
+            m.put("cr", cr);
+            
             j = "select count(v) "
-                    + "from OpdVisit v "
-                    + "where v.unit=:u "
-                    + "and v.encounterDate=:ed "
-                    + "and v.encounterType=:et ";
+                    + " from OpdVisit v "
+                    + " where v.unit=:u "
+                    + " and v.encounterDate=:ed "
+                    + " and v.unit.consultantRole=:cr "
+                    + " and v.encounterType=:et ";
             Long count = getFacade().findLongByJpql(j, m, TemporalType.DATE);
             
             System.out.println("count = " + count);
