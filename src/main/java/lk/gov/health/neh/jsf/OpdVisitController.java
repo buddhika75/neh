@@ -688,15 +688,6 @@ public class OpdVisitController implements Serializable {
             JsfUtil.addSuccessMessage("Registered");
             printPreview = true;
 
-//            if (encounter == EncounterType.OpdVisit) {
-//                return addNewOpdVisit();
-//            } else if (encounter == EncounterType.Casulty) {
-//                return addNewCasultyVisit();
-//            } else if (encounter == EncounterType.SpecialUnitVisit) {
-//                return addNewSpecialUnitVisit();
-//            } else if (encounter == EncounterType.CloseUnitVisit) {
-//                return addNewCloseUnitVisit();
-//            }
         } else {
             getFacade().edit(selected);
             System.out.println("Updated");

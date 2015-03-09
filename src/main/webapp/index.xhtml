@@ -25,18 +25,18 @@
                                         <f:convertDateTime pattern="dd MMMM yyyy hh:mm" ></f:convertDateTime>
                                     </p:outputLabel>  
                                 </f:facet>
-                                
+
                                 <h:form >
-                                    
+
                                     <p:outputLabel value="Todays casualty unit is #{opdVisitController.todaysClosedUnit.closedUnit.name}" rendered="#{opdVisitController.todaysClosedUnit.closedUnit ne null}" ></p:outputLabel>
 
                                     <h:panelGroup rendered="#{opdVisitController.todaysClosedUnit.closedUnit eq null}" >
-                                        <p:outputLabel value="Casualty Unit is not selected. Please select" ></p:outputLabel>
-                                        <p:selectOneMenu value="#{opdVisitController.todaysClosedUnit.closedUnit}" >
-                                            <f:selectItem itemLabel="Select a unit" ></f:selectItem>
-                                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="u" itemLabel="#{u.name}" itemValue="#{u}" ></f:selectItems>
-                                        </p:selectOneMenu>
-                                        <p:commandButton value="Set" ajax="false" action="#{opdVisitController.saveTodaysClosedUnit()}" ></p:commandButton>
+                                            <p:outputLabel value="Casualty Unit is not selected. Please select" ></p:outputLabel>
+                                            <p:selectOneMenu value="#{opdVisitController.todaysClosedUnit.closedUnit}" >
+                                                <f:selectItem itemLabel="Select a unit" ></f:selectItem>
+                                                <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="u" itemLabel="#{u.name}" itemValue="#{u}" ></f:selectItems>
+                                            </p:selectOneMenu>
+                                            <p:commandButton value="Set" ajax="false" action="#{opdVisitController.saveTodaysClosedUnit()}" ></p:commandButton>
                                     </h:panelGroup>
 
                                 </h:form>

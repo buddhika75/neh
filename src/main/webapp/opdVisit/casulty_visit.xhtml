@@ -41,7 +41,7 @@
                                     <br/>
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Emergency Treatment Division" style="font-size: 22px;"></h:outputLabel>
+                                    <h:outputLabel value="Emergency Treatment Unit" style="font-size: 22px;"></h:outputLabel>
                                 </td>
                                 <td colspan="2" >
                                     <table >
@@ -171,7 +171,7 @@
                                 <td colspan="6" align="left">
                                     <h:panelGrid columns="2">
                                         Occupation
-                                        <p:selectOneMenu id="occupation" value="#{opdVisitController.selected.patient.occupation.name}" style="width: 250px">
+                                        <p:selectOneMenu id="occupation" value="#{opdVisitController.selected.patient.occupation}" style="width: 250px">
                                             <f:selectItem itemLabel="Select Item"></f:selectItem>
                                             <f:selectItems value="#{itemController.occupationList()}"
                                                            var="occ"
@@ -291,7 +291,7 @@
 
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Allery</td>
+                                            <td colspan="2">Allergy</td>
                                             <td>  <p:selectBooleanCheckbox  value="#{opdVisitController.selected.allergy}">  </p:selectBooleanCheckbox></td>
                                         </tr>
 
@@ -405,9 +405,11 @@
                                     <br/>
                                     <h:outputLabel value="அவசர சிகிச்சை பிரிவு" style="font-size: 11px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 12px;"></h:outputLabel>
+                                    <h:outputLabel value="National Eye Hospital" style="font-size: 12px;"></h:outputLabel>
                                     <br/>
-                                    <h:outputLabel value="Emergency Treatment Division" style="font-size: 14px;"></h:outputLabel>
+                                    <h:outputLabel value="Sri Lanka" style="font-size: 12px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="Emergency Treatment Unit" style="font-size: 14px;"></h:outputLabel>
                                 </td>
 
                                 <td style=" border-color: black; text-align: left">
@@ -487,7 +489,7 @@
                                             <h:outputLabel value=":" style="font-size: 12px;"></h:outputLabel>
                                         </h:panelGrid>
 
-                                        <h:outputLabel value="#{opdVisitController.selected.patient.name}" style="font-size: 14px;"></h:outputLabel>
+                                        <h:outputLabel value="#{opdVisitController.selected.patient.name}" style="font-size: 18px; font-weight: bold"></h:outputLabel>
                                     </h:panelGrid>
                                 </td>
                                 <td style=" border-color: black; text-align: left">
@@ -524,7 +526,7 @@
                                             <h:outputLabel value="Address" style="font-size: 12px;"></h:outputLabel>
                                             <h:outputLabel value=":" style="font-size: 12px;"></h:outputLabel>
                                         </h:panelGrid>
-                                        <h:outputLabel value="#{opdVisitController.selected.patient.address}" style="font-size: 14px;"></h:outputLabel>
+                                        <h:outputLabel value="#{opdVisitController.selected.patient.address}" style="font-size: 16px; font-weight: bold"></h:outputLabel>
                                     </h:panelGrid>
                                 </td>
                                 <td style=" border-color: black; text-align: left">
@@ -553,7 +555,7 @@
                             <tr style="text-align: left" height="40px">
                                 <td colspan="3" style=" border-color: black">
                                     <h:outputLabel value="Occupation  :  " style="font-size: 12px;"></h:outputLabel>
-                                    <h:outputLabel value="#{opdVisitController.selected.patient.occupation.name}" style="font-size: 14px;">
+                                    <h:outputLabel value="#{opdVisitController.selected.patient.occupation.name}" style="font-size: 13px;">
                                     </h:outputLabel>
                                 </td>
                                 <td style=" border-color: black; text-align: left">
@@ -574,7 +576,7 @@
                             <tr style="text-align: left">
                                 <td colspan="2" style=" border-color: black" height="40px">
                                     <h:outputLabel value="Presenting Complaint  :  " style="font-size: 12px;"></h:outputLabel>
-                                    <h:outputLabel value="#{opdVisitController.selected.presentingComplaint}" style="font-size: 14px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.presentingComplaint}" style="font-size: 13px;"></h:outputLabel>
 
                                 </td>
 
@@ -590,13 +592,13 @@
                                             <td>
                                                 <h:outputLabel value="R/ Eye  :  " style="font-size: 12px"></h:outputLabel>
                                             </td>
-                                            <td style="border-color: black; border-style: solid" width="25px" height="10px">
+                                            <td style="border-color: black; border-style: solid" width="25px" height="25px">
                                                 <h:outputLabel value="#{opdVisitController.selected.nonAidREye }" style="font-size: 12px;"></h:outputLabel>
                                             </td>
                                             <td>
                                                 <h:outputLabel value="L/ Eye  :  " style="font-size: 12px"></h:outputLabel>
                                             </td>
-                                            <td  style="border-color: black; border-style: solid" width="25px" height="10px">
+                                            <td  style="border-color: black; border-style: solid" width="25px" height="25px">
                                                 <h:outputLabel value="#{opdVisitController.selected.nonAidLEye}" style="font-size: 12px;"></h:outputLabel>
                                             </td>
                                         </tr>
@@ -609,7 +611,7 @@
                             <tr style="text-align: left">
                                 <td colspan="2" style=" border-color: black" height="40px">
                                     <h:outputLabel value="Diagnosis  :  " style="font-size: 12px;"></h:outputLabel>
-                                    <h:outputLabel value="#{opdVisitController.selected.diagnosis}" style="font-size: 14px;"></h:outputLabel>
+                                    <h:outputLabel value="#{opdVisitController.selected.diagnosis}" style="font-size: 13px;"></h:outputLabel>
 
                                 </td>
                                 <td colspan="3" style=" border-color: black">
@@ -623,13 +625,13 @@
                                             <td>
                                                 <h:outputLabel value="R/ Eye  :  " style="font-size: 12px"></h:outputLabel>
                                             </td>
-                                            <td style="border-color: black; border-style: solid" width="25px" height="10px">
+                                            <td style="border-color: black; border-style: solid" width="25px" height="25px">
                                                 <h:outputLabel value="#{opdVisitController.selected.cglassREye}" style="font-size: 12px"></h:outputLabel>
                                             </td>
                                             <td>
                                                 <h:outputLabel value="L/ Eye  :  " style="font-size: 12px"></h:outputLabel>
                                             </td>
-                                            <td  style="border-color: black; border-style: solid" width="25px" height="10px">
+                                            <td  style="border-color: black; border-style: solid" width="25px" height="25px">
                                                 <h:outputLabel value="#{opdVisitController.selected.cglassLEye}" style="font-size: 12px"></h:outputLabel>
                                             </td>
                                         </tr>
@@ -689,7 +691,7 @@
                                         </tr>
                                         <tr align="left">
                                             <td colspan="2">
-                                                <h:outputLabel value="Allery" style="font-size: 12px"></h:outputLabel>
+                                                <h:outputLabel value="Allergy" style="font-size: 12px"></h:outputLabel>
                                             </td>
                                             <td width="40px">
 
