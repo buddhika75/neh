@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WardViewDlg" widgetVar="WardViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewWardTitle}">
+            <h:form id="WardViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{wardController.selected != null}">
+                        <h:outputText value="#{bundle.ViewWardLabel_name}"/>
+                        <h:outputText value="#{wardController.selected.name}" title="#{bundle.ViewWardTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewWardLabel_institution}"/>
+                        <h:outputText value="#{wardController.selected.institution}" title="#{bundle.ViewWardTitle_institution}"/>
+                        <h:outputText value="#{bundle.ViewWardLabel_perentUnit}"/>
+                        <h:outputText value="#{wardController.selected.perentUnit}" title="#{bundle.ViewWardTitle_perentUnit}"/>
+                        <h:outputText value="#{bundle.ViewWardLabel_id}"/>
+                        <h:outputText value="#{wardController.selected.id}" title="#{bundle.ViewWardTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="WardViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -20,6 +20,7 @@
                             <f:selectItems value="#{enumController.titles}"/>
                         </p:selectOneMenu>
 
+                        
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{consultantController.selected.nic}" title="#{bundle.CreateConsultantTitle_nic}" />
 
@@ -42,21 +43,20 @@
                         <p:inputText id="telephoneNo" value="#{consultantController.selected.telephoneNo}" title="#{bundle.CreateConsultantTitle_telephoneNo}" />
 
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_occupation}" for="occupation" />
-                        <p:autoComplete  id="occupation" value="#{consultantController.selected.occupation}" 
-                                         completeMethod="#{itemController.completeOccupations}"
-                                         var="occupationItem"
-                                         itemValue="#{occupationItem}"
-                                         itemLabel="#{occupationItem.name}">
-                        </p:autoComplete>
+                        <p:selectOneMenu id="occupation" value="#{consultantController.selected.occupation}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.occupationList()}"
+                                           var="occupationItem"
+                                           itemValue="#{occupationItem}"/>
+                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_district}" for="district" />
-                        <p:autoComplete  id="district" value="#{consultantController.selected.district}" 
-                                         completeMethod="#{itemController.completeDistricts}"
-                                         var="dist"
-                                         itemValue="#{dist}"
-                                         itemLabel="#{dist.name}">
-                        </p:autoComplete>
-                        
+                       <p:selectOneMenu id="district" value="#{consultantController.selected.district}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.districtList()}"
+                                           var="districtItem"
+                                           itemValue="#{districtItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_userName}" for="userName" />
                         <p:inputText id="userName" value="#{consultantController.selected.userName}" title="#{bundle.CreateConsultantTitle_userName}" />
                         <p:outputLabel value="#{bundle.CreateConsultantLabel_password}" for="password" />

@@ -18,6 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.Nationality;
 import lk.gov.health.neh.enums.Religion;
 import lk.gov.health.neh.enums.Sex;
@@ -148,6 +149,9 @@ public class Person implements Serializable {
     }
 
     public Item getOccupation() {
+        if(occupation == null){
+            occupation = new Item();
+        }
         return occupation;
     }
 

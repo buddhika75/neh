@@ -140,6 +140,63 @@ public class ItemController implements Serializable {
         j = "Select i from Item i where i.retired=false and i.itemType=:it and upper(i.name) like :n order by i.name";
         return getFacade().findBySQL(j, m);
     }
+    
+    public void occList(){
+        String sql;
+        Map m = new HashMap();
+        m.put("it", ItemType.Occupation);
+        sql = "Select i from Item i where i.retired=false and i.itemType=:it";
+        getFacade().findBySQL(sql, m);
+    }
+    
+    public List<Item> occupationList(){
+        String sql;
+        Map m = new HashMap();
+        m.put("it", ItemType.Occupation);
+        sql = "Select i from Item i where i.retired=false and i.itemType=:it";
+        List<Item> occList;
+        occList = getFacade().findBySQL(sql, m);
+        return occList;
+    }
+    
+    public List<Item> diagnosisList(){
+        String sql;
+        Map m = new HashMap();
+        m.put("it", ItemType.Diagnosis);
+        sql = "Select i from Item i where i.retired=false and i.itemType=:it";
+        List<Item> occList;
+        occList = getFacade().findBySQL(sql, m);
+        return occList;
+    }
+    
+    public List<Item> complainList(){
+        String sql;
+        Map m = new HashMap();
+        m.put("it", ItemType.PresentingCompalint);
+        sql = "Select i from Item i where i.retired=false and i.itemType=:it";
+        List<Item> occList;
+        occList = getFacade().findBySQL(sql, m);
+        return occList;
+    }
+    
+    public List<Item> districtList(){
+        String sql;
+        Map m = new HashMap();
+        m.put("it", ItemType.District);
+        sql = "Select i from Item i where i.retired=false and i.itemType=:it";
+        List<Item> occList;
+        occList = getFacade().findBySQL(sql, m);
+        return occList;
+    }
+
+    public ItemFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(ItemFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+    
 
     @FacesConverter(forClass = Item.class)
     public static class ItemControllerConverter implements Converter {

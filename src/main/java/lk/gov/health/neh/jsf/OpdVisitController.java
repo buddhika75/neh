@@ -27,6 +27,7 @@ import lk.gov.health.neh.entity.ClosedUnit;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.entity.Ward;
+import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.session.ClosedUnitFacade;
 import lk.gov.health.neh.session.UnitFacade;
@@ -100,7 +101,17 @@ public class OpdVisitController implements Serializable {
     public String viewForm() {
         viewPrint = true;
         printPreview = true;
+        if(selected.getEncounterType() == EncounterType.OpdVisit){
         return "/opdVisit/opd_visit";
+        }
+        if(selected.getEncounterType() == EncounterType.Casulty){
+        return "/opdVisit/casulty_visit";
+        }
+        if(selected.getEncounterType() == EncounterType.CloseUnitVisit){
+        return "/opdVisit/close_unit_visit";
+        }else
+        return "/opdVisit/special_unit_visit";
+        
     }
 
     public void setToDate(Date toDate) {
@@ -193,7 +204,7 @@ public class OpdVisitController implements Serializable {
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
-        selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date()));
+        selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date(), ConsultantRole.OPD));
         updateDailyNo();
         initializeEmbeddableKey();
         printPreview = false;
@@ -222,10 +233,15 @@ public class OpdVisitController implements Serializable {
 
     ClosedUnit todaysClosedUnit;
     ClosedUnit todaysCasualtyUnit;
+    Unit indexNo;
 
     public String saveTodaysClosedUnit(){
         getTodaysClosedUnit();
         closedUnitFacade.edit(todaysClosedUnit);
+        return "";
+    }
+    public String saveindexNumber(){
+        unitFacade.edit(indexNo);
         return "";
     }
     
@@ -234,6 +250,7 @@ public class OpdVisitController implements Serializable {
         closedUnitFacade.edit(todaysCasualtyUnit);
         return "";
     }
+    
     
     public ClosedUnit getTodaysClosedUnit() {
         if(todaysClosedUnit==null){
@@ -244,7 +261,18 @@ public class OpdVisitController implements Serializable {
         }
         return todaysClosedUnit;
     }
-    
+
+    public Unit getIndexNo() {
+        if(indexNo == null){
+            indexNo = new Unit();
+        }
+        return indexNo;
+    }
+
+    public void setIndexNo(Unit indexNo) {
+        this.indexNo = indexNo;
+    }
+
     
 
     public void setTodaysClosedUnit(ClosedUnit todaysClosedUnit) {
@@ -268,7 +296,7 @@ public class OpdVisitController implements Serializable {
     
     
     public ClosedUnit findTodayClosedUnit(Date date) {
-        System.out.println("getting today's open units");
+        System.out.println("getting today's closed unit");
         String j;
         Map m = new HashMap();
         j = "select c from ClosedUnit c where c.closedDate=:cd";
@@ -283,11 +311,13 @@ public class OpdVisitController implements Serializable {
     }
     
     public List<Unit> todayOpenUnits(Date cd) {
-//        System.out.println("getting today's open units");
+        
+        System.out.println("getting today's open units");
         String j;
         Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
+        j = "select u from Unit u where type(u)!=:uc and u.consultantRole=:cr and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
         m.put("cd", cd);
+        m.put("cr", ConsultantRole.OPD);
         m.put("uc", Ward.class);
 //        System.out.println("m = " + m);
 //        System.out.println("j = " + j);
@@ -296,8 +326,8 @@ public class OpdVisitController implements Serializable {
 //        System.out.println("c != null = " + c.isEmpty());
         return c;
     }
-
-    public Unit nextOpdUnit(EncounterType et, Date ed) {
+//0788044212
+    public Unit nextOpdUnit(EncounterType et, Date ed, ConsultantRole cr) {
         System.out.println("calculating next opd unit");
         List<Unit> units = todayOpenUnits(ed);
         System.out.println("units available = " + units);
@@ -311,11 +341,14 @@ public class OpdVisitController implements Serializable {
             m.put("et", et);
             m.put("ed", ed);
             m.put("u", u);
+            m.put("cr", cr);
+            
             j = "select count(v) "
-                    + "from OpdVisit v "
-                    + "where v.unit=:u "
-                    + "and v.encounterDate=:ed "
-                    + "and v.encounterType=:et ";
+                    + " from OpdVisit v "
+                    + " where v.unit=:u "
+                    + " and v.encounterDate=:ed "
+                    + " and v.unit.consultantRole=:cr "
+                    + " and v.encounterType=:et ";
             Long count = getFacade().findLongByJpql(j, m, TemporalType.DATE);
             
             System.out.println("count = " + count);
@@ -420,7 +453,12 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
-
+ 
+        if (todaysClosedUnit.getClosedUnit() == null){
+            JsfUtil.addErrorMessage("Set Todays Casualty Unit");
+            return "";
+        }
+        
         printPreview = false;
 
         selected = new OpdVisit();
@@ -428,6 +466,8 @@ public class OpdVisitController implements Serializable {
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+        selected.setIntDailyNo(todaysCasualtyCount().intValue());
+        selected.setDailyNo(stringConversionOfDailyNo(selected.getIntDailyNo()));
         selected.setEncounterDate(new Date());
         selected.setEncounterType(EncounterType.Casulty);
         initializeEmbeddableKey();
@@ -454,6 +494,7 @@ public class OpdVisitController implements Serializable {
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+        
         selected.setEncounterType(EncounterType.CloseUnitVisit);
         selected.setEncounterDate(new Date());
         initializeEmbeddableKey();
@@ -461,9 +502,14 @@ public class OpdVisitController implements Serializable {
     }
     
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 27981;
+        int snt = sn + 27981; //27981 because neh next sereal number is 28124 bt they tested 144 bills then (28124-144+1)
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
+    }
+    
+    public String stringConversionOfDailyNo(int sn) {
+        int snt = sn + 1;
+        return todaysClosedUnit.getClosedUnit().getCode()+" "+snt;
     }
 
     public Long annualCount() {
@@ -480,6 +526,18 @@ public class OpdVisitController implements Serializable {
         m.put("ed", new Date());
         return getFacade().findLongByJpql(j, m);
     }
+    
+    
+    public Long todaysCasualtyCount() {
+        String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed "
+                + " and o.encounterType=:ec ";
+        Map m = new HashMap();
+        m.put("ed", new Date());
+        m.put("ec", EncounterType.Casulty);
+         System.out.println("getFacade().findLongByJpql(j, m) = " + getFacade().findLongByJpql(j, m));
+        return getFacade().findLongByJpql(j, m);
+       
+    }
 
     public void updateDailyNo() {
         if (selected == null || selected.getUnit() == null) {
@@ -489,7 +547,8 @@ public class OpdVisitController implements Serializable {
         selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
         System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
     }
-
+    
+     
     public Long todaysCount(Unit u) {
         long count;
         //select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd
@@ -501,6 +560,20 @@ public class OpdVisitController implements Serializable {
         count = a + 1;
         return count;
     }
+    
+//    public Long todaysCasualtyCount(Unit u) {
+//
+//        String j;
+//        long count;
+//        Map m = new HashMap();
+//        j = "select count(c) from ClosedUnit c where c.closedDate=:cd";
+//        m.put("u", u);
+//        m.put("cd", new Date());
+//        long c = closedUnitFacade.findLongByJpql(j, m);
+//        count = c + 1;
+//        return count;
+//        
+//    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitCreated"));
@@ -591,6 +664,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String register(EncounterType encounter) {
+        System.out.println("Method in");
         if (selected == null) {
             JsfUtil.addErrorMessage("Nothing to register");
             return "";
@@ -610,20 +684,13 @@ public class OpdVisitController implements Serializable {
         if (selected.getId() == null) {
 
             getFacade().create(selected);
+            System.out.println("Create");
             JsfUtil.addSuccessMessage("Registered");
             printPreview = true;
 
-//            if (encounter == EncounterType.OpdVisit) {
-//                return addNewOpdVisit();
-//            } else if (encounter == EncounterType.Casulty) {
-//                return addNewCasultyVisit();
-//            } else if (encounter == EncounterType.SpecialUnitVisit) {
-//                return addNewSpecialUnitVisit();
-//            } else if (encounter == EncounterType.CloseUnitVisit) {
-//                return addNewCloseUnitVisit();
-//            }
         } else {
             getFacade().edit(selected);
+            System.out.println("Updated");
             JsfUtil.addSuccessMessage("Updated");
             return "";
         }
@@ -659,6 +726,8 @@ public class OpdVisitController implements Serializable {
     
 
     public String recreateForm() {
+        System.out.println("Recreate  form");
+        System.out.println("selected.getEncounterType() = " + selected.getEncounterType());
         if (selected.getEncounterType() == EncounterType.OpdVisit) {
             return addNewOpdVisit();
         } else if (selected.getEncounterType() == EncounterType.Casulty) {

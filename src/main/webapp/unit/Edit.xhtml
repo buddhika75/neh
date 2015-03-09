@@ -11,12 +11,13 @@
         <p:dialog id="UnitEditDlg" widgetVar="UnitEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUnitTitle}">
             <h:form id="UnitEditForm">
                 <h:panelGroup id="display">
-                       <p:panelGrid columns="2" rendered="#{unitController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{unitController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUnitLabel_name}" for="name" />
                         <p:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.CreateUnitTitle_name}" />
                         <p:outputLabel value="Code" for="txtCode" />
                         <p:inputText id="txtCode" value="#{unitController.selected.code}" title="Code" />
-                       
+                        <p:outputLabel value="Role" for="txtRole" />
+                        <p:inputText id="txtRole" value="#{unitController.selected.consultantRole}" title="Role" />
                         <p:outputLabel value="Consultant" for="institution" />
                         <p:selectOneMenu id="institution" value="#{unitController.selected.consultant}" >
                             <f:selectItems value="#{consultantController.itemsAvailableSelectOne}"
@@ -24,7 +25,7 @@
                                            itemValue="#{con}"
                                            itemLabel="#{con.name}"/>
                         </p:selectOneMenu>
-                       
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{unitController.update}" value="#{bundle.Save}" update="display,:UnitListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UnitEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UnitEditDialog.hide()"/>

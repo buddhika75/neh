@@ -93,25 +93,19 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_occupation}"/>
                             </f:facet>
-                            <h:outputText value="#{item.occupation}"/>
+                            <h:outputText value="#{item.occupation.name}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_district}"/>
                             </f:facet>
-                            <h:outputText value="#{item.district}"/>
+                            <h:outputText value="#{item.district.name}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_telephoneNo}"/>
                             </f:facet>
                             <h:outputText value="#{item.telephoneNo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personController.prepareCreate}" update=":PersonCreateForm" oncomplete="PF('PersonCreateDialog').show()"/>

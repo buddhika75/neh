@@ -41,9 +41,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListItemTitle_id}"/>
+                                <h:outputText value="Type"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.itemType}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"/>
