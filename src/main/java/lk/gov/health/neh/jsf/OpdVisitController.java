@@ -461,7 +461,7 @@ public class OpdVisitController implements Serializable {
     }
     
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 1;
+        int snt = sn + 27981;
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
     }
