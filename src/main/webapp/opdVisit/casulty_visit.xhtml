@@ -163,7 +163,7 @@
                                             <h:outputLabel value="தொலைபேசி எண்ணிக்கை" style="threeHunderedWidthInput"></h:outputLabel>
                                             <h:outputLabel value="Telephone number" style="threeHunderedWidthInput"></h:outputLabel>
                                         </h:panelGrid>
-                                        <p:inputTextarea value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputTextarea>
+                                        <p:inputMask mask="999-9999999" value="#{opdVisitController.selected.patient.telephoneNo}" ></p:inputMask>
                                     </h:panelGrid>
                                 </td>
                             </tr>
@@ -395,7 +395,7 @@
                                     <h:outputLabel value="#{opdVisitController.todaysClosedUnit.closedUnit.name}" style="font-size: 40px; font-weight: bold;" ></h:outputLabel>
                                 </td>
                                 <td colspan="2" rowspan="2" style="text-align: center;vertical-align: middle;  border-color: black" >
-                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="100px" height="75px"></h:graphicImage>
+                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="75px" height="50px"></h:graphicImage>
                                     <br/>
                                     <h:outputLabel value="ශ්‍රි ලංකා ජාතික අක්ෂි රෝහල"  style="font-size: 13px;"></h:outputLabel>
                                     <br/>
