@@ -37,7 +37,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUnitTitle_institution}"/>
                             </f:facet>
-                            <h:outputText value="#{item.institution}"/>
+                            <h:outputText value="#{item.institution.name}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -50,12 +50,6 @@
                                 <h:outputText value="#{bundle.ListUnitTitle_perentUnit}"/>
                             </f:facet>
                             <h:outputText value="#{item.perentUnit}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUnitTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{unitController.prepareCreate}" update=":UnitCreateForm" oncomplete="PF('UnitCreateDialog').show()"/>
