@@ -44,6 +44,12 @@
                                                     <p:menuitem ajax="false" value="Special Unit Visit" action="#{opdVisitController.addNewSpecialUnitVisit() }"/>
                                                     <p:menuitem ajax="false" value="Close Unit Visit" action="#{opdVisitController.addNewCloseUnitVisit() }"/>
                                                     <p:menuitem value="Casualty Units" outcome="/closedUnit/List.xhtml" />
+                                                </p:submenu>
+                                                <p:submenu label="Reports">
+                                                    <p:menuitem ajax="false" value="OPD Register" action="/opdVisit/opd_register"/>
+                                                    <p:menuitem ajax="false" value="Casulty Register" action="/opdVisit/casalty_register"/>
+                                                    <p:menuitem ajax="false" value="Special Unit Register" action="/opdVisit/special_register"/>
+                                                    <p:menuitem ajax="false" value="Close Unit Register" action="/opdVisit/closed_register"/>
                                                     <p:menuitem ajax="false" value="OPD Visit Register" action="/opdVisit/opd_visit_register"/>
                                                 </p:submenu>
                                                 <p:submenu label="#{bundle.Maintenance}">
@@ -57,6 +63,7 @@
                                                     <p:menuitem value="Person" outcome="/person/List.xhtml" />
                                                     <p:menuitem value="Staff" outcome="/staff/List.xhtml" />
                                                 </p:submenu>
+                                                <p:menuitem ajax="false" value="Admission" action="/admission/admission_sheet"/>
                                             </p:menubar>
                                         </h:form>
                                     </td>

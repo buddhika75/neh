@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+            <h:outputStylesheet library="css" name="main.css" ></h:outputStylesheet>
+            <ui:define name="body">
+                <h:form >
+                    <h:panelGrid columns="4">
+                        <p:commandButton  icon="ui-icon-disk" ajax="false" value="Register" action="#{opdVisitController.opdVisitRegister()}"  rendered="#{opdVisitController.printPreview ne true}">
+                        </p:commandButton>
+                        <p:commandButton icon="ui-icon-document" ajax="false" value="Add New Record" action="#{opdVisitController.recreateForm()}" rendered="#{opdVisitController.printPreview eq true}"></p:commandButton>
+                        <p:commandButton value="Print" type="button" icon="ui-icon-print" rendered="#{opdVisitController.printPreview eq true}">
+                            <p:printer target="opdVisitPrint" />
+                        </p:commandButton>
+
+                    </h:panelGrid>
+
+                    <p:panel id="opdVisit" rendered="#{opdVisitController.printPreview ne true}">
+                        <table border="2" style="padding: 3px; margin: 10px; width: 90%;" >
+
+                        </table>
+                    </p:panel>
+                    <p:panel id="opdVisitPrint" rendered="#{opdVisitController.printPreview ne true}" style="border-color: white">
+                        <table border="1" style="border-color: black; border-style: solid">
+                            <tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <p:outputLabel value="Admision Sheet"></p:outputLabel>
+                                    </td>
+                                    <td colspan="4">
+                                        <p:outputLabel value="Eye Hospital - Colombo"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="Patient ID"></p:outputLabel>
+                                    </td>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="#123456789"></p:outputLabel>
+                                    </td>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="Male / Female"></p:outputLabel>
+                                    </td>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="#Female"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Date"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#2014 03 30"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="District"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#Hambantota"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Time"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="Date of Birth"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#"></p:outputLabel>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="patient Name"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#Pasan Anuradha"></p:outputLabel>
+                                    </td>
+                                    <td  rowspan="4">
+                                        <p:outputLabel value="BHT No"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#123456789"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Nationality"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#Sinhala"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Religion"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#Buddhism"></p:outputLabel>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="patient Address"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#Pasan Anuradha"></p:outputLabel>
+                                    </td>
+                                    <td  rowspan="4">
+                                        <p:outputLabel value="NIC"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#123456789"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Occupation"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#Sinhala"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p:outputLabel value="Marital Status"></p:outputLabel>
+                                    </td>
+                                    <td>
+                                        <p:outputLabel value="#Buddhism"></p:outputLabel>
+                                    </td>
+                                </tr>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="Permanent Tel"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#Pasan Anuradha"></p:outputLabel>
+                                    </td>
+                                    <td  rowspan="4">
+                                        <p:outputLabel value="Temporary Tel"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#123456789"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4" colspan="2" align="top">
+                                        <p:outputLabel value="Properties/Cash(if any)"></p:outputLabel>
+                                        <br></br>
+                                        <p:outputLabel value="Tobe handover"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                </tr>
+                            </tr>
+                            <tr>
+                                <tr>
+                                    <td rowspan="4">
+                                        <p:outputLabel value="Permanent Tel"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#Pasan Anuradha"></p:outputLabel>
+                                    </td>
+                                    <td  rowspan="4">
+                                        <p:outputLabel value="Temporary Tel"></p:outputLabel>
+                                    </td>
+                                    <td colspan="2" rowspan="4">
+                                        <p:outputLabel value="#123456789"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td rowspan="4" colspan="2" align="top">
+                                        <p:outputLabel value="Properties/Cash(if any)"></p:outputLabel>
+                                        <br></br>
+                                        <p:outputLabel value="Tobe handover"></p:outputLabel>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                </tr>
+                            </tr>
+                        </table>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

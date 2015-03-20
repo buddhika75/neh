@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+
+            <ui:define name="body">
+                <p:panel header="OPD Visit Register" >
+                    <h:form >
+
+
+                        <p:panelGrid columns="2" >
+                            <p:outputLabel value="From" ></p:outputLabel>
+                            <p:calendar value="#{opdVisitController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+
+                            <p:outputLabel value="To" ></p:outputLabel>
+                            <p:calendar value="#{opdVisitController.toDate}" pattern="dd MMMM yyyy" ></p:calendar>
+
+                            <p:commandButton value="Fill" ajax="false" action="#{opdVisitController.listClosedVisits()}" ></p:commandButton>
+
+                        </p:panelGrid>
+
+                        <p:dataTable value="#{opdVisitController.closedVisits}" var="v" >
+                            <p:column headerText="Date" sortBy="#{v.encounterDate}" >
+                                <h:outputLabel value="#{v.encounterDate}" >
+                                    <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                </h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Unit" sortBy="#{v.unit.name}" filterBy="#{v.unit.name}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.unit.name}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Type" sortBy="#{v.encounterType}" filterBy="#{v.encounterType}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.encounterType}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Daily No" sortBy="#{v.dailyNo}" filterBy="#{v.dailyNo}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.dailyNo}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Name" sortBy="#{v.patient.name}" filterBy="#{v.patient.name}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.patient.name}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Age" sortBy="#{v.patient.age}" filterBy="#{v.patient.age}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.patient.age}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Sex" sortBy="#{v.patient.sex}" filterBy="#{v.patient.sex}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.patient.sex}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Address" filterBy="#{v.patient.address}" sortBy="#{v.patient.address}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.patient.address}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Presenting Complaint" sortBy="#{v.presentingComplaint}" filterBy="#{v.presentingComplaint}" filterMatchMode="contains" >
+                                <h:outputLabel value="#{v.presentingComplaint}" ></h:outputLabel>
+                            </p:column>
+                            <p:column headerText="Form">
+                                <p:commandButton action="#{opdVisitController.viewForm()}" value="View">
+                                    <f:setPropertyActionListener value="#{v}" target="#{opdVisitController.selected}"></f:setPropertyActionListener>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
