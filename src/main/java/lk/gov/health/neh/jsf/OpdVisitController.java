@@ -30,6 +30,7 @@ import lk.gov.health.neh.entity.Ward;
 import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.session.ClosedUnitFacade;
+import lk.gov.health.neh.session.EncounterFacade;
 import lk.gov.health.neh.session.UnitFacade;
 
 @ManagedBean(name = "opdVisitController")
@@ -44,6 +45,10 @@ public class OpdVisitController implements Serializable {
     Date fromDate;
     Date toDate;
     List<OpdVisit> visits;
+    List<OpdVisit> opdVisits;
+    List<OpdVisit> closedVisits;
+    List<OpdVisit> casualtyVisits;
+    List<OpdVisit> specialVisits;
     Unit casultyUnit;
     Unit opdVisit;
     Unit closedUnitVisit;
@@ -52,7 +57,6 @@ public class OpdVisitController implements Serializable {
     boolean printPreview = false;
     boolean viewPrint = false;
 
-    
     public Date getFromDate() {
         if (fromDate == null) {
             fromDate = new Date();
@@ -87,8 +91,6 @@ public class OpdVisitController implements Serializable {
         this.printPreview = printPreview;
     }
 
-    
-
     public void listVisits() {
         String j;
         Map m = new HashMap();
@@ -98,20 +100,97 @@ public class OpdVisitController implements Serializable {
         visits = getFacade().findBySQL(j, m);
     }
 
+    public void listOPDVisits() {
+        String j;
+        Map m = new HashMap();
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        m.put("opd", EncounterType.OpdVisit);
+        j = "select v from OpdVisit v where v.encounterType=:opd "
+                + " and  v.encounterDate between :fd and :td";
+        opdVisits = getFacade().findBySQL(j, m);
+    }
+
+    public void listCasualtyVisits() {
+        String j;
+        Map m = new HashMap();
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        m.put("cas", EncounterType.Casulty);
+        j = "select v from OpdVisit v where v.encounterType=:cas "
+                + " and  v.encounterDate between :fd and :td";
+        casualtyVisits = getFacade().findBySQL(j, m);
+    }
+
+    public void listClosedVisits() {
+        String j;
+        Map m = new HashMap();
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        m.put("cls", EncounterType.CloseUnitVisit);
+        j = "select v from OpdVisit v where v.encounterType=:cls "
+                + " and  v.encounterDate between :fd and :td";
+        closedVisits = getFacade().findBySQL(j, m);
+    }
+
+    public void listSpecVisits() {
+        String j;
+        Map m = new HashMap();
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        m.put("spec", EncounterType.SpecialUnitVisit);
+        j = "select v from OpdVisit v where v.encounterType=:spec "
+                + " and  v.encounterDate between :fd and :td";
+        specialVisits = getFacade().findBySQL(j, m);
+    }
+
     public String viewForm() {
         viewPrint = true;
         printPreview = true;
-        if(selected.getEncounterType() == EncounterType.OpdVisit){
-        return "/opdVisit/opd_visit";
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            return "/opdVisit/opd_visit";
         }
-        if(selected.getEncounterType() == EncounterType.Casulty){
-        return "/opdVisit/casulty_visit";
+        if (selected.getEncounterType() == EncounterType.Casulty) {
+            return "/opdVisit/casulty_visit";
         }
-        if(selected.getEncounterType() == EncounterType.CloseUnitVisit){
-        return "/opdVisit/close_unit_visit";
-        }else
-        return "/opdVisit/special_unit_visit";
-        
+        if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+            return "/opdVisit/close_unit_visit";
+        } else {
+            return "/opdVisit/special_unit_visit";
+        }
+
+    }
+
+    public List<OpdVisit> getOpdVisits() {
+        return opdVisits;
+    }
+
+    public void setOpdVisits(List<OpdVisit> opdVisits) {
+        this.opdVisits = opdVisits;
+    }
+
+    public List<OpdVisit> getClosedVisits() {
+        return closedVisits;
+    }
+
+    public void setClosedVisits(List<OpdVisit> closedVisits) {
+        this.closedVisits = closedVisits;
+    }
+
+    public List<OpdVisit> getCasualtyVisits() {
+        return casualtyVisits;
+    }
+
+    public void setCasualtyVisits(List<OpdVisit> casualtyVisits) {
+        this.casualtyVisits = casualtyVisits;
+    }
+
+    public List<OpdVisit> getSpecialVisits() {
+        return specialVisits;
+    }
+
+    public void setSpecialVisits(List<OpdVisit> specialVisits) {
+        this.specialVisits = specialVisits;
     }
 
     public void setToDate(Date toDate) {
@@ -235,35 +314,35 @@ public class OpdVisitController implements Serializable {
     ClosedUnit todaysCasualtyUnit;
     Unit indexNo;
 
-    public String saveTodaysClosedUnit(){
+    public String saveTodaysClosedUnit() {
         getTodaysClosedUnit();
         closedUnitFacade.edit(todaysClosedUnit);
         return "";
     }
-    public String saveindexNumber(){
+
+    public String saveindexNumber() {
         unitFacade.edit(indexNo);
         return "";
     }
-    
-    public String saveTodaysCasualtyUnit(){
+
+    public String saveTodaysCasualtyUnit() {
         getTodaysClosedUnit();
         closedUnitFacade.edit(todaysCasualtyUnit);
         return "";
     }
-    
-    
+
     public ClosedUnit getTodaysClosedUnit() {
-        if(todaysClosedUnit==null){
-            todaysClosedUnit=findTodayClosedUnit(new Date());
+        if (todaysClosedUnit == null) {
+            todaysClosedUnit = findTodayClosedUnit(new Date());
         }
-        if(!CommonController.twoDaysEqual(new Date(), todaysClosedUnit.getClosedDate())){
-            todaysClosedUnit=findTodayClosedUnit(new Date());
+        if (!CommonController.twoDaysEqual(new Date(), todaysClosedUnit.getClosedDate())) {
+            todaysClosedUnit = findTodayClosedUnit(new Date());
         }
         return todaysClosedUnit;
     }
 
     public Unit getIndexNo() {
-        if(indexNo == null){
+        if (indexNo == null) {
             indexNo = new Unit();
         }
         return indexNo;
@@ -273,18 +352,16 @@ public class OpdVisitController implements Serializable {
         this.indexNo = indexNo;
     }
 
-    
-
     public void setTodaysClosedUnit(ClosedUnit todaysClosedUnit) {
         this.todaysClosedUnit = todaysClosedUnit;
     }
 
     public ClosedUnit getTodaysCasualtyUnit() {
-        if(todaysCasualtyUnit==null){
-            todaysCasualtyUnit=findTodayClosedUnit(new Date());
+        if (todaysCasualtyUnit == null) {
+            todaysCasualtyUnit = findTodayClosedUnit(new Date());
         }
-        if(!CommonController.twoDaysEqual(new Date(), todaysCasualtyUnit.getClosedDate())){
-            todaysCasualtyUnit=findTodayClosedUnit(new Date());
+        if (!CommonController.twoDaysEqual(new Date(), todaysCasualtyUnit.getClosedDate())) {
+            todaysCasualtyUnit = findTodayClosedUnit(new Date());
         }
         return todaysCasualtyUnit;
     }
@@ -292,9 +369,7 @@ public class OpdVisitController implements Serializable {
     public void setTodaysCasualtyUnit(ClosedUnit todaysCasualtyUnit) {
         this.todaysCasualtyUnit = todaysCasualtyUnit;
     }
-    
-    
-    
+
     public ClosedUnit findTodayClosedUnit(Date date) {
         System.out.println("getting today's closed unit");
         String j;
@@ -302,16 +377,16 @@ public class OpdVisitController implements Serializable {
         j = "select c from ClosedUnit c where c.closedDate=:cd";
         m.put("cd", date);
         ClosedUnit c = closedUnitFacade.findFirstBySQL(j, m);
-        if(c==null){
-            c=new ClosedUnit();
+        if (c == null) {
+            c = new ClosedUnit();
             c.setClosedDate(date);
             closedUnitFacade.create(c);
         }
         return c;
     }
-    
+
     public List<Unit> todayOpenUnits(Date cd) {
-        
+
         System.out.println("getting today's open units");
         String j;
         Map m = new HashMap();
@@ -327,12 +402,13 @@ public class OpdVisitController implements Serializable {
         return c;
     }
 //0788044212
+
     public Unit nextOpdUnit(EncounterType et, Date ed, ConsultantRole cr) {
         System.out.println("calculating next opd unit");
         List<Unit> units = todayOpenUnits(ed);
         System.out.println("units available = " + units);
-        Unit selectedUnit=null;
-        long selectedCount=1000000;
+        Unit selectedUnit = null;
+        long selectedCount = 1000000;
         String j;
         Map m;
         for (Unit u : units) {
@@ -342,7 +418,7 @@ public class OpdVisitController implements Serializable {
             m.put("ed", ed);
             m.put("u", u);
             m.put("cr", cr);
-            
+
             j = "select count(v) "
                     + " from OpdVisit v "
                     + " where v.unit=:u "
@@ -350,14 +426,14 @@ public class OpdVisitController implements Serializable {
                     + " and v.unit.consultantRole=:cr "
                     + " and v.encounterType=:et ";
             Long count = getFacade().findLongByJpql(j, m, TemporalType.DATE);
-            
+
             System.out.println("count = " + count);
             System.out.println("selectedCount = " + selectedCount);
-            
-            if(count<=selectedCount){
+
+            if (count <= selectedCount) {
                 System.out.println("setting it as the selected count");
                 selectedCount = count;
-                selectedUnit=u;
+                selectedUnit = u;
             }
         }
 
@@ -453,12 +529,12 @@ public class OpdVisitController implements Serializable {
 //        }
 //    }
     public String addNewCasultyVisit() {
- 
-        if (todaysClosedUnit.getClosedUnit() == null){
+
+        if (todaysClosedUnit.getClosedUnit() == null) {
             JsfUtil.addErrorMessage("Set Todays Casualty Unit");
             return "";
         }
-        
+
         printPreview = false;
 
         selected = new OpdVisit();
@@ -494,22 +570,22 @@ public class OpdVisitController implements Serializable {
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
-        
+
         selected.setEncounterType(EncounterType.CloseUnitVisit);
         selected.setEncounterDate(new Date());
         initializeEmbeddableKey();
         return "/opdVisit/close_unit_visit";
     }
-    
+
     public String stringConversionOfSerialNo(int sn) {
         int snt = sn + 27981; //27981 because neh next sereal number is 28124 bt they tested 144 bills then (28124-144+1)
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
     }
-    
+
     public String stringConversionOfDailyNo(int sn) {
         int snt = sn + 1;
-        return todaysClosedUnit.getClosedUnit().getCode()+" "+snt;
+        return todaysClosedUnit.getClosedUnit().getCode() + " " + snt;
     }
 
     public Long annualCount() {
@@ -526,17 +602,16 @@ public class OpdVisitController implements Serializable {
         m.put("ed", new Date());
         return getFacade().findLongByJpql(j, m);
     }
-    
-    
+
     public Long todaysCasualtyCount() {
         String j = "Select count(o) from OpdVisit o where o.encounterDate=:ed "
                 + " and o.encounterType=:ec ";
         Map m = new HashMap();
         m.put("ed", new Date());
         m.put("ec", EncounterType.Casulty);
-         System.out.println("getFacade().findLongByJpql(j, m) = " + getFacade().findLongByJpql(j, m));
+        System.out.println("getFacade().findLongByJpql(j, m) = " + getFacade().findLongByJpql(j, m));
         return getFacade().findLongByJpql(j, m);
-       
+
     }
 
     public void updateDailyNo() {
@@ -547,8 +622,7 @@ public class OpdVisitController implements Serializable {
         selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
         System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
     }
-    
-     
+
     public Long todaysCount(Unit u) {
         long count;
         //select u from Unit u where type(u)!=:uc and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd
@@ -560,7 +634,7 @@ public class OpdVisitController implements Serializable {
         count = a + 1;
         return count;
     }
-    
+
 //    public Long todaysCasualtyCount(Unit u) {
 //
 //        String j;
@@ -574,7 +648,6 @@ public class OpdVisitController implements Serializable {
 //        return count;
 //        
 //    }
-
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OpdVisitCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -682,7 +755,9 @@ public class OpdVisitController implements Serializable {
             speUnit = selected.getUnit();
         }
         if (selected.getId() == null) {
-
+            selected.setIntSerialNo(annualCount().intValue());
+            selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
+            updateDailyNo();
             getFacade().create(selected);
             System.out.println("Create");
             JsfUtil.addSuccessMessage("Registered");
@@ -696,7 +771,7 @@ public class OpdVisitController implements Serializable {
         }
         return "";
     }
-    
+
     public List<ClosedUnit> getFindTodayCasualtyUnit() {
         String j;
         Map m = new HashMap();
@@ -723,7 +798,6 @@ public class OpdVisitController implements Serializable {
     public void setUnitFacade(UnitFacade unitFacade) {
         this.unitFacade = unitFacade;
     }
-    
 
     public String recreateForm() {
         System.out.println("Recreate  form");
