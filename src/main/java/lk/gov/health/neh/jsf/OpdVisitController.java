@@ -578,7 +578,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 30670; //30689 because neh next sereal number is 30688 bt they tested 18 bills then (30688-18+1)
+        int snt = sn + 80827; //to set serial number
         Calendar c = Calendar.getInstance();
         return snt + "/" + c.get(Calendar.YEAR);
     }
