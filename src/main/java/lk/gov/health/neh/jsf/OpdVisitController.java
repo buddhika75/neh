@@ -440,6 +440,10 @@ public class OpdVisitController implements Serializable {
         return selectedUnit;
     }
 
+public Long createSerialNumber() {
+        String j = "Select o.serialNumber from OpdVisit o  ";
+        return getFacade().findLongByJpql(j);
+    }
 //    public Unit nextOpdUnit(EncounterType et, Date ed) {
 //        System.out.println("calculating next opd unit");
 ////        System.out.println("ed = " + ed);

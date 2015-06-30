@@ -1,15 +1,12 @@
 package lk.gov.health.neh.jsf;
 
-import lk.gov.health.neh.entity.Unit;
+import lk.gov.health.neh.entity.SerialNumber;
 import lk.gov.health.neh.jsf.util.JsfUtil;
 import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
-import lk.gov.health.neh.session.UnitFacade;
+import lk.gov.health.neh.session.SerialNumberFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,25 +18,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import lk.gov.health.neh.entity.Ward;
 
-@ManagedBean(name = "unitController")
+@ManagedBean(name = "serialNumberController")
 @SessionScoped
-public class UnitController implements Serializable {
+public class SerialNumberController implements Serializable {
 
     @EJB
-    private lk.gov.health.neh.session.UnitFacade ejbFacade;
-    private List<Unit> items = null;
-    private Unit selected;
+    private lk.gov.health.neh.session.SerialNumberFacade ejbFacade;
+    private List<SerialNumber> items = null;
+    private SerialNumber selected;
 
-    public UnitController() {
+    public SerialNumberController() {
     }
 
-    public Unit getSelected() {
+    public SerialNumber getSelected() {
         return selected;
     }
 
-    public void setSelected(Unit selected) {
+    public void setSelected(SerialNumber selected) {
         this.selected = selected;
     }
 
@@ -49,36 +45,82 @@ public class UnitController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private UnitFacade getFacade() {
+    private SerialNumberFacade getFacade() {
         return ejbFacade;
     }
 
-    public Unit prepareCreate() {
-        selected = new Unit();
+    public SerialNumber prepareCreate() {
+        selected = new SerialNumber();
         initializeEmbeddableKey();
         return selected;
     }
+    
+    SerialNumber currentSerialNumber;
+    public String findSerialNumber() {
+        String j;
+        j = "select sn.serialNumber from SerialNumber sn Where sn.retired=false order by sn.id desc";
+        currentSerialNumber = getFacade().findFirstBySQL(j);
+        
+        return "/opdVisit/serial_number";
+    }
+
+    public SerialNumberFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(SerialNumberFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public SerialNumber getCurrentSerialNumber() {
+        if(currentSerialNumber == null){
+            currentSerialNumber = new SerialNumber();
+        }
+        return currentSerialNumber;
+    }
+
+    public void setCurrentSerialNumber(SerialNumber currentSerialNumber) {
+        this.currentSerialNumber = currentSerialNumber;
+    }
+
+    
+    
+    public void createSerialNumber(){
+        if(selected == null){
+            selected = new SerialNumber();
+            ejbFacade.create(selected);
+        }else
+            ejbFacade.edit(selected);
+    }
+    public void retireSerialNumber(){
+        if(selected != null){
+            selected.setRetired(true);
+            ejbFacade.edit(selected);
+            JsfUtil.addSuccessMessage("Successfully Deleted");
+        }
+          JsfUtil.addErrorMessage("Serial Number Is Null");
+    }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UnitCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SerialNumberCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UnitUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SerialNumberUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UnitDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SerialNumberDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Unit> getItems() {
+    public List<SerialNumber> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -113,43 +155,24 @@ public class UnitController implements Serializable {
         }
     }
 
-    public List<Unit> getItemsAvailableSelectMany() {
-        String j;
-        Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc order by u.name";
-        m.put("uc", Ward.class);
-        System.out.println("m = " + m);
-        System.out.println("j = " + j);
-        List<Unit> c = getFacade().findBySQL(j, m);
-        return c;
+    public List<SerialNumber> getItemsAvailableSelectMany() {
+        return getFacade().findAll();
     }
 
-    public List<Unit> getItemsAvailableSelectOne() {
-        String j;
-        Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc order by u.name";
-        m.put("uc", Ward.class);
-        System.out.println("m = " + m);
-        System.out.println("j = " + j);
-        List<Unit> c = getFacade().findBySQL(j, m);
-        if(c == null){
-            c = new ArrayList<Unit>();
-        }
-        return c;
+    public List<SerialNumber> getItemsAvailableSelectOne() {
+        return getFacade().findAll();
     }
-    
-    
 
-    @FacesConverter(forClass = Unit.class)
-    public static class UnitControllerConverter implements Converter {
+    @FacesConverter(forClass = SerialNumber.class)
+    public static class SerialNumberControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UnitController controller = (UnitController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "unitController");
+            SerialNumberController controller = (SerialNumberController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "serialNumberController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -170,11 +193,11 @@ public class UnitController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Unit) {
-                Unit o = (Unit) object;
+            if (object instanceof SerialNumber) {
+                SerialNumber o = (SerialNumber) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Unit.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), SerialNumber.class.getName()});
                 return null;
             }
         }

@@ -63,6 +63,7 @@
                                                     <p:menuitem value="Person" outcome="/person/List.xhtml" />
                                                     <p:menuitem value="Staff" outcome="/staff/List.xhtml" />
                                                 </p:submenu>
+                                                <p:menuitem ajax="false" value="Set Serial Number" action="#{serialNumberController.findSerialNumber()}"/>
                                                 <p:menuitem ajax="false" value="Admission" action="/admission/admission_sheet"/>
                                             </p:menubar>
                                         </h:form>
