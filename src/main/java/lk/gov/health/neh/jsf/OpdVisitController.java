@@ -22,15 +22,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.persistence.TemporalType;
 import lk.gov.health.neh.entity.ClosedUnit;
 import lk.gov.health.neh.entity.Patient;
+import lk.gov.health.neh.entity.SerialNumber;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.entity.Ward;
 import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.session.ClosedUnitFacade;
 import lk.gov.health.neh.session.EncounterFacade;
+import lk.gov.health.neh.session.SerialNumberFacade;
 import lk.gov.health.neh.session.UnitFacade;
 
 @ManagedBean(name = "opdVisitController")
@@ -440,7 +443,7 @@ public class OpdVisitController implements Serializable {
         return selectedUnit;
     }
 
-public Long createSerialNumber() {
+    public Long createSerialNumber() {
         String j = "Select o.serialNumber from OpdVisit o  ";
         return getFacade().findLongByJpql(j);
     }
@@ -532,6 +535,7 @@ public Long createSerialNumber() {
 //            
 //        }
 //    }
+
     public String addNewCasultyVisit() {
 
         if (todaysClosedUnit.getClosedUnit() == null) {
@@ -582,9 +586,47 @@ public Long createSerialNumber() {
     }
 
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 80827; //to set serial number
+
+        findSerialNumber();
+        int snum = (int) getCurrentSerialNumber().getSerialNumber();
         Calendar c = Calendar.getInstance();
-        return snt + "/" + c.get(Calendar.YEAR);
+        return snum + "/" + c.get(Calendar.YEAR);
+    }
+    
+    public void incrementSerialNumber(){
+        int snum = (int) getCurrentSerialNumber().getSerialNumber();
+        snum++;
+        currentSerialNumber.setSerialNumber(snum);
+        currentSerialNumber.setRetired(false);
+        getSerialNumberFacade().edit(currentSerialNumber);
+    }
+
+    SerialNumber currentSerialNumber;
+    @EJB
+    SerialNumberFacade serialNumberFacade;
+
+    public void findSerialNumber() {
+        String j;
+        j = "select sn from SerialNumber sn Where sn.retired=false order by sn.id desc";
+        currentSerialNumber = getSerialNumberFacade().findFirstBySQL(j);
+        System.out.println("currentSerialNumber = " + currentSerialNumber);
+    }
+
+    public SerialNumber getCurrentSerialNumber() {
+        
+        return currentSerialNumber;
+    }
+
+    public void setCurrentSerialNumber(SerialNumber currentSerialNumber) {
+        this.currentSerialNumber = currentSerialNumber;
+    }
+
+    public SerialNumberFacade getSerialNumberFacade() {
+        return serialNumberFacade;
+    }
+
+    public void setSerialNumberFacade(SerialNumberFacade serialNumberFacade) {
+        this.serialNumberFacade = serialNumberFacade;
     }
 
     public String stringConversionOfDailyNo(int sn) {
@@ -638,7 +680,7 @@ public Long createSerialNumber() {
         count = a + 1;
         return count;
     }
-
+    
 //    public Long todaysCasualtyCount(Unit u) {
 //
 //        String j;
@@ -763,6 +805,7 @@ public Long createSerialNumber() {
             selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
             updateDailyNo();
             getFacade().create(selected);
+            incrementSerialNumber();
             System.out.println("Create");
             JsfUtil.addSuccessMessage("Registered");
             printPreview = true;

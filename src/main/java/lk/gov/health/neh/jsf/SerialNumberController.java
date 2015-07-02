@@ -54,13 +54,14 @@ public class SerialNumberController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
+
     SerialNumber currentSerialNumber;
+
     public String findSerialNumber() {
         String j;
-        j = "select sn.serialNumber from SerialNumber sn Where sn.retired=false order by sn.id desc";
+        j = "select sn from SerialNumber sn Where sn.retired=false order by sn.id desc";
         currentSerialNumber = getFacade().findFirstBySQL(j);
-        
+
         return "/opdVisit/serial_number";
     }
 
@@ -73,7 +74,7 @@ public class SerialNumberController implements Serializable {
     }
 
     public SerialNumber getCurrentSerialNumber() {
-        if(currentSerialNumber == null){
+        if (currentSerialNumber == null) {
             currentSerialNumber = new SerialNumber();
         }
         return currentSerialNumber;
@@ -83,22 +84,28 @@ public class SerialNumberController implements Serializable {
         this.currentSerialNumber = currentSerialNumber;
     }
 
-    
-    
-    public void createSerialNumber(){
-        if(selected == null){
+    public void createSerialNumber() {
+        if (selected == null) {
+            long sn = 1;
             selected = new SerialNumber();
+            selected.setSerialNumber(sn);
             ejbFacade.create(selected);
-        }else
+            JsfUtil.addSuccessMessage("New Serial Number Inserted");
+        } else {
+            selected.setSerialNumber(getCurrentSerialNumber().getSerialNumber());
+            selected.setRetired(false);
             ejbFacade.edit(selected);
+            JsfUtil.addSuccessMessage("New Serial Number :- " + getCurrentSerialNumber().getSerialNumber());
+        }
     }
-    public void retireSerialNumber(){
-        if(selected != null){
+
+    public void retireSerialNumber() {
+        if (selected != null) {
             selected.setRetired(true);
             ejbFacade.edit(selected);
             JsfUtil.addSuccessMessage("Successfully Deleted");
         }
-          JsfUtil.addErrorMessage("Serial Number Is Null");
+        JsfUtil.addErrorMessage("Serial Number Is Null");
     }
 
     public void create() {

@@ -32,6 +32,7 @@ public class SerialNumber implements Serializable {
         this.retired = retired;
     }
 
+
     public long getSerialNumber() {
         return serialNumber;
     }
