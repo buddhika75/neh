@@ -86,9 +86,8 @@ public class SerialNumberController implements Serializable {
 
     public void createSerialNumber() {
         if (selected == null) {
-            long sn = 1;
             selected = new SerialNumber();
-            selected.setSerialNumber(sn);
+            selected.setSerialNumber(getCurrentSerialNumber().getSerialNumber());
             ejbFacade.create(selected);
             JsfUtil.addSuccessMessage("New Serial Number Inserted");
         } else {

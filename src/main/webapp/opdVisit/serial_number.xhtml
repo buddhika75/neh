@@ -15,12 +15,27 @@
 
         <ui:define name="body">
             <h:form id="OpdVisitListForm">
-                <p:panel header="#{bundle.ListOpdVisitTitle}">
-                    <p:inputText value="#{serialNumberController.currentSerialNumber.serialNumber}"></p:inputText>
-                    <p:commandButton ajax="false" value="Create New Serial Number" action="#{serialNumberController.createSerialNumber()}">
-                        <p:confirmDialog message="DANGER... You are about to Reset Serial Number" ></p:confirmDialog>
-                    </p:commandButton>
-                </p:panel>
+                <p:wizard>
+                    <p:tab id="reset" title="Confirmation">
+                        <p:panel header="Warrning">
+                            <h2 style="color: red">
+                                You have been WARNED... 
+                            </h2>
+                            <h3 style="color: red">
+                                Serial number will be reset.
+                            </h3>
+                            <h3 style="color: green">
+                                Please click next to confirm
+                            </h3>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="serialNumber" title="Reset Serial Number">
+                        <p:panel header="Reset Serial Number">
+                            <p:inputText value="#{serialNumberController.currentSerialNumber.serialNumber}"></p:inputText>
+                            <p:commandButton value="Reset" action="#{serialNumberController.createSerialNumber()}" ajax="false"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
             </h:form>
         </ui:define>
     </ui:composition>
