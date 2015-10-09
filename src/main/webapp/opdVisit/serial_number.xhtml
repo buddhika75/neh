@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Serial Number Reset"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="OpdVisitListForm">
+                <p:wizard>
+                    <p:tab id="reset" title="Confirmation">
+                        <p:panel header="Warrning">
+                            <h2 style="color: red">
+                                You have been WARNED... 
+                            </h2>
+                            <h3 style="color: red">
+                                Serial number will be reset.
+                            </h3>
+                            <h3 style="color: green">
+                                Please click next to confirm
+                            </h3>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="serialNumber" title="Reset Serial Number">
+                        <p:panel header="Reset Serial Number">
+                            <p:inputText value="#{serialNumberController.currentSerialNumber.serialNumber}"></p:inputText>
+                            <p:commandButton value="Reset" action="#{serialNumberController.createSerialNumber()}" ajax="false"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

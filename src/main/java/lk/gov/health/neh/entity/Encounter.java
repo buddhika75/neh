@@ -82,6 +82,15 @@ public class Encounter implements Serializable {
    String pstmediOther ="";
    String ocularHxOther ="";
    String sugicalHxOther ="";
+   long serialNumber;
+
+    public long getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(long serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 
     public String getCglassREye() {
         return cglassREye;
