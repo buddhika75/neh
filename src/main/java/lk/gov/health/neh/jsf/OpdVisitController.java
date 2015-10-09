@@ -578,9 +578,13 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 80827; //to set serial number
+        int snt = sn + 83272; //to set serial number
         Calendar c = Calendar.getInstance();
-        return snt + "/" + c.get(Calendar.YEAR);
+        String no = "" + c.get(Calendar.YEAR);
+        System.out.println("no = " + no);
+        no = no.substring(2, 4);
+        System.out.println("no = " + no);
+        return snt + "/" + no;
     }
 
     public String stringConversionOfDailyNo(int sn) {
@@ -615,6 +619,15 @@ public class OpdVisitController implements Serializable {
     }
 
     public void updateDailyNo() {
+        if (selected == null || selected.getUnit() == null) {
+            return;
+        }
+        selected.setIntDailyNo(todaysCount(selected.getUnit()).intValue());
+        selected.setDailyNo(selected.getUnit().getCode() + selected.getIntDailyNo());
+        System.out.println("selected.getDailyNo() = " + selected.getDailyNo());
+    }
+    
+     public void updateCasultyDailyNo() {
         if (selected == null || selected.getUnit() == null) {
             return;
         }
