@@ -280,6 +280,7 @@ public class OpdVisitController implements Serializable {
         Patient pt = new Patient();
         selected.setPatient(pt);
         selected.setIntSerialNo(annualCount().intValue());
+        System.out.println("selected.getIntSerialNo() = " + selected.getIntSerialNo());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
@@ -287,6 +288,7 @@ public class OpdVisitController implements Serializable {
         updateDailyNo();
         initializeEmbeddableKey();
         printPreview = false;
+        System.out.println("selected.getIntSerialNo() = " + selected.getIntSerialNo());
         return "/opdVisit/opd_visit";
     }
 
@@ -578,7 +580,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 83272; //to set serial number
+        int snt = sn + 555 + 146  ; //to set serial number
         Calendar c = Calendar.getInstance();
         String no = "" + c.get(Calendar.YEAR);
         System.out.println("no = " + no);
@@ -597,7 +599,11 @@ public class OpdVisitController implements Serializable {
         Map m = new HashMap();
         m.put("fd", CommonController.firstDateOfYear(new Date()));
         m.put("td", CommonController.lastDateOfYear(new Date()));
-        return getFacade().findLongByJpql(j, m);
+        System.out.println("m = " + m);
+        System.out.println("j = " + j);
+        Long intCount =  getFacade().findLongByJpql(j, m);
+        System.out.println("intCount = " + intCount);
+        return intCount -645;
     }
 
     public Long todaysCount() {
