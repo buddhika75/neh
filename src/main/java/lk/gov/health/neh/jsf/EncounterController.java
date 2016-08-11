@@ -6,7 +6,10 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.EncounterFacade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +21,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.TemporalType;
+import lk.gov.health.neh.enums.EncounterType;
+import lk.gov.health.neh.enums.Sex;
 
 @ManagedBean(name = "encounterController")
 @SessionScoped
@@ -27,6 +33,41 @@ public class EncounterController implements Serializable {
     private lk.gov.health.neh.session.EncounterFacade ejbFacade;
     private List<Encounter> items = null;
     private Encounter selected;
+
+    Long maleCount;
+    Long femaleCount;
+    Long childrenCount;
+    Long adultCount;
+    Long opdCount;
+    Long casultyCount;
+    Long maleChildrenCount;
+    Long femaleChildrenCount;
+    Long maleAdultCount;
+    Long femaleAdultCount;
+    Date fromDate;
+    Date toDate;
+
+    public String visitCountByGender() {
+        maleCount = visitCount(EncounterType.Casulty, Sex.Male, fromDate, toDate);
+        return "";
+    }
+
+    public Long visitCount(EncounterType type, Sex sex, Date fromDate, Date toDate) {
+        String jpql = "select count(e) "
+                + " from Encounter e "
+                + " where e.encounterDate between :fd and :td";
+        Map m = new HashMap();
+
+        if (type != null) {
+            jpql += "e.encounterType=:ec ";
+        }
+        if (sex != null) {
+            jpql += " and e.patient.sex=:sex";
+        }
+        m.put("ec", type);
+        m.put("sex", sex);
+        return getFacade().findAggregateLong(jpql, m, TemporalType.DATE);
+    }
 
     public EncounterController() {
     }
