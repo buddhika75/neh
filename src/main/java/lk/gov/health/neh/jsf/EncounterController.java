@@ -6,6 +6,7 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.EncounterFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.persistence.TemporalType;
 import lk.gov.health.neh.enums.EncounterType;
+import lk.gov.health.neh.enums.RecordData;
 import lk.gov.health.neh.enums.Sex;
 
 @ManagedBean(name = "encounterController")
@@ -36,6 +38,8 @@ public class EncounterController implements Serializable {
 
     Long maleCount;
     Long femaleCount;
+    Long otherSexCount;
+    Long missingSexCount;
     Long childrenCount;
     Long adultCount;
     Long opdCount;
@@ -44,11 +48,35 @@ public class EncounterController implements Serializable {
     Long femaleChildrenCount;
     Long maleAdultCount;
     Long femaleAdultCount;
+    Long totalCount;
     Date fromDate;
     Date toDate;
+    List<RecordData> recordData;
 
     public String visitCountByGender() {
-        maleCount = visitCount(EncounterType.Casulty, Sex.Male, fromDate, toDate);
+        recordData = new ArrayList<RecordData>();
+        
+        maleCount = visitCount(null, Sex.Male, fromDate, toDate);
+        RecordData rmc = new RecordData("Males",maleCount);
+        recordData.add(rmc);
+        
+        femaleCount = visitCount(null, Sex.Female, fromDate, toDate);
+        RecordData rmf = new RecordData("Females",maleCount);
+        recordData.add(rmf);
+        
+        otherSexCount = visitCount(null, Sex.Other, fromDate, toDate);
+        RecordData osc = new RecordData("Other",maleCount);
+        recordData.add(osc);
+        
+        totalCount = visitCount(null, null, fromDate, toDate);
+        
+        missingSexCount = totalCount - (maleCount+femaleCount+otherSexCount);
+        RecordData mc = new RecordData("Missing",maleCount);
+        recordData.add(mc);
+        
+        RecordData tc = new RecordData("Total",maleCount);
+        recordData.add(tc);
+        
         return "";
     }
 
@@ -57,16 +85,150 @@ public class EncounterController implements Serializable {
                 + " from Encounter e "
                 + " where e.encounterDate between :fd and :td";
         Map m = new HashMap();
-
+        m.put("fd", fromDate);
+        m.put("td", toDate);
         if (type != null) {
-            jpql += "e.encounterType=:ec ";
+            jpql += "e.encounterType=:et ";
+            m.put("et", type);
         }
         if (sex != null) {
             jpql += " and e.patient.sex=:sex";
+            m.put("sex", sex);
         }
-        m.put("ec", type);
-        m.put("sex", sex);
         return getFacade().findAggregateLong(jpql, m, TemporalType.DATE);
+    }
+
+    public List<RecordData> getRecordData() {
+        return recordData;
+    }
+
+    public void setRecordData(List<RecordData> recordData) {
+        this.recordData = recordData;
+    }
+
+    
+    
+    public Long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public Long getOtherSexCount() {
+        return otherSexCount;
+    }
+
+    public void setOtherSexCount(Long otherSexCount) {
+        this.otherSexCount = otherSexCount;
+    }
+
+    public Long getMissingSexCount() {
+        return missingSexCount;
+    }
+
+    public void setMissingSexCount(Long missingSexCount) {
+        this.missingSexCount = missingSexCount;
+    }
+
+    
+    
+    
+    public Long getMaleCount() {
+        return maleCount;
+    }
+
+    public void setMaleCount(Long maleCount) {
+        this.maleCount = maleCount;
+    }
+
+    public Long getFemaleCount() {
+        return femaleCount;
+    }
+
+    public void setFemaleCount(Long femaleCount) {
+        this.femaleCount = femaleCount;
+    }
+
+    public Long getChildrenCount() {
+        return childrenCount;
+    }
+
+    public void setChildrenCount(Long childrenCount) {
+        this.childrenCount = childrenCount;
+    }
+
+    public Long getAdultCount() {
+        return adultCount;
+    }
+
+    public void setAdultCount(Long adultCount) {
+        this.adultCount = adultCount;
+    }
+
+    public Long getOpdCount() {
+        return opdCount;
+    }
+
+    public void setOpdCount(Long opdCount) {
+        this.opdCount = opdCount;
+    }
+
+    public Long getCasultyCount() {
+        return casultyCount;
+    }
+
+    public void setCasultyCount(Long casultyCount) {
+        this.casultyCount = casultyCount;
+    }
+
+    public Long getMaleChildrenCount() {
+        return maleChildrenCount;
+    }
+
+    public void setMaleChildrenCount(Long maleChildrenCount) {
+        this.maleChildrenCount = maleChildrenCount;
+    }
+
+    public Long getFemaleChildrenCount() {
+        return femaleChildrenCount;
+    }
+
+    public void setFemaleChildrenCount(Long femaleChildrenCount) {
+        this.femaleChildrenCount = femaleChildrenCount;
+    }
+
+    public Long getMaleAdultCount() {
+        return maleAdultCount;
+    }
+
+    public void setMaleAdultCount(Long maleAdultCount) {
+        this.maleAdultCount = maleAdultCount;
+    }
+
+    public Long getFemaleAdultCount() {
+        return femaleAdultCount;
+    }
+
+    public void setFemaleAdultCount(Long femaleAdultCount) {
+        this.femaleAdultCount = femaleAdultCount;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
     }
 
     public EncounterController() {

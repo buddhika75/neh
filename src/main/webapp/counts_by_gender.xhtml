@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="body" >
+
+
+                <p:panel header="Visit Count By Gender" >
+                    <h:form  >
+                        <p:panelGrid columns="2" style="border-color: white">
+                            <p:outputLabel value="From Date" ></p:outputLabel>
+                            <p:calendar value="#{encounterController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                            <p:outputLabel value="To Date" ></p:outputLabel>
+                            <p:calendar value="#{encounterController.toDate}" pattern="dd MMMM yyyy"></p:calendar>
+                            <p:commandButton value="Process" ajax="false" action="#{encounterController.visitCountByGender}" ></p:commandButton>
+                        </p:panelGrid>
+
+                        <p:dataTable value="#{encounterController.recordData}" var="rc">
+                            <p:column >
+                                <p:outputLabel value="#{rc.name}" ></p:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <p:outputLabel value="#{rc.value}" ></p:outputLabel>
+                            </p:column>
+                        </p:dataTable>
+
+                        <table border="1" style="padding: 10px;">
+                            <tr>
+                                <th style="font-weight: bold; text-align: left;">Gender</th>
+                                <th style="font-weight: bold; text-align: left;">Count</th>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: left;">Male</td>
+                                <td style="text-align: right;padding: 5px;">#{encounterController.maleCount}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: left;">Female</td>
+                                <td style="text-align: right;padding: 5px;">#{encounterController.femaleCount}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: left;">Other</td>
+                                <td style="text-align: right;padding: 5px;">#{encounterController.otherSexCount}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: left;">Not Recorded</td>
+                                <td style="text-align: right;padding: 5px;">#{encounterController.missingSexCount}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; text-align: left;">Total</td>
+                                <td style="text-align: right;padding: 5px;">#{encounterController.totalCount}</td>
+                            </tr>
+                        </table>
+                    </h:form>
+
+                </p:panel>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

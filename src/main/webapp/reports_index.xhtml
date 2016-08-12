@@ -8,7 +8,7 @@
 
     <body>
 
-        <ui:composition template="./template.xhtml">
+        <ui:composition template="/template.xhtml">
 
             <ui:define name="body" >
 
@@ -16,7 +16,7 @@
                 <p:panel header="Use menu to access functions." >
                     <h:form  >
                         <p:panelGrid columns="2" style="border-color: white">
-                            <p:commandButton value="OPD & Casulty Visits by Gender" ajax="false" action="/reports/counts_by_gender" ></p:commandButton>
+                            <p:commandButton value="OPD &amp; Casulty Visits by Gender" ajax="false" action="counts_by_gender" ></p:commandButton>
 
 
 
