@@ -15,49 +15,50 @@
 
                 <p:panel header="Visit Count By Gender" >
                     <h:form  >
-                        <p:panelGrid columns="2" style="border-color: white">
-                            <p:outputLabel value="From Date" ></p:outputLabel>
-                            <p:calendar value="#{encounterController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
-                            <p:outputLabel value="To Date" ></p:outputLabel>
-                            <p:calendar value="#{encounterController.toDate}" pattern="dd MMMM yyyy"></p:calendar>
-                            <p:commandButton value="Process" ajax="false" action="#{encounterController.visitCountByGender}" ></p:commandButton>
-                        </p:panelGrid>
 
-                        <p:dataTable value="#{encounterController.recordData}" var="rc">
+                        <h:panelGrid columns="2" >
+
+                            <p:panelGrid columns="2" style="border-color: white">
+                                <p:outputLabel value="From Date" ></p:outputLabel>
+                                <p:calendar value="#{encounterController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                                <p:outputLabel value="To Date" ></p:outputLabel>
+                                <p:calendar value="#{encounterController.toDate}" pattern="dd MMMM yyyy"></p:calendar>
+
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="2" style="border-color: white">
+                                <p:commandButton value="Process" ajax="false" action="#{encounterController.visitCountByGender}" ></p:commandButton>
+                                <p:commandButton ajax="false" value="Excel">
+                                    <p:dataExporter type="xls" target="tbl" fileName="visits_by_gender" pageOnly="true"/>
+                                </p:commandButton>
+                            </p:panelGrid>
+
+                        </h:panelGrid>
+
+                        <p:dataTable id="tbl" value="#{encounterController.recordData}" var="rc" style="width: 300px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{encounterController.headerString}"  />
+                            </f:facet>
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="2" headerText="#{encounterController.dateString}" />
+                                </p:row>
+                            </p:columnGroup>
                             <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Gender" />
+                                </f:facet>
                                 <p:outputLabel value="#{rc.name}" ></p:outputLabel>
                             </p:column>
                             <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Count" />
+                                </f:facet>
                                 <p:outputLabel value="#{rc.value}" ></p:outputLabel>
                             </p:column>
                         </p:dataTable>
 
-                        <table border="1" style="padding: 10px;">
-                            <tr>
-                                <th style="font-weight: bold; text-align: left;">Gender</th>
-                                <th style="font-weight: bold; text-align: left;">Count</th>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; text-align: left;">Male</td>
-                                <td style="text-align: right;padding: 5px;">#{encounterController.maleCount}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; text-align: left;">Female</td>
-                                <td style="text-align: right;padding: 5px;">#{encounterController.femaleCount}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; text-align: left;">Other</td>
-                                <td style="text-align: right;padding: 5px;">#{encounterController.otherSexCount}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; text-align: left;">Not Recorded</td>
-                                <td style="text-align: right;padding: 5px;">#{encounterController.missingSexCount}</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold; text-align: left;">Total</td>
-                                <td style="text-align: right;padding: 5px;">#{encounterController.totalCount}</td>
-                            </tr>
-                        </table>
+
                     </h:form>
 
                 </p:panel>

@@ -6,7 +6,9 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.EncounterFacade;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +54,8 @@ public class EncounterController implements Serializable {
     Date fromDate;
     Date toDate;
     List<RecordData> recordData;
+    String dateString;
+    String headerString;
 
     public String visitCountByGender() {
         recordData = new ArrayList<RecordData>();
@@ -61,26 +65,30 @@ public class EncounterController implements Serializable {
         recordData.add(rmc);
         
         femaleCount = visitCount(null, Sex.Female, fromDate, toDate);
-        RecordData rmf = new RecordData("Females",maleCount);
+        RecordData rmf = new RecordData("Females",femaleCount);
         recordData.add(rmf);
         
         otherSexCount = visitCount(null, Sex.Other, fromDate, toDate);
-        RecordData osc = new RecordData("Other",maleCount);
+        RecordData osc = new RecordData("Other",otherSexCount);
         recordData.add(osc);
         
         totalCount = visitCount(null, null, fromDate, toDate);
         
         missingSexCount = totalCount - (maleCount+femaleCount+otherSexCount);
-        RecordData mc = new RecordData("Missing",maleCount);
+        RecordData mc = new RecordData("Missing",missingSexCount);
         recordData.add(mc);
         
-        RecordData tc = new RecordData("Total",maleCount);
+        RecordData tc = new RecordData("Total",totalCount);
         recordData.add(tc);
         
         return "";
     }
 
     public Long visitCount(EncounterType type, Sex sex, Date fromDate, Date toDate) {
+        headerString = "OPD & Casulty Visit Counts";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy"); 
+        dateString = "From " + sdf. format(fromDate) + " to "+ sdf. format(toDate) ;
+        
         String jpql = "select count(e) "
                 + " from Encounter e "
                 + " where e.encounterDate between :fd and :td";
@@ -104,6 +112,22 @@ public class EncounterController implements Serializable {
 
     public void setRecordData(List<RecordData> recordData) {
         this.recordData = recordData;
+    }
+
+    public String getDateString() {
+        return dateString;
+    }
+
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
+    }
+
+    public String getHeaderString() {
+        return headerString;
+    }
+
+    public void setHeaderString(String headerString) {
+        this.headerString = headerString;
     }
 
     
