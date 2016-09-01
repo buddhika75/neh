@@ -26,19 +26,26 @@
 
                             </p:panelGrid>
 
-                            <p:panelGrid columns="2" style="border-color: white">
-                                <p:commandButton value="Process" ajax="false" action="#{encounterController.visitCountByGender}" ></p:commandButton>
-                                <p:commandButton ajax="false" value="Excel">
-                                    <p:dataExporter type="xls" target="tbl" fileName="visits_by_gender" pageOnly="true"/>
-                                </p:commandButton>
+                            <p:panelGrid columns="3" style="border-color: white">
+                                <p:commandButton value="Count OPD &nbsp; Casulty Visits" ajax="false" action="#{encounterController.opdAndCasultyVisitCountsByGender}" ></p:commandButton>
+                                <p:commandButton value="Count OPD Visits" ajax="false" action="#{encounterController.opdVisitCountsByGender}" ></p:commandButton>
+                                <p:commandButton value="Count Casulty Visits" ajax="false" action="#{encounterController.casultyVisitCountsByGender}" ></p:commandButton>
                             </p:panelGrid>
 
                         </h:panelGrid>
+
+
 
                         <p:dataTable id="tbl" value="#{encounterController.recordData}" var="rc" style="width: 300px;">
                             <f:facet name="header">
                                 <h:outputText value="#{encounterController.headerString}"  />
                             </f:facet>
+                            <f:facet name="footer">
+                                <h:commandButton  value="Export to Excel" style="float: left;">
+                                    <p:dataExporter type="xls" target="tbl" fileName="visits_by_gender" pageOnly="true"/>
+                                </h:commandButton>
+                            </f:facet>
+
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="#{encounterController.dateString}" />

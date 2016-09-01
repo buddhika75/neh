@@ -23,6 +23,7 @@ import lk.gov.health.neh.enums.Nationality;
 import lk.gov.health.neh.enums.Religion;
 import lk.gov.health.neh.enums.Sex;
 import lk.gov.health.neh.enums.Title;
+import lk.gov.health.neh.enums.UserRole;
 
 /**
  *
@@ -60,6 +61,10 @@ public class Person implements Serializable {
     Item district;
     String telephoneNo;
 
+    
+    @Enumerated(EnumType.STRING)
+    UserRole userRole;
+    
     public String getName() {
         return name;
     }
@@ -133,7 +138,11 @@ public class Person implements Serializable {
     }
 
     public String getNameWithTitle() {
-        return nameWithTitle;
+        if (title != null) {
+            return title + " " + name;
+        }else{
+            return name;
+        }
     }
 
     public void setNameWithTitle(String nameWithTitle) {
@@ -149,7 +158,7 @@ public class Person implements Serializable {
     }
 
     public Item getOccupation() {
-        if(occupation == null){
+        if (occupation == null) {
             occupation = new Item();
         }
         return occupation;
@@ -175,6 +184,16 @@ public class Person implements Serializable {
         this.telephoneNo = telephoneNo;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

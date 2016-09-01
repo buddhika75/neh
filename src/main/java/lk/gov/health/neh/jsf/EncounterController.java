@@ -57,38 +57,60 @@ public class EncounterController implements Serializable {
     String dateString;
     String headerString;
 
-    public String visitCountByGender() {
-        recordData = new ArrayList<RecordData>();
-        
-        maleCount = visitCount(null, Sex.Male, fromDate, toDate);
-        RecordData rmc = new RecordData("Males",maleCount);
-        recordData.add(rmc);
-        
-        femaleCount = visitCount(null, Sex.Female, fromDate, toDate);
-        RecordData rmf = new RecordData("Females",femaleCount);
-        recordData.add(rmf);
-        
-        otherSexCount = visitCount(null, Sex.Other, fromDate, toDate);
-        RecordData osc = new RecordData("Other",otherSexCount);
-        recordData.add(osc);
-        
-        totalCount = visitCount(null, null, fromDate, toDate);
-        
-        missingSexCount = totalCount - (maleCount+femaleCount+otherSexCount);
-        RecordData mc = new RecordData("Missing",missingSexCount);
-        recordData.add(mc);
-        
-        RecordData tc = new RecordData("Total",totalCount);
-        recordData.add(tc);
-        
+    public String opdAndCasultyVisitCountsByGender() {
+        List<EncounterType> ets = new ArrayList<EncounterType>();
+        ets.add(EncounterType.Casulty);
+        ets.add(EncounterType.OpdVisit);
+        visitCountsByGender(ets);
+        return "";
+    }
+    
+    public String opdVisitCountsByGender() {
+        List<EncounterType> ets = new ArrayList<EncounterType>();
+        ets.add(EncounterType.OpdVisit);
+        visitCountsByGender(ets);
+        return "";
+    }
+    
+    public String casultyVisitCountsByGender() {
+        List<EncounterType> ets = new ArrayList<EncounterType>();
+        ets.add(EncounterType.Casulty);
+        visitCountsByGender(ets);
         return "";
     }
 
-    public Long visitCount(EncounterType type, Sex sex, Date fromDate, Date toDate) {
+    public String visitCountsByGender(List<EncounterType> type) {
+        recordData = new ArrayList<RecordData>();
+
+        maleCount = visitCount(type, Sex.Male, fromDate, toDate);
+        RecordData rmc = new RecordData("Males", maleCount);
+        recordData.add(rmc);
+
+        femaleCount = visitCount(type, Sex.Female, fromDate, toDate);
+        RecordData rmf = new RecordData("Females", femaleCount);
+        recordData.add(rmf);
+
+        otherSexCount = visitCount(type, Sex.Other, fromDate, toDate);
+        RecordData osc = new RecordData("Other", otherSexCount);
+        recordData.add(osc);
+
+        totalCount = visitCount(type, null, fromDate, toDate);
+
+        missingSexCount = totalCount - (maleCount + femaleCount + otherSexCount);
+        RecordData mc = new RecordData("Missing", missingSexCount);
+        recordData.add(mc);
+
+        RecordData tc = new RecordData("Total", totalCount);
+        recordData.add(tc);
+
+        return "";
+    }
+
+    public Long visitCount(List<EncounterType> type, Sex sex, Date fromDate, Date toDate) {
         headerString = "OPD & Casulty Visit Counts";
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy"); 
-        dateString = "From " + sdf. format(fromDate) + " to "+ sdf. format(toDate) ;
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MMMM/yyyy");
+        dateString = "From " + sdf.format(fromDate) + " to " + sdf.format(toDate);
+
         String jpql = "select count(e) "
                 + " from Encounter e "
                 + " where e.encounterDate between :fd and :td";
@@ -96,7 +118,7 @@ public class EncounterController implements Serializable {
         m.put("fd", fromDate);
         m.put("td", toDate);
         if (type != null) {
-            jpql += "e.encounterType=:et ";
+            jpql += " and e.encounterType in :et ";
             m.put("et", type);
         }
         if (sex != null) {
@@ -130,8 +152,6 @@ public class EncounterController implements Serializable {
         this.headerString = headerString;
     }
 
-    
-    
     public Long getTotalCount() {
         return totalCount;
     }
@@ -156,9 +176,6 @@ public class EncounterController implements Serializable {
         this.missingSexCount = missingSexCount;
     }
 
-    
-    
-    
     public Long getMaleCount() {
         return maleCount;
     }

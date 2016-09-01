@@ -9,8 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.ItemType;
+import lk.gov.health.neh.enums.Nationality;
+import lk.gov.health.neh.enums.Religion;
 import lk.gov.health.neh.enums.Sex;
 import lk.gov.health.neh.enums.Title;
+import lk.gov.health.neh.enums.UserRole;
 
 /**
  *
@@ -28,6 +31,18 @@ public class EnumController {
     
     public Title[] getTitles(){
         return Title.values();
+    }
+    
+    public Religion[] getReligions(){
+        return Religion.values();
+    }
+    
+     public UserRole[] getUserRoles(){
+        return UserRole.values();
+    }
+    
+    public Nationality[] getNationalities(){
+        return Nationality.values();
     }
     
     public ConsultantRole[] getConsultantRoles(){

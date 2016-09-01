@@ -136,7 +136,7 @@ public class ItemController implements Serializable {
         String j;
         Map m = new HashMap();
         m.put("it", it);
-        m.put("n", qry.toUpperCase());
+        m.put("n", "%"+ qry.toUpperCase() + "%");
         j = "Select i from Item i where i.retired=false and i.itemType=:it and upper(i.name) like :n order by i.name";
         return getFacade().findBySQL(j, m);
     }
