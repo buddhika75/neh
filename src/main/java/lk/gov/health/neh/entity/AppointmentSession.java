@@ -59,6 +59,128 @@ public class AppointmentSession implements Serializable {
         this.id = id;
     }
 
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    public Consultant getConsultant() {
+        return consultant;
+    }
+
+    public void setConsultant(Consultant consultant) {
+        this.consultant = consultant;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public AppointmentSessionType getType() {
+        return type;
+    }
+
+    public void setType(AppointmentSessionType type) {
+        this.type = type;
+    }
+
+    public AppointmentSessionDateType getDateType() {
+        return dateType;
+    }
+
+    public void setDateType(AppointmentSessionDateType dateType) {
+        this.dateType = dateType;
+    }
+
+    public Date getSessionDate() {
+        return sessionDate;
+    }
+
+    public void setSessionDate(Date sessionDate) {
+        this.sessionDate = sessionDate;
+    }
+
+    public Weekday getSessionWeekday() {
+        return sessionWeekday;
+    }
+
+    public void setSessionWeekday(Weekday sessionWeekday) {
+        this.sessionWeekday = sessionWeekday;
+    }
+
+    public int getWeekOfMonth() {
+        return weekOfMonth;
+    }
+
+    public void setWeekOfMonth(int weekOfMonth) {
+        this.weekOfMonth = weekOfMonth;
+    }
+
+    public Date getSessionFrom() {
+        return sessionFrom;
+    }
+
+    public void setSessionFrom(Date sessionFrom) {
+        this.sessionFrom = sessionFrom;
+    }
+
+    public Date getSessionTo() {
+        return sessionTo;
+    }
+
+    public void setSessionTo(Date sessionTo) {
+        this.sessionTo = sessionTo;
+    }
+
+    public int getNumberOfAppointments() {
+        return numberOfAppointments;
+    }
+
+    public void setNumberOfAppointments(int numberOfAppointments) {
+        this.numberOfAppointments = numberOfAppointments;
+    }
+
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public int getAdditionalManagerAppointments() {
+        return additionalManagerAppointments;
+    }
+
+    public void setAdditionalManagerAppointments(int additionalManagerAppointments) {
+        this.additionalManagerAppointments = additionalManagerAppointments;
+    }
+
+    public int getAdditionalSuperUserAppointments() {
+        return additionalSuperUserAppointments;
+    }
+
+    public void setAdditionalSuperUserAppointments(int additionalSuperUserAppointments) {
+        this.additionalSuperUserAppointments = additionalSuperUserAppointments;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

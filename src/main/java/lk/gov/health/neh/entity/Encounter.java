@@ -55,34 +55,70 @@ public class Encounter implements Serializable {
     String valnc = "";
     String varc = "";
     String valc = "";
-    
+
     String nonAidREye;
     String nonAidLEye;
     String cglassREye;
     String cglassLEye;
-    
+
     Boolean dm;
     Boolean hpt;
     Boolean ihd;
     Boolean ba;
     Boolean allergy;
+
+    Boolean trauma;
+    Boolean glaucoma;
+    Boolean laserRx;
+    Boolean avastinIng;
+    Boolean pst;
+    Boolean cataractSx;
+    Boolean trab;
+    Boolean tppv;
+    Boolean pkp;
+    Boolean squint;
+
+    String pstmediOther = "";
+    String ocularHxOther = "";
+    String sugicalHxOther = "";
+    long serialNumber;
+
+    @ManyToOne
+    AppointmentSession appointmentSession;
+    boolean cancelled;
+
+    @ManyToOne
+    Encounter parent;
     
-   Boolean trauma;
-   Boolean glaucoma;
-   Boolean laserRx;
-   Boolean avastinIng;
-   Boolean pst;
-   Boolean cataractSx;
-   Boolean trab;
-   Boolean tppv;
-   Boolean pkp;
-   Boolean squint;
-   
-   
-   String pstmediOther ="";
-   String ocularHxOther ="";
-   String sugicalHxOther ="";
-   long serialNumber;
+    
+
+    public Encounter getParent() {
+        return parent;
+    }
+
+    public void setParent(Encounter parent) {
+        this.parent = parent;
+    }
+    
+    
+    
+    public AppointmentSession getAppointmentSession() {
+        return appointmentSession;
+    }
+
+    public void setAppointmentSession(AppointmentSession appointmentSession) {
+        this.appointmentSession = appointmentSession;
+    }
+
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+    
+    
 
     public long getSerialNumber() {
         return serialNumber;
@@ -251,7 +287,7 @@ public class Encounter implements Serializable {
     public void setSugicalHxOther(String sugicalHxOther) {
         this.sugicalHxOther = sugicalHxOther;
     }
-   
+
     public EncounterType getEncounterType() {
         return encounterType;
     }
@@ -325,7 +361,7 @@ public class Encounter implements Serializable {
     }
 
     public Patient getPatient() {
-        if (patient == null){
+        if (patient == null) {
             patient = new Patient();
         }
         return patient;
@@ -406,8 +442,6 @@ public class Encounter implements Serializable {
     public void setClosedUnit(ClosedUnit closedUnit) {
         this.closedUnit = closedUnit;
     }
-    
-    
 
     public Long getId() {
         return id;

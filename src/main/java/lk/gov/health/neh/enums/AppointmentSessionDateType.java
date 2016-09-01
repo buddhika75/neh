@@ -14,4 +14,5 @@ public enum AppointmentSessionDateType {
     SingleDay,
     Fortnight,
     Monthly,
+    Holiday,
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AppointmentSessionViewDlg" widgetVar="AppointmentSessionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAppointmentSessionTitle}">
+            <h:form id="AppointmentSessionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{appointmentSessionController.selected != null}">
+
+
+                        <h:outputText value="Id:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.id}" title="Id"/>
+                        <h:outputText value="Unit:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.unit}" title="Unit"/>
+                        <h:outputText value="Ward:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.ward}" title="Ward"/>
+                        <h:outputText value="Consultant:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.consultant}" title="Consultant"/>
+                        <h:outputText value="SessionName:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.sessionName}" title="SessionName"/>
+                        <h:outputText value="Type:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.type}" title="Type"/>
+                        <h:outputText value="DateType:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.dateType}" title="DateType"/>
+                        <h:outputText value="SessionDate:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.sessionDate}" title="SessionDate">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="SessionWeekday:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.sessionWeekday}" title="SessionWeekday"/>
+                        <h:outputText value="WeekOfMonth:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.weekOfMonth}" title="WeekOfMonth"/>
+                        <h:outputText value="SessionFrom:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.sessionFrom}" title="SessionFrom">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="SessionTo:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.sessionTo}" title="SessionTo">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="NumberOfAppointments:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.numberOfAppointments}" title="NumberOfAppointments"/>
+                        <h:outputText value="DurationInMinutes:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.durationInMinutes}" title="DurationInMinutes"/>
+                        <h:outputText value="AdditionalManagerAppointments:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.additionalManagerAppointments}" title="AdditionalManagerAppointments"/>
+                        <h:outputText value="AdditionalSuperUserAppointments:"/>
+                        <h:outputText value="#{appointmentSessionController.selected.additionalSuperUserAppointments}" title="AdditionalSuperUserAppointments"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AppointmentSessionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

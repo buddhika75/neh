@@ -29,7 +29,7 @@
                                     </td>
                                 </tr>
                             </h:panelGroup>
-                            
+
 
                             <h:panelGroup rendered="#{staffController.logged}">
 
@@ -55,6 +55,7 @@
                                                     <p:menuitem ajax="false" value="OPD Visit Register" action="/opdVisit/opd_visit_register"/>
                                                 </p:submenu>
                                                 <p:submenu label="#{bundle.Maintenance}">
+                                                    <p:menuitem ajax="false" value="Set Serial Number" action="#{serialNumberController.findSerialNumber()}"/>
                                                     <p:menuitem value="Institution" outcome="/institution/List.xhtml" />
                                                     <p:menuitem value="Items" outcome="/item/List.xhtml" />
                                                     <p:menuitem value="Consultant" outcome="/consultant/List.xhtml" />
@@ -65,8 +66,12 @@
                                                     <p:menuitem value="Person" outcome="/person/List.xhtml" />
                                                     <p:menuitem value="Staff" outcome="/staff/List.xhtml" />
                                                 </p:submenu>
-                                                <p:menuitem ajax="false" value="Set Serial Number" action="#{serialNumberController.findSerialNumber()}"/>
-                                                <p:menuitem ajax="false" value="Admission" action="/admission/admission_sheet"/>
+                                                <p:submenu label="#{bundle.Appointments}">
+                                                    <p:menuitem ajax="false" value="#{bundle.GiveAppointments}" action="#{appointmentSessionController.toAddNewAppointmentByAddingPatient()}"/>
+                                                    <p:menuitem ajax="false" value="#{bundle.ScheduleAppointment}" outcome="/appointments/List.xhtml"/>
+                                                </p:submenu>
+
+
                                             </p:menubar>
                                         </h:form>
                                     </td>
@@ -129,7 +134,7 @@
                                                     numVisible="1"   effect="easeInStrong" circular="true" style="text-align: center;">  
                                             <p:graphicImage library="images" name="slide1.jpg" style="width: 880px!important; height: 220px;"/>  
                                             <p:graphicImage library="images" name="slide7.png"  style="width: 880px!important; height: 220px;"/>  
-                                             
+
                                         </p:carousel>
                                     </td>
                                 </tr>
@@ -145,10 +150,10 @@
                         <ui:insert name="footer">
                             <h:form >
                                 <p:commandLink rendered="#{staffController.logged}"
-                                    value="You are logged as #{staffController.loggedStaff.userName}. Logout" action="#{staffController.logout()}" ajax="false" ></p:commandLink>
+                                               value="You are logged as #{staffController.loggedStaff.userName} from #{staffController.loggedUnit.name}. Logout" action="#{staffController.logout()}" ajax="false" ></p:commandLink>
                             </h:form>
                             <p:outputLabel value="Please login to continue ... " rendered="#{!staffController.logged}" ></p:outputLabel>
-                       
+
                         </ui:insert>
                     </td>
                 </tr>

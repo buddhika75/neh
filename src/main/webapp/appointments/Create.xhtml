@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AppointmentSessionCreateDlg" widgetVar="AppointmentSessionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNewAppointment}">
+            <h:form id="AppointmentSessionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{appointmentSessionController.selected != null}">
+                        <p:outputLabel value="Unit:" for="unit" />
+                        <p:selectOneMenu id="unit" value="#{appointmentSessionController.selected.unit}" >
+                            <f:selectItem itemLabel="Select Unit"/>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="unitItem"
+                                           itemValue="#{unitItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Ward:" for="ward" />
+                        <p:selectOneMenu id="ward" value="#{appointmentSessionController.selected.ward}" >
+                            <f:selectItem itemLabel="Select Ward"/>
+                            <f:selectItems value="#{wardController.itemsAvailableSelectOne}"
+                                           var="wardItem"
+                                           itemValue="#{wardItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Consultant:" for="consultant" />
+                        <p:selectOneMenu id="consultant" value="#{appointmentSessionController.selected.consultant}" >
+                            <f:selectItem itemLabel="Select Consultant"/>
+                            <f:selectItems value="#{consultantController.itemsAvailableSelectOne}" var="con"
+                                           itemLabel="#{con.nameWithTitle}" itemValue="#{con}" ></f:selectItems>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="SessionName:" for="sessionName" />
+                        <p:inputText id="sessionName" value="#{appointmentSessionController.selected.sessionName}" title="SessionName" />
+
+                        <p:outputLabel value="Type:" for="type" />
+                        <p:selectOneMenu id="type" value="#{appointmentSessionController.selected.type}" >
+                            <f:selectItems value="#{enumController.appointmentSessionTypes}" ></f:selectItems>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="DateType:" for="dateType" />
+                        <p:selectOneMenu id="dateType" value="#{appointmentSessionController.selected.dateType}" >
+                            <f:selectItem itemLabel="Select Date Type"/>
+                            <f:selectItems value="#{enumController.appointmentSessionDateTypes}" ></f:selectItems>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="SessionDate:" for="sessionDate" />
+                        <p:calendar id="sessionDate" value="#{appointmentSessionController.selected.sessionDate}" title="SessionDate" pattern="d/M/yyyy" >
+                        </p:calendar>
+
+                        <p:outputLabel value="SessionWeekday:" for="sessionWeekday" />
+                        <p:selectOneMenu id="sessionWeekday" value="#{appointmentSessionController.selected.sessionWeekday}" >
+                            <f:selectItem itemLabel="Select Weekday"/>
+                            <f:selectItems value="#{enumController.weekdays}" ></f:selectItems>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="WeekOfMonth:" for="weekOfMonth" />
+                        <p:inputText id="weekOfMonth" value="#{appointmentSessionController.selected.weekOfMonth}" title="WeekOfMonth" />
+                        
+                        <p:outputLabel value="SessionFrom:" for="sessionFrom" />
+                        <p:calendar id="sessionFrom" value="#{appointmentSessionController.selected.sessionFrom}" title="SessionFrom" timeOnly="true" pattern="HH:mm" >
+                        </p:calendar>
+                        
+                        <p:outputLabel value="SessionTo:" for="sessionTo" />
+                        <p:calendar id="sessionTo" value="#{appointmentSessionController.selected.sessionTo}" title="SessionTo" timeOnly="true"  pattern="HH:mm" >
+                        </p:calendar>
+                        
+                        <p:outputLabel value="NumberOfAppointments:" for="numberOfAppointments" />
+                        <p:inputText id="numberOfAppointments" value="#{appointmentSessionController.selected.numberOfAppointments}" title="NumberOfAppointments" />
+                        <p:outputLabel value="DurationInMinutes:" for="durationInMinutes" />
+                        <p:inputText id="durationInMinutes" value="#{appointmentSessionController.selected.durationInMinutes}" title="DurationInMinutes" />
+                        <p:outputLabel value="AdditionalManagerAppointments:" for="additionalManagerAppointments" />
+                        <p:inputText id="additionalManagerAppointments" value="#{appointmentSessionController.selected.additionalManagerAppointments}" title="AdditionalManagerAppointments" />
+                        <p:outputLabel value="AdditionalSuperUserAppointments:" for="additionalSuperUserAppointments" />
+                        <p:inputText id="additionalSuperUserAppointments" value="#{appointmentSessionController.selected.additionalSuperUserAppointments}" title="AdditionalSuperUserAppointments" />
+
+
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{appointmentSessionController.create}" value="#{bundle.Save}" update="display,:AppointmentSessionListForm:datalist,:growl" oncomplete="handleSubmit(args,'AppointmentSessionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AppointmentSessionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+
+
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+
+            </h:form>
+        </f:view>
+
+
+
+
+
+    </ui:composition>
+</html>

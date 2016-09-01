@@ -125,16 +125,7 @@ public class UnitController implements Serializable {
     }
 
     public List<Unit> getItemsAvailableSelectOne() {
-        String j;
-        Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc order by u.name";
-        m.put("uc", Ward.class);
-        System.out.println("m = " + m);
-        System.out.println("j = " + j);
-        List<Unit> c = getFacade().findBySQL(j, m);
-        if(c == null){
-            c = new ArrayList<Unit>();
-        }
+        List<Unit> c = getFacade().findAll();
         return c;
     }
     

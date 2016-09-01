@@ -60,10 +60,22 @@ public class Person implements Serializable {
     @ManyToOne
     Item district;
     String telephoneNo;
+    @ManyToOne
+    Unit unit;
 
     
     @Enumerated(EnumType.STRING)
     UserRole userRole;
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+    
+    
     
     public String getName() {
         return name;

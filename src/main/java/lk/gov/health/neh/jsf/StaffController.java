@@ -22,6 +22,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 import javax.persistence.Column;
+import lk.gov.health.neh.entity.Unit;
 
 @ManagedBean(name = "staffController")
 @SessionScoped
@@ -35,10 +36,21 @@ public class StaffController implements Serializable {
     private Staff selected;
 
     Staff loggedStaff;
+    Unit loggedUnit;
     boolean logged;
     String userName;
     String password;
 
+    public Unit getLoggedUnit() {
+        return loggedUnit;
+    }
+
+    public void setLoggedUnit(Unit loggedUnit) {
+        this.loggedUnit = loggedUnit;
+    }
+
+    
+    
     public Staff getLoggedStaff() {
         return loggedStaff;
     }
@@ -97,6 +109,7 @@ public class StaffController implements Serializable {
         if (s == null) {
             logged = false;
             loggedStaff = null;
+            loggedUnit = null;
             JsfUtil.addErrorMessage("No such user");
             return "index";
         }
@@ -106,12 +119,14 @@ public class StaffController implements Serializable {
         if (CommonController.checkPassword(password, s.getPassword())) {
             logged = true;
             loggedStaff = s;
+            loggedUnit = s.getUnit();
             userName = "";
             password = "";
             JsfUtil.addSuccessMessage("Logged Successfully");
         } else {
             logged = false;
             loggedStaff = null;
+            loggedUnit = null;
             JsfUtil.addErrorMessage("Wrong Password");
         }
         return "index";

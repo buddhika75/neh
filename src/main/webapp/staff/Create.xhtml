@@ -28,13 +28,20 @@
                             <f:selectItems value="#{enumController.userRoles}" ></f:selectItems>
                         </p:selectOneMenu>
 
+                        <p:outputLabel value="#{bundle.Unit}" for="unit" />
+                        <p:selectOneMenu required="true" id="unit" value="#{staffController.selected.unit}" >
+                            <f:selectItem itemLabel="Select Unit" ></f:selectItem>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
+                                           var="u" itemLabel="#{u.name}" itemValue="#{u}"></f:selectItems>
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateStaffLabel_nic}" for="nic" />
                         <p:inputText id="nic" value="#{staffController.selected.nic}" title="#{bundle.CreateStaffTitle_nic}" />
 
                         <p:outputLabel value="#{bundle.CreateStaffLabel_sex}" for="sex" />
                         <p:inputText id="sex" value="#{staffController.selected.sex}" title="#{bundle.CreateStaffTitle_sex}" />
 
-                       
+
                         <p:outputLabel value="#{bundle.CreateStaffLabel_address}" for="address" />
                         <p:inputTextarea rows="4" cols="30" id="address" value="#{staffController.selected.address}" title="#{bundle.CreateStaffTitle_address}" />
                         <p:outputLabel value="#{bundle.CreateStaffLabel_telephoneNo}" for="telephoneNo" />
