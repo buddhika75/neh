@@ -5,7 +5,8 @@
  */
 package lk.gov.health.neh.jsf;
 
-import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
+import javax.inject.Named;
 import javax.faces.bean.ApplicationScoped;
 import lk.gov.health.neh.enums.AppointmentSessionDateType;
 import lk.gov.health.neh.enums.AppointmentSessionType;
@@ -22,9 +23,9 @@ import lk.gov.health.neh.enums.Weekday;
  *
  * @author buddhika
  */
-@ManagedBean
+@Named
 @ApplicationScoped
-public class EnumController {
+public class EnumController implements Serializable{
 
     /**
      * Creates a new instance of EnumController

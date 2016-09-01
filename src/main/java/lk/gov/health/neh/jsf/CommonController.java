@@ -5,10 +5,11 @@
  */
 package lk.gov.health.neh.jsf;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import lk.gov.health.neh.enums.Sex;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
@@ -16,9 +17,9 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  *
  * @author buddhika
  */
-@ManagedBean
+@Named
 @SessionScoped
-public class CommonController {
+public class CommonController implements Serializable{
 
     /**
      * Creates a new instance of CommonController

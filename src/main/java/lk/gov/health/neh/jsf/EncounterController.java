@@ -18,8 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -29,7 +29,7 @@ import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.RecordData;
 import lk.gov.health.neh.enums.Sex;
 
-@ManagedBean(name = "encounterController")
+@Named(value = "encounterController")
 @SessionScoped
 public class EncounterController implements Serializable {
 

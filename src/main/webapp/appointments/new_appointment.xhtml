@@ -22,22 +22,56 @@
                         <p:row >
 
                             <p:column >
-                                <p:calendar value="#{appointmentSessionController.selectedDate}" mode="inline">
-                                    <p:ajax event="dateSelect" listener="#{appointmentSessionController.selectedDateChanged}" process="@this" update="bookings sessions " />
-                                </p:calendar>
-                                <p:dataTable id="sessions" value="#{appointmentSessionController.selectedAppointmentSessions}" var="s" >
-                                    <p:column headerText="Name" >
-                                        <p:outputLabel value="#{s.sessionName}" ></p:outputLabel>
-                                    </p:column>
-                                </p:dataTable>
+                                <h:panelGrid columns="2" >
+                                    <p:calendar value="#{appointmentSessionController.selectedDate}" mode="inline">
+                                        <p:ajax event="dateSelect" listener="#{appointmentSessionController.selectedDateChanged}" process="@this" update="sessions bookings" />
+                                    </p:calendar>
+                                    <p:dataTable id="sessions" 
+                                                 value="#{appointmentSessionController.selectedAppointmentSessions}" 
+                                                 var="s"
+                                                 emptyMessage="No Clinics for this date"
+                                                 selection="#{appointmentSessionController.selectedAppointmentSession}"
+                                                 selectionMode="single"
+                                                 rowKey="#{s.id}">
+                                        <p:column headerText="Name" >
+                                            <p:outputLabel value="#{s.sessionName}" ></p:outputLabel>
+                                        </p:column>
+                                        <p:column headerText="Time" >
+                                            <p:outputLabel value="#{s.sessionFrom}" >
+                                                <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                            </p:outputLabel>
+                                            <p:outputLabel value="-" ></p:outputLabel>
+                                            <p:outputLabel value="#{s.sessionTo}" >
+                                                <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                            </p:outputLabel>
+                                        </p:column>
+                                        <p:column headerText="Maximum" >
+                                            <p:outputLabel value="#{s.numberOfAppointments}" ></p:outputLabel>
+                                        </p:column>
+                                    </p:dataTable>
+
+
+                                </h:panelGrid>
                             </p:column>
 
 
                             <p:column rowspan="2">
 
-                                <p:dataTable id="bookings" value="#{appointmentSessionController.selectedAppointments}" var="e" >
+                                <p:dataTable id="bookings" 
+                                             value="#{appointmentSessionController.selectedAppointments}" 
+                                             var="e"
+                                             emptyMessage="No Appointments">
+                                    <p:column headerText="No" >
+                                        <p:outputLabel value="#{e.intSerialNo}" ></p:outputLabel>
+                                    </p:column>
                                     <p:column headerText="Name" >
                                         <p:outputLabel value="#{e.patient.nameWithTitle}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Address" >
+                                        <p:outputLabel value="#{e.patient.address}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Phone" >
+                                        <p:outputLabel value="#{e.patient.telephoneNo}" ></p:outputLabel>
                                     </p:column>
                                 </p:dataTable>
                             </p:column>
@@ -50,12 +84,15 @@
                                 <p:panel header="Patient Data" >
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Name" ></p:outputLabel>
+                                        <p:inputText value="#{appointmentSessionController.patient.name}" ></p:inputText>
                                         <p:outputLabel value="Address" ></p:outputLabel>
+                                        <p:inputText value="#{appointmentSessionController.patient.address}" ></p:inputText>
                                         <p:outputLabel value="Phone No" ></p:outputLabel>
+                                        <p:inputText value="#{appointmentSessionController.patient.telephoneNo}" ></p:inputText>
                                     </h:panelGrid>
-                                    
+                                    <p:commandButton ajax="false" value="Make The Appointment" action="#{appointmentSessionController.makeAnAppointment}" ></p:commandButton>
                                 </p:panel>
-                                
+
                             </p:column>
                         </p:row>
 

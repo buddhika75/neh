@@ -12,15 +12,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import lk.gov.health.neh.session.PersonFacade;
 
-@ManagedBean(name = "consultantController")
+@Named(value = "consultantController")
 @SessionScoped
 public class ConsultantController implements Serializable {
 

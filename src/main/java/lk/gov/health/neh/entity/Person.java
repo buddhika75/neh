@@ -7,7 +7,6 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +17,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
-import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.Nationality;
 import lk.gov.health.neh.enums.Religion;
 import lk.gov.health.neh.enums.Sex;

@@ -7,11 +7,8 @@ import lk.gov.health.neh.session.AppointmentSessionFacade;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,26 +18,25 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import lk.gov.health.neh.entity.Consultant;
 import lk.gov.health.neh.entity.Encounter;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.entity.Ward;
-import lk.gov.health.neh.enums.AppointmentSessionType;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.Weekday;
 import lk.gov.health.neh.session.EncounterFacade;
 import lk.gov.health.neh.session.PatientFacade;
 import org.primefaces.event.SelectEvent;
 
-@ManagedBean(name = "appointmentSessionController")
+@Named(value = "appointmentSessionController")
 @SessionScoped
 public class AppointmentSessionController implements Serializable {
 
@@ -51,7 +47,7 @@ public class AppointmentSessionController implements Serializable {
     @EJB
     PatientFacade patientFacade;
 
-    @ManagedProperty(value = "#{staffController}")
+    @Inject
     StaffController staffController;
 
     private List<AppointmentSession> items = null;
@@ -78,11 +74,6 @@ public class AppointmentSessionController implements Serializable {
     }
 
     public void selectedDateChanged(SelectEvent event) {
-
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
-
         selectedAppointment = null;
         selectedAppointmentSession = null;
         selectedAppointmentSessions = new ArrayList<AppointmentSession>();
@@ -104,11 +95,14 @@ public class AppointmentSessionController implements Serializable {
         selectedAppointmentSessions = getFacade().findBySQL(j, m);
 
         if (selectedAppointmentSessions == null || selectedAppointmentSessions.isEmpty()) {
+            System.out.println("selectedAppointmentSessions is null or empty");
             return;
         }
 
         selectedAppointmentSession = selectedAppointmentSessions.get(0);
 
+        System.out.println("selectedAppointmentSession = " + selectedAppointmentSession);
+        
         j = "Select e from Encounter e "
                 + " where e.encounterType=:et "
                 + " and e.appointmentSession=:aps "
@@ -120,6 +114,31 @@ public class AppointmentSessionController implements Serializable {
 
         selectedAppointments = encounterFacade.findBySQL(j, m);
 
+    }
+    
+    public String makeAnAppointment(){
+        if(patient==null){
+            JsfUtil.addErrorMessage("Patient ?");
+            return "";
+        }
+        if(encounter==null){
+            JsfUtil.addErrorMessage("Encounter ?");
+            return "";
+        }
+        if(selectedAppointmentSession==null){
+            JsfUtil.addErrorMessage("Please select a clinic");
+            return "";
+        }
+        List<Encounter> temAppointments ;
+        encounter.setAppointmentSession(selectedAppointmentSession);
+        encounter.setEncounterDate(selectedDate);
+        encounter.setEncounterType(EncounterType.Appointment);
+        encounter.setIntSerialNo(selectedAppointments.size()+1);
+        encounter.setPatient(patient);
+        getEncounterFacade().create(encounter);
+        JsfUtil.addSuccessMessage("New Appointment Added");
+        selectedDateChanged(null);
+        return toAddNewAppointmentByAddingPatient();
     }
 
     public Patient getPatient() {
@@ -305,6 +324,22 @@ public class AppointmentSessionController implements Serializable {
 
     public void setSelectedAppointmentSessions(List<AppointmentSession> selectedAppointmentSessions) {
         this.selectedAppointmentSessions = selectedAppointmentSessions;
+    }
+
+    public AppointmentSessionFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public EncounterFacade getEncounterFacade() {
+        return encounterFacade;
+    }
+
+    public PatientFacade getPatientFacade() {
+        return patientFacade;
+    }
+
+    public StaffController getStaffController() {
+        return staffController;
     }
 
     
