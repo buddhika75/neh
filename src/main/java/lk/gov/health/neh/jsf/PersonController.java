@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import lk.gov.health.neh.entity.Encounter;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.enums.EncounterType;
+import lk.gov.health.neh.enums.UnitLastFileNumber;
 
 @Named(value = "personController")
 @SessionScoped
@@ -34,28 +35,41 @@ public class PersonController implements Serializable {
     @Inject
     AppointmentSessionController appointmentSessionController;
     @Inject
+    ApplicationController applicationController;
+    @Inject
     StaffController staffController;
 
     public String toAddNewAppointmentByAddingPatient() {
         selected = new Patient();
         selected.setUnit(staffController.getLoggedUnit());
         selected.setRegistered(true);
+        UnitLastFileNumber f = applicationController.giveAFileNumber(staffController.getLoggedUnit());
+        System.out.println("f = " + f);
+        selected.setClinicFileNoYearlySerial(f.getAnnualCount());
+        System.out.println("f.getAnnualCount() = " + f.getAnnualCount());
+        selected.setClinicFileNoYear(f.getYearValue());
+        selected.setClinicFileNo(selected.getClinicFileNoYearlySerial() + "/" + selected.getClinicFileNoYear());
+
         return "/appointments/register_patient";
     }
-    
-    public String saveNewPatientAndGoToAppointments(){
+
+    public String saveNewPatientAndGoToAppointments() {
         create();
         appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
         return "/appointments/new_appointment_for_registered_patients";
     }
 
-    public String saveNewPatientAndPrepareForAnotherNewPatient(){
+    public String saveNewPatientAndPrepareForAnotherNewPatient() {
         create();
         selected = new Patient();
         selected.setRegistered(true);
+        UnitLastFileNumber f = applicationController.giveAFileNumber(staffController.getLoggedUnit());
+        selected.setClinicFileNoYearlySerial(f.getAnnualCount());
+        selected.setClinicFileNoYear(f.getYearValue());
+        selected.setClinicFileNo(selected.getClinicFileNoYearlySerial() + "/" + selected.getClinicFileNoYear());
         return "/appointments/register_patient";
     }
-    
+
     public PersonController() {
     }
 

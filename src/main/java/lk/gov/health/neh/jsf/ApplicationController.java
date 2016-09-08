@@ -42,8 +42,9 @@ public class ApplicationController {
 
     public UnitLastFileNumber giveAFileNumber(Unit unit) {
         UnitLastFileNumber u = null;
-        for (UnitLastFileNumber n : lastFileNumbers) {
-            if (u.getUnit().equals(unit)) {
+        for (UnitLastFileNumber n : getLastFileNumbers()) {
+            if (n.getUnit().equals(unit)) {
+            } else {
                 u = n;
             }
         }
@@ -54,6 +55,8 @@ public class ApplicationController {
         if (u.getYearValue() != c.get(Calendar.YEAR)) {
             u.setYearValue(c.get(Calendar.YEAR));
             u.setAnnualCount(0);
+        } else {
+            u.setAnnualCount(u.getAnnualCount() + 1);
         }
         return u;
     }
