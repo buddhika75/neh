@@ -30,11 +30,9 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Unit/Ward/Consultant"/>
+                                <h:outputText value="Unit"/>
                             </f:facet>
                             <h:outputText value="#{item.unit.name}"/>
-                            <h:outputText value="#{item.ward}"/>
-                            <h:outputText value="#{item.consultant}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -44,39 +42,13 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Type"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="DateType"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateType}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="SessionDate"/>
-                            </f:facet>
-                            <h:outputText value="#{item.sessionDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="SessionWeekday"/>
+                                <h:outputText value="Weekday"/>
                             </f:facet>
                             <h:outputText value="#{item.sessionWeekday}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="WeekOfMonth"/>
-                            </f:facet>
-                            <h:outputText value="#{item.weekOfMonth}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="SessionFrom"/>
+                                <h:outputText value="From"/>
                             </f:facet>
                             <h:outputText value="#{item.sessionFrom}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
@@ -84,23 +56,30 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="SessionTo"/>
+                                <h:outputText value="To"/>
                             </f:facet>
                             <h:outputText value="#{item.sessionTo}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
                         </p:column>
+
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="NumberOfAppointments"/>
+                                <h:outputText value="Duration In Minutes for a Block"/>
                             </f:facet>
-                            <h:outputText value="#{item.numberOfAppointments}"/>
+                            <h:outputText value="#{item.durationInMinutes}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="DurationInMinutes"/>
+                                <h:outputText value="Appointments for a Block"/>
                             </f:facet>
-                            <h:outputText value="#{item.durationInMinutes}"/>
+                            <h:outputText value="#{item.durationBlockNumber}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Number Of Appointments"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numberOfAppointments}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

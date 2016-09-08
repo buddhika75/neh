@@ -50,6 +50,17 @@ public class AppointmentSession implements Serializable {
     int durationInMinutes;
     int additionalManagerAppointments;
     int additionalSuperUserAppointments;
+    int durationBlockNumber;
+
+    public int getDurationBlockNumber() {
+        return durationBlockNumber;
+    }
+
+    public void setDurationBlockNumber(int durationBlockNumber) {
+        this.durationBlockNumber = durationBlockNumber;
+    }
+    
+    
     
     public Long getId() {
         return id;

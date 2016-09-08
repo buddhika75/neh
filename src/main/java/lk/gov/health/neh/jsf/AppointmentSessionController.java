@@ -30,6 +30,8 @@ import lk.gov.health.neh.entity.Encounter;
 import lk.gov.health.neh.entity.Patient;
 import lk.gov.health.neh.entity.Unit;
 import lk.gov.health.neh.entity.Ward;
+import lk.gov.health.neh.enums.AppointmentSessionDateType;
+import lk.gov.health.neh.enums.AppointmentSessionType;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.Weekday;
 import lk.gov.health.neh.session.EncounterFacade;
@@ -72,6 +74,13 @@ public class AppointmentSessionController implements Serializable {
         encounter.setEncounterType(EncounterType.Appointment);
         return "/appointments/new_appointment";
     }
+    
+    public String toAddNewAppointmentAfterSavingPatient(Patient pt) {
+        patient = pt;
+        encounter = new Encounter();
+        encounter.setEncounterType(EncounterType.Appointment);
+        return "/appointments/new_appointment";
+    }
 
     public void selectedDateChanged(SelectEvent event) {
         selectedAppointment = null;
@@ -102,7 +111,7 @@ public class AppointmentSessionController implements Serializable {
         selectedAppointmentSession = selectedAppointmentSessions.get(0);
 
         System.out.println("selectedAppointmentSession = " + selectedAppointmentSession);
-        
+
         j = "Select e from Encounter e "
                 + " where e.encounterType=:et "
                 + " and e.appointmentSession=:aps "
@@ -115,25 +124,25 @@ public class AppointmentSessionController implements Serializable {
         selectedAppointments = encounterFacade.findBySQL(j, m);
 
     }
-    
-    public String makeAnAppointment(){
-        if(patient==null){
+
+    public String makeAnAppointment() {
+        if (patient == null) {
             JsfUtil.addErrorMessage("Patient ?");
             return "";
         }
-        if(encounter==null){
+        if (encounter == null) {
             JsfUtil.addErrorMessage("Encounter ?");
             return "";
         }
-        if(selectedAppointmentSession==null){
+        if (selectedAppointmentSession == null) {
             JsfUtil.addErrorMessage("Please select a clinic");
             return "";
         }
-        List<Encounter> temAppointments ;
+        List<Encounter> temAppointments;
         encounter.setAppointmentSession(selectedAppointmentSession);
         encounter.setEncounterDate(selectedDate);
         encounter.setEncounterType(EncounterType.Appointment);
-        encounter.setIntSerialNo(selectedAppointments.size()+1);
+        encounter.setIntSerialNo(selectedAppointments.size() + 1);
         encounter.setPatient(patient);
         getEncounterFacade().create(encounter);
         JsfUtil.addSuccessMessage("New Appointment Added");
@@ -241,6 +250,16 @@ public class AppointmentSessionController implements Serializable {
     }
 
     public void create() {
+        if (selected == null) {
+            return;
+        }
+        if (selected.getType() == null) {
+            selected.setType(AppointmentSessionType.ClinicBooking);
+        }
+        if (selected.getDateType() == null) {
+            selected.setDateType(AppointmentSessionDateType.Weekday);
+        }
+
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AppointmentSessionCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -342,8 +361,6 @@ public class AppointmentSessionController implements Serializable {
         return staffController;
     }
 
-    
-    
     @FacesConverter(forClass = AppointmentSession.class)
     public static class AppointmentSessionControllerConverter implements Converter {
 

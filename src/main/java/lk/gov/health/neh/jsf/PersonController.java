@@ -18,6 +18,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
+import lk.gov.health.neh.entity.Encounter;
+import lk.gov.health.neh.entity.Patient;
+import lk.gov.health.neh.enums.EncounterType;
 
 @Named(value = "personController")
 @SessionScoped
@@ -27,7 +31,31 @@ public class PersonController implements Serializable {
     private lk.gov.health.neh.session.PersonFacade ejbFacade;
     private List<Person> items = null;
     private Person selected;
+    @Inject
+    AppointmentSessionController appointmentSessionController;
+    @Inject
+    StaffController staffController;
 
+    public String toAddNewAppointmentByAddingPatient() {
+        selected = new Patient();
+        selected.setUnit(staffController.getLoggedUnit());
+        selected.setRegistered(true);
+        return "/appointments/register_patient";
+    }
+    
+    public String saveNewPatientAndGoToAppointments(){
+        create();
+        appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        return "/appointments/new_appointment_for_registered_patients";
+    }
+
+    public String saveNewPatientAndPrepareForAnotherNewPatient(){
+        create();
+        selected = new Patient();
+        selected.setRegistered(true);
+        return "/appointments/register_patient";
+    }
+    
     public PersonController() {
     }
 

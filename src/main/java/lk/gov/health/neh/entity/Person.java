@@ -61,10 +61,70 @@ public class Person implements Serializable {
     @ManyToOne
     Unit unit;
 
+    boolean registered;
     
     @Enumerated(EnumType.STRING)
     UserRole userRole;
 
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
+    
+    String clinicFileNo;
+    int clinicFileNoYearlySerial;
+    int clinicFileNoYear;
+    String opdNo;
+    String phn;
+
+    public int getClinicFileNoYearlySerial() {
+        return clinicFileNoYearlySerial;
+    }
+
+    public void setClinicFileNoYearlySerial(int clinicFileNoYearlySerial) {
+        this.clinicFileNoYearlySerial = clinicFileNoYearlySerial;
+    }
+
+    public int getClinicFileNoYear() {
+        return clinicFileNoYear;
+    }
+
+    public void setClinicFileNoYear(int clinicFileNoYear) {
+        this.clinicFileNoYear = clinicFileNoYear;
+    }
+    
+    
+
+    public String getClinicFileNo() {
+        return clinicFileNo;
+    }
+
+    public void setClinicFileNo(String clinicFileNo) {
+        this.clinicFileNo = clinicFileNo;
+    }
+
+    public String getOpdNo() {
+        return opdNo;
+    }
+
+    public void setOpdNo(String opdNo) {
+        this.opdNo = opdNo;
+    }
+
+    public String getPhn() {
+        return phn;
+    }
+
+    public void setPhn(String phn) {
+        this.phn = phn;
+    }
+    
+    
+    
     public Unit getUnit() {
         return unit;
     }
