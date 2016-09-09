@@ -19,10 +19,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
-import lk.gov.health.neh.entity.Encounter;
 import lk.gov.health.neh.entity.Patient;
-import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.UnitLastFileNumber;
+import lk.gov.health.neh.session.PatientFacade;
 
 @Named(value = "personController")
 @SessionScoped
@@ -30,6 +29,8 @@ public class PersonController implements Serializable {
 
     @EJB
     private lk.gov.health.neh.session.PersonFacade ejbFacade;
+    @EJB
+    PatientFacade patientFacade;
     private List<Person> items = null;
     private Person selected;
     @Inject
@@ -38,6 +39,7 @@ public class PersonController implements Serializable {
     ApplicationController applicationController;
     @Inject
     StaffController staffController;
+    
 
     public String toAddNewAppointmentByAddingPatient() {
         selected = new Patient();
@@ -54,13 +56,14 @@ public class PersonController implements Serializable {
     }
 
     public String saveNewPatientAndGoToAppointments() {
-        create();
+        saveNewPatient();
         appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
     }
 
     public String saveNewPatientAndPrepareForAnotherNewPatient() {
-        create();
+        saveNewPatient();
         selected = new Patient();
         selected.setRegistered(true);
         UnitLastFileNumber f = applicationController.giveAFileNumber(staffController.getLoggedUnit());
@@ -97,6 +100,11 @@ public class PersonController implements Serializable {
         return selected;
     }
 
+    public void saveNewPatient(){
+        patientFacade.create((Patient)selected);
+        JsfUtil.addSuccessMessage("Patient Saved.");
+    }
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
         if (!JsfUtil.isValidationFailed()) {
