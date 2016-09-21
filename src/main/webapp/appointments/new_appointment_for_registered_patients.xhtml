@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form >
-                <p:panel header="#{bundle.registerPatient}">
+                <p:panel header="#{bundle.registerPatient}" rendered="#{!appointmentSessionController.printing}">
 
                     <p:panelGrid >
 
@@ -114,6 +114,77 @@
 
                 </p:panel>
             </h:form>
+
+            <p:panel rendered="#{appointmentSessionController.printing}" >
+                <h:form >
+
+
+
+                    <p:commandButton value="Print" ajax="false" >
+                        <p:printer target="channelPrint" ></p:printer>
+                    </p:commandButton>
+                    <p:commandButton ajax="false" action="#{appointmentSessionController.clearForNewPatient()}" value="Register New Patient" ></p:commandButton>
+                    <p:commandButton ajax="false" action="#{appointmentSessionController.clearForSearchPatient()}" value="Search Patients" ></p:commandButton>
+                    <p:panel id="channelPrint" widgetVar="channelPrint" style="border: none;">
+
+                        <table style="width: 100%;" >
+                            <tr>
+                                <td colspan="5">
+                                    <h:graphicImage value="/resources/eyeLogo.jpg" width="150px" height="100px"></h:graphicImage>
+                                    <br/>
+                                    <h:outputLabel value="ශ්‍රි ලංකා ජාතික අක්ෂි රෝහල"  style="font-size: 18px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="இலங்கை தேசிய கண் வைத்தியசாலை" style="font-size: 14px;"></h:outputLabel>
+                                    <br/>
+                                    <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
+                                </td>
+                            </tr>
+                             <tr>
+                                 <td colspan="5">
+                                     <h:outputLabel value="Clinic Appointment" ></h:outputLabel>
+                                 </td>
+                             </tr>
+                            <tr>
+                                <td style="width: 10px;">
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Name" ></h:outputLabel>
+                                </td>
+                                <td style="width: 2%; text-align: center;">
+                                    <h:outputLabel value=":" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.patient.name}" ></p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Date" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: center;">
+                                    :
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.encounterDate}" >
+                                        <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                    </p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </p:panel>
+
+                </h:form>
+            </p:panel>
 
         </ui:define>
     </ui:composition>

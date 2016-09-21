@@ -90,6 +90,7 @@ public class PersonController implements Serializable {
     public String saveNewPatientAndGoToAppointments() {
         saveNewPatient();
         appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        appointmentSessionController.setPrinting(false);
         System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
     }
@@ -102,6 +103,7 @@ public class PersonController implements Serializable {
         }
         saveOldPatient();
         appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        appointmentSessionController.setPrinting(false);
         System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
     }

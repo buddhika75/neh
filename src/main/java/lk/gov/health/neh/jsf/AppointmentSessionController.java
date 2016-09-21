@@ -51,6 +51,8 @@ public class AppointmentSessionController implements Serializable {
 
     @Inject
     StaffController staffController;
+    @Inject
+    PersonController personController;
 
     private List<AppointmentSession> items = null;
     private AppointmentSession selected;
@@ -67,6 +69,7 @@ public class AppointmentSessionController implements Serializable {
     AppointmentSession selectedAppointmentSession;
     List<Encounter> selectedAppointments;
     List<AppointmentSession> selectedAppointmentSessions;
+    boolean printing;
 
     public String toAddNewAppointmentByAddingPatient() {
         patient = new Patient();
@@ -145,9 +148,33 @@ public class AppointmentSessionController implements Serializable {
         encounter.setIntSerialNo(selectedAppointments.size() + 1);
         encounter.setPatient(patient);
         getEncounterFacade().edit(encounter);
+        printing = true;
         JsfUtil.addSuccessMessage("New Appointment Added");
+        return "";
+    }
+
+    public String clearForNewAppointment() {
         selectedDateChanged(null);
+        patient = new Patient();
+        encounter = new Encounter();
+        encounter.setEncounterType(EncounterType.Appointment);
         return toAddNewAppointmentByAddingPatient();
+    }
+
+    public String clearForNewPatient() {
+        selectedDateChanged(null);
+        patient = new Patient();
+        encounter = new Encounter();
+        encounter.setEncounterType(EncounterType.Appointment);
+        return personController.toAddNewAppointmentByAddingPatient();
+    }
+
+    public String clearForSearchPatient() {
+        selectedDateChanged(null);
+        patient = new Patient();
+        encounter = new Encounter();
+        encounter.setEncounterType(EncounterType.Appointment);
+        return personController.toAddNewAppointmentBySearchingPatient();
     }
 
     public Patient getPatient() {
@@ -361,6 +388,14 @@ public class AppointmentSessionController implements Serializable {
         return staffController;
     }
 
+    public boolean isPrinting() {
+        return printing;
+    }
+
+    public void setPrinting(boolean printing) {
+        this.printing = printing;
+    }
+
     @FacesConverter(forClass = AppointmentSession.class)
     public static class AppointmentSessionControllerConverter implements Converter {
 
@@ -420,7 +455,7 @@ public class AppointmentSessionController implements Serializable {
             try {
                 key = Long.valueOf(value);
             } catch (Exception e) {
-                key=0l;
+                key = 0l;
                 System.out.println("e = " + e);
             }
             return key;
