@@ -6,7 +6,10 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.PersonFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,13 +36,35 @@ public class PersonController implements Serializable {
     PatientFacade patientFacade;
     private List<Person> items = null;
     private Person selected;
+    String searchText;
     @Inject
     AppointmentSessionController appointmentSessionController;
     @Inject
     ApplicationController applicationController;
     @Inject
     StaffController staffController;
-    
+
+    private List<Person> selectedItems = null;
+
+    public void searchPatients() {
+        if (searchText == null) {
+            return;
+        }
+        String j = "select p from Person p "
+                + " where (upper(p.name) like :pn "
+                + " or p.clinicFileNo like :cfn ) "
+                + " and p.unit=:punit "
+                + " order by p.clinicFileNo";
+        Map m = new HashMap();
+        m.put("pn", "%" + searchText.toUpperCase() + "%");
+        m.put("cfn", "%" + searchText + "%");
+        m.put("punit", staffController.getLoggedUnit());
+        Person p = new Person();
+        p.getName();
+        p.getNic();
+        p.getClinicFileNo();
+        selectedItems = getFacade().findBySQL(j, m);
+    }
 
     public String toAddNewAppointmentByAddingPatient() {
         selected = new Patient();
@@ -55,8 +80,27 @@ public class PersonController implements Serializable {
         return "/appointments/register_patient";
     }
 
+    public String toAddNewAppointmentBySearchingPatient() {
+        selected = null;
+        selectedItems = new ArrayList<Person>();
+        searchText = "";
+        return "/appointments/search_patient";
+    }
+
     public String saveNewPatientAndGoToAppointments() {
         saveNewPatient();
+        appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
+        return "/appointments/new_appointment_for_registered_patients";
+    }
+
+    public String saveOldPatientAndGoToAppointments() {
+        System.out.println("saveOldPatientAndGoToAppointments");
+        System.out.println("selected = " + selected);
+        if (selected == null) {
+            return "";
+        }
+        saveOldPatient();
         appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
         System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
@@ -100,11 +144,16 @@ public class PersonController implements Serializable {
         return selected;
     }
 
-    public void saveNewPatient(){
-        patientFacade.create((Patient)selected);
+    public void saveNewPatient() {
+        patientFacade.create((Patient) selected);
         JsfUtil.addSuccessMessage("Patient Saved.");
     }
-    
+
+    public void saveOldPatient() {
+        patientFacade.edit((Patient) selected);
+        JsfUtil.addSuccessMessage("Patient Details Updated.");
+    }
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -165,6 +214,22 @@ public class PersonController implements Serializable {
 
     public List<Person> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public List<Person> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Person> selectedItems) {
+        this.selectedItems = selectedItems;
     }
 
     @FacesConverter(forClass = Person.class)

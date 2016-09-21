@@ -11,7 +11,7 @@
         <p:dialog id="AppointmentSessionEditDlg" widgetVar="AppointmentSessionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAppointment}">
             <h:form id="AppointmentSessionEditForm">
                 <h:panelGroup id="display">
-                      <p:panelGrid columns="2" rendered="#{appointmentSessionController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{appointmentSessionController.selected != null}">
                         <p:outputLabel value="Unit:" for="unit" />
                         <p:selectOneMenu id="unit" value="#{appointmentSessionController.selected.unit}" >
                             <f:selectItem itemLabel="Select Unit"/>
@@ -55,8 +55,8 @@
 
 
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{appointmentSessionController.update}" value="#{bundle.Save}" update="display,:AppointmentSessionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AppointmentSessionEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AppointmentSessionEditDialog.hide()"/>
+                    <p:commandButton ajax="false" actionListener="#{appointmentSessionController.update}" value="#{bundle.Save}" update="display,:AppointmentSessionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AppointmentSessionEditDialog');"/>
+                    <p:commandButton ajax="false" value="#{bundle.Cancel}" onclick="AppointmentSessionEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

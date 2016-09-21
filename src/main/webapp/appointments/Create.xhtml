@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{appointmentSessionController.selected != null}">
                         <p:outputLabel value="Unit:" for="unit" />
-                        <p:selectOneMenu id="unit" value="#{appointmentSessionController.selected.unit}" >
+                        <p:selectOneMenu id="unit" value="#{appointmentSessionController.selected.unit}" converter="unitConverter" >
                             <f:selectItem itemLabel="Select Unit"/>
                             <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
                                            var="unitItem"

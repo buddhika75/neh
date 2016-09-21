@@ -74,7 +74,7 @@ public class AppointmentSessionController implements Serializable {
         encounter.setEncounterType(EncounterType.Appointment);
         return "/appointments/new_appointment";
     }
-    
+
     public String toAddNewAppointmentAfterSavingPatient(Patient pt) {
         patient = pt;
         encounter = new Encounter();
@@ -144,7 +144,7 @@ public class AppointmentSessionController implements Serializable {
         encounter.setEncounterType(EncounterType.Appointment);
         encounter.setIntSerialNo(selectedAppointments.size() + 1);
         encounter.setPatient(patient);
-        getEncounterFacade().create(encounter);
+        getEncounterFacade().edit(encounter);
         JsfUtil.addSuccessMessage("New Appointment Added");
         selectedDateChanged(null);
         return toAddNewAppointmentByAddingPatient();
@@ -260,18 +260,18 @@ public class AppointmentSessionController implements Serializable {
             selected.setDateType(AppointmentSessionDateType.Weekday);
         }
 
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AppointmentSessionCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("Created"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AppointmentSessionUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("Updated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AppointmentSessionDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("Deleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -304,11 +304,11 @@ public class AppointmentSessionController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("Error"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("Error"));
             }
         }
     }
@@ -377,6 +377,52 @@ public class AppointmentSessionController implements Serializable {
         java.lang.Long getKey(String value) {
             java.lang.Long key;
             key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof AppointmentSession) {
+                AppointmentSession o = (AppointmentSession) object;
+                return getStringKey(o.getId());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AppointmentSession.class.getName()});
+                return null;
+            }
+        }
+
+    }
+
+    @FacesConverter(value = "appointmentSessionConverter")
+    public static class AppointmentSessionConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            AppointmentSessionController controller = (AppointmentSessionController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "appointmentSessionController");
+            return controller.getFacade().find(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            try {
+                key = Long.valueOf(value);
+            } catch (Exception e) {
+                key=0l;
+                System.out.println("e = " + e);
+            }
             return key;
         }
 
