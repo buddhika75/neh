@@ -8,6 +8,7 @@ import lk.gov.health.neh.session.AppointmentSessionFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ import lk.gov.health.neh.entity.Ward;
 import lk.gov.health.neh.enums.AppointmentSessionDateType;
 import lk.gov.health.neh.enums.AppointmentSessionType;
 import lk.gov.health.neh.enums.EncounterType;
+import lk.gov.health.neh.enums.NumberAndTime;
 import lk.gov.health.neh.enums.Weekday;
 import lk.gov.health.neh.session.EncounterFacade;
 import lk.gov.health.neh.session.PatientFacade;
@@ -75,14 +77,14 @@ public class AppointmentSessionController implements Serializable {
         patient = new Patient();
         encounter = new Encounter();
         encounter.setEncounterType(EncounterType.Appointment);
-        return "/appointments/new_appointment";
+        return "/appointments/new_appointment_for_registered_patients";
     }
 
     public String toAddNewAppointmentAfterSavingPatient(Patient pt) {
         patient = pt;
         encounter = new Encounter();
         encounter.setEncounterType(EncounterType.Appointment);
-        return "/appointments/new_appointment";
+        return "/appointments/new_appointment_for_registered_patients";
     }
 
     public void selectedDateChanged(SelectEvent event) {
@@ -145,14 +147,59 @@ public class AppointmentSessionController implements Serializable {
         encounter.setAppointmentSession(selectedAppointmentSession);
         encounter.setEncounterDate(selectedDate);
         encounter.setEncounterType(EncounterType.Appointment);
-        encounter.setIntSerialNo(selectedAppointments.size() + 1);
+        
         encounter.setPatient(patient);
+        encounter.setIntDailyNo(selectedAppointments.size());
+        
+        convertDailyToBlock(encounter);
+        
         getEncounterFacade().edit(encounter);
         printing = true;
         JsfUtil.addSuccessMessage("New Appointment Added");
         return "";
     }
 
+    
+    public void convertDailyToBlock(Encounter e){
+        int timePerSlot = e.getAppointmentSession().getDurationInMinutes();
+        int countForBlock = e.getAppointmentSession().getDurationBlockNumber();
+        Date startTime = e.getAppointmentSession().getSessionFrom();
+        int modBlockAtStart = e.getIntDailyNo() / countForBlock;
+        
+        System.out.println("timePerSlot = " + timePerSlot);
+        System.out.println("modBlockAtStart = " + modBlockAtStart);
+        
+        
+        Calendar app = Calendar.getInstance();
+        app.setTime(e.getEncounterDate());
+        System.out.println("app = " + app);
+        
+        Calendar ses = Calendar.getInstance();
+        ses.setTime(e.getAppointmentSession().getSessionFrom());
+        System.out.println("ses = " + ses);
+        
+        int appHour = ses.get(Calendar.HOUR) ;
+        System.out.println("appHour = " + appHour);
+        int appMin = ses.get(Calendar.MINUTE) ;
+        System.out.println("appMin = " + appMin);
+
+        app.set(Calendar.HOUR, appHour);
+        app.set(Calendar.MINUTE, appMin);
+        app.add(Calendar.MINUTE, (timePerSlot*modBlockAtStart));
+        
+        e.setEncounterDate(app.getTime());
+        System.out.println("e.getEncounterDate() = " + e.getEncounterDate());
+        
+        e.setSerialNumber((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber())+1);
+        
+        System.out.println("e.getSerialNumber() = " + e.getSerialNumber());
+        
+        e.setIntSerialNo((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber())+1);
+        
+        System.out.println("e.getIntSerialNo() = " + e.getIntSerialNo());
+        
+    }
+    
     public String clearForNewAppointment() {
         selectedDateChanged(null);
         patient = new Patient();

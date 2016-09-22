@@ -36,6 +36,7 @@ public class PersonController implements Serializable {
     PatientFacade patientFacade;
     private List<Person> items = null;
     private Person selected;
+    Patient selectedPatient;
     String searchText;
     @Inject
     AppointmentSessionController appointmentSessionController;
@@ -67,21 +68,21 @@ public class PersonController implements Serializable {
     }
 
     public String toAddNewAppointmentByAddingPatient() {
-        selected = new Patient();
-        selected.setUnit(staffController.getLoggedUnit());
-        selected.setRegistered(true);
+        selectedPatient = new Patient();
+        selectedPatient.setUnit(staffController.getLoggedUnit());
+        selectedPatient.setRegistered(true);
         UnitLastFileNumber f = applicationController.giveAFileNumber(staffController.getLoggedUnit());
         System.out.println("f = " + f);
-        selected.setClinicFileNoYearlySerial(f.getAnnualCount());
+        selectedPatient.setClinicFileNoYearlySerial(f.getAnnualCount());
         System.out.println("f.getAnnualCount() = " + f.getAnnualCount());
-        selected.setClinicFileNoYear(f.getYearValue());
-        selected.setClinicFileNo(selected.getClinicFileNoYearlySerial() + "/" + selected.getClinicFileNoYear());
+        selectedPatient.setClinicFileNoYear(f.getYearValue());
+        selectedPatient.setClinicFileNo(selectedPatient.getClinicFileNoYearlySerial() + "/" + selectedPatient.getClinicFileNoYear());
 
         return "/appointments/register_patient";
     }
 
     public String toAddNewAppointmentBySearchingPatient() {
-        selected = null;
+        selectedPatient = null;
         selectedItems = new ArrayList<Person>();
         searchText = "";
         return "/appointments/search_patient";
@@ -89,39 +90,49 @@ public class PersonController implements Serializable {
 
     public String saveNewPatientAndGoToAppointments() {
         saveNewPatient();
-        appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        appointmentSessionController.toAddNewAppointmentAfterSavingPatient(selectedPatient);
         appointmentSessionController.setPrinting(false);
-        System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
+        System.out.println("f.getAnnualCount() = " + selectedPatient.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
     }
 
     public String saveOldPatientAndGoToAppointments() {
         System.out.println("saveOldPatientAndGoToAppointments");
-        System.out.println("selected = " + selected);
-        if (selected == null) {
+        System.out.println("selected = " + selectedPatient);
+        if (selectedPatient == null) {
             return "";
         }
         saveOldPatient();
-        appointmentSessionController.toAddNewAppointmentAfterSavingPatient((Patient) selected);
+        appointmentSessionController.toAddNewAppointmentAfterSavingPatient(selectedPatient);
         appointmentSessionController.setPrinting(false);
-        System.out.println("f.getAnnualCount() = " + selected.getClinicFileNo());
+        System.out.println("f.getAnnualCount() = " + selectedPatient.getClinicFileNo());
         return "/appointments/new_appointment_for_registered_patients";
     }
 
     public String saveNewPatientAndPrepareForAnotherNewPatient() {
         saveNewPatient();
-        selected = new Patient();
-        selected.setRegistered(true);
+        selectedPatient = new Patient();
+        selectedPatient.setRegistered(true);
         UnitLastFileNumber f = applicationController.giveAFileNumber(staffController.getLoggedUnit());
-        selected.setClinicFileNoYearlySerial(f.getAnnualCount());
-        selected.setClinicFileNoYear(f.getYearValue());
-        selected.setClinicFileNo(selected.getClinicFileNoYearlySerial() + "/" + selected.getClinicFileNoYear());
+        selectedPatient.setClinicFileNoYearlySerial(f.getAnnualCount());
+        selectedPatient.setClinicFileNoYear(f.getYearValue());
+        selectedPatient.setClinicFileNo(selectedPatient.getClinicFileNoYearlySerial() + "/" + selectedPatient.getClinicFileNoYear());
         return "/appointments/register_patient";
     }
 
     public PersonController() {
     }
 
+    public Patient getSelectedPatient() {
+        return selectedPatient;
+    }
+
+    public void setSelectedPatient(Patient selectedPatient) {
+        this.selectedPatient = selectedPatient;
+    }
+
+    
+    
     public Person getSelected() {
         return selected;
     }
@@ -142,22 +153,24 @@ public class PersonController implements Serializable {
 
     public Person prepareCreate() {
         selected = new Person();
+        selectedPatient = new Patient();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void saveNewPatient() {
-        patientFacade.create((Patient) selected);
+        patientFacade.create(selectedPatient);
         JsfUtil.addSuccessMessage("Patient Saved.");
     }
 
     public void saveOldPatient() {
-        patientFacade.edit((Patient) selected);
+        patientFacade.edit(selectedPatient);
         JsfUtil.addSuccessMessage("Patient Details Updated.");
     }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
+        persistPerson(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -165,6 +178,7 @@ public class PersonController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
+        persistPerson(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
     }
 
     public void destroy() {
@@ -190,6 +204,34 @@ public class PersonController implements Serializable {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
+                }
+                JsfUtil.addSuccessMessage(successMessage);
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
+    private void persistPerson(PersistAction persistAction, String successMessage) {
+        if (selectedPatient != null) {
+            setEmbeddableKeys();
+            try {
+                if (persistAction != PersistAction.DELETE) {
+                    patientFacade.edit(selectedPatient);
+                } else {
+                    patientFacade.remove(selectedPatient);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {

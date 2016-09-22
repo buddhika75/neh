@@ -10,7 +10,7 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.registerPatient}" ></h:outputText>
+            <h:outputText value="Appointments" ></h:outputText>
         </ui:define>
 
         <ui:define name="body">
@@ -61,6 +61,11 @@
                                              value="#{appointmentSessionController.selectedAppointments}" 
                                              var="e"
                                              emptyMessage="No Appointments">
+                                    <p:column headerText="Time" >
+                                        <p:outputLabel value="#{e.encounterDate}" >
+                                            <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                        </p:outputLabel>
+                                    </p:column>
                                     <p:column headerText="No" >
                                         <p:outputLabel value="#{e.intSerialNo}" ></p:outputLabel>
                                     </p:column>
@@ -174,6 +179,43 @@
                                 <td style="text-align: left;">
                                     <p:outputLabel value="#{appointmentSessionController.encounter.encounterDate}" >
                                         <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                    </p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Time" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: center;">
+                                    :
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.encounterDate}" >
+                                        <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                    </p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Number" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: center;">
+                                    :
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.serialNumber}" >
                                     </p:outputLabel>
                                 </td>
                                 <td>

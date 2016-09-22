@@ -25,17 +25,17 @@
                                 <p:panel header="Patient Registration" >
                                     <h:panelGrid columns="2" >
                                         <p:outputLabel value="Name" ></p:outputLabel>
-                                        <p:inputText value="#{personController.selected.name}" ></p:inputText>
+                                        <p:inputText value="#{personController.selectedPatient.name}" ></p:inputText>
                                         <p:outputLabel value="Address" ></p:outputLabel>
-                                        <p:inputText value="#{personController.selected.address}" ></p:inputText>
+                                        <p:inputText value="#{personController.selectedPatient.address}" ></p:inputText>
                                         <p:outputLabel value="Phone No" ></p:outputLabel>
-                                        <p:inputText value="#{personController.selected.telephoneNo}" ></p:inputText>
+                                        <p:inputText value="#{personController.selectedPatient.telephoneNo}" ></p:inputText>
                                         <p:outputLabel value="Clinic File No" ></p:outputLabel>
-                                        <p:inputText value="#{personController.selected.clinicFileNo}" ></p:inputText>
+                                        <p:inputText value="#{personController.selectedPatient.clinicFileNo}" ></p:inputText>
                                          <p:outputLabel value="Year" ></p:outputLabel>
-                                         <p:inputText value="#{personController.selected.clinicFileNoYear}" ></p:inputText>
+                                         <p:inputText value="#{personController.selectedPatient.clinicFileNoYear}" ></p:inputText>
                                          <p:outputLabel value="Number" ></p:outputLabel>
-                                         <p:inputText value="#{personController.selected.clinicFileNoYearlySerial}" ></p:inputText>
+                                         <p:inputText value="#{personController.selectedPatient.clinicFileNoYearlySerial}" ></p:inputText>
                                     </h:panelGrid>
                                     <p:commandButton ajax="false" value="Register" action="#{personController.saveNewPatientAndPrepareForAnotherNewPatient()}" ></p:commandButton>
                                     <p:commandButton ajax="false" value="Register &amp; Add Appointment" action="#{personController.saveNewPatientAndGoToAppointments}" ></p:commandButton>
