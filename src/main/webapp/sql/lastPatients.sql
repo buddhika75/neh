@@ -1,0 +1,1 @@
+select * from PERSON ORDER by id desc FETCH FIRST 10 ROWS ONLY ;

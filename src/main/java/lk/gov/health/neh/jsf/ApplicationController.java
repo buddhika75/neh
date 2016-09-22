@@ -41,11 +41,13 @@ public class ApplicationController {
     }
 
     public UnitLastFileNumber giveAFileNumber(Unit unit) {
+        System.out.println("giveAFileNumber " );
         UnitLastFileNumber u = null;
         for (UnitLastFileNumber n : getLastFileNumbers()) {
             if (n.getUnit().equals(unit)) {
-            } else {
-                u = n;
+                System.out.println("n.getUnit().equals(unit");
+                
+                u=n;
             }
         }
         if (u == null) {
@@ -62,31 +64,39 @@ public class ApplicationController {
     }
 
     public List<UnitLastFileNumber> fillFileNumbers() {
+        System.out.println("fillFileNumbers");
         List<UnitLastFileNumber> tmLfn = new ArrayList<UnitLastFileNumber>();
         String j;
         HashMap m = new HashMap();
         j = "Select u from Unit u";
         List<Unit> units = unitFacade.findBySQL(j);
+        System.out.println("units = " + units);
         for (Unit u : units) {
+            System.out.println("u = " + u);
             UnitLastFileNumber ul = new UnitLastFileNumber();
             ul.setUnit(u);
             j = "Select p from Patient p "
-                    + " where p.registered=true "
+                    + " where p.registered=:reg "
                     + " and p.unit=:unit "
                     + " order by p.id desc";
             m = new HashMap();
             m.put("unit", u);
+            m.put("reg", true);
             Patient p = patientFacade.findFirstBySQL(j, m);
+            System.out.println("p = " + p);
             Calendar c = Calendar.getInstance();
             if (p == null) {
+                System.out.println("p == null");
                 ul.setFileNo("");
                 ul.setYearValue(c.get(Calendar.YEAR));
                 ul.setAnnualCount(0);
             } else if (p.getClinicFileNoYear() != c.get(Calendar.YEAR)) {
+                System.out.println("p.getClinicFileNoYear() != c.get(Calendar.YEAR)");
                 ul.setFileNo("");
                 ul.setYearValue(c.get(Calendar.YEAR));
                 ul.setAnnualCount(0);
             } else {
+                System.out.println("else");
                 ul.setFileNo(p.getClinicFileNo());
                 ul.setYearValue(c.get(Calendar.YEAR));
                 ul.setAnnualCount(p.getClinicFileNoYearlySerial());
@@ -97,6 +107,7 @@ public class ApplicationController {
     }
 
     public List<UnitLastFileNumber> getLastFileNumbers() {
+        System.out.println("getLastFileNumbers");
         if (lastFileNumbers == null) {
             lastFileNumbers = fillFileNumbers();
         }
