@@ -22,6 +22,11 @@
                         <p:outputLabel value="SessionName:" for="sessionName" />
                         <p:inputText id="sessionName" value="#{appointmentSessionController.selected.sessionName}" title="SessionName" />
 
+
+                        <p:outputLabel value="Room No:" for="roomNo" />
+                        <p:inputText id="roomNo" value="#{appointmentSessionController.selected.roomNo}" title="Room No." />
+
+
                         <p:outputLabel value="SessionWeekday:" for="sessionWeekday" />
                         <p:selectOneMenu id="sessionWeekday" value="#{appointmentSessionController.selected.sessionWeekday}" >
                             <f:selectItem itemLabel="Select Weekday"/>

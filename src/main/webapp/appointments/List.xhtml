@@ -42,6 +42,13 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Room No"/>
+                            </f:facet>
+                            <h:outputText value="#{item.roomNo}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="Weekday"/>
                             </f:facet>
                             <h:outputText value="#{item.sessionWeekday}"/>

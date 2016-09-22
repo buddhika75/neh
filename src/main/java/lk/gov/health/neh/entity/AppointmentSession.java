@@ -36,6 +36,7 @@ public class AppointmentSession implements Serializable {
     @ManyToOne
     Consultant consultant;
     String sessionName;
+    String roomNo;
     AppointmentSessionType type;
     AppointmentSessionDateType dateType;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -58,6 +59,14 @@ public class AppointmentSession implements Serializable {
 
     public void setDurationBlockNumber(int durationBlockNumber) {
         this.durationBlockNumber = durationBlockNumber;
+    }
+
+    public String getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(String roomNo) {
+        this.roomNo = roomNo;
     }
     
     

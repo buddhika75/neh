@@ -77,6 +77,7 @@ public class AppointmentSessionController implements Serializable {
         patient = new Patient();
         encounter = new Encounter();
         encounter.setEncounterType(EncounterType.Appointment);
+        printing = false;
         return "/appointments/new_appointment_for_registered_patients";
     }
 
@@ -84,6 +85,7 @@ public class AppointmentSessionController implements Serializable {
         patient = pt;
         encounter = new Encounter();
         encounter.setEncounterType(EncounterType.Appointment);
+        printing = false;
         return "/appointments/new_appointment_for_registered_patients";
     }
 
@@ -115,7 +117,18 @@ public class AppointmentSessionController implements Serializable {
 
         selectedAppointmentSession = selectedAppointmentSessions.get(0);
 
-        System.out.println("selectedAppointmentSession = " + selectedAppointmentSession);
+        selectedSessionChanged();
+
+    }
+
+    public void selectedSessionChanged() {
+        Map m = new HashMap();
+        String j;
+        if (selectedAppointmentSession == null) {
+            selectedAppointments = new ArrayList<Encounter>();
+            selectedAppointment = null;
+            return;
+        }
 
         j = "Select e from Encounter e "
                 + " where e.encounterType=:et "
@@ -147,59 +160,57 @@ public class AppointmentSessionController implements Serializable {
         encounter.setAppointmentSession(selectedAppointmentSession);
         encounter.setEncounterDate(selectedDate);
         encounter.setEncounterType(EncounterType.Appointment);
-        
+
         encounter.setPatient(patient);
         encounter.setIntDailyNo(selectedAppointments.size());
-        
+
         convertDailyToBlock(encounter);
-        
+
         getEncounterFacade().edit(encounter);
         printing = true;
         JsfUtil.addSuccessMessage("New Appointment Added");
         return "";
     }
 
-    
-    public void convertDailyToBlock(Encounter e){
+    public void convertDailyToBlock(Encounter e) {
         int timePerSlot = e.getAppointmentSession().getDurationInMinutes();
         int countForBlock = e.getAppointmentSession().getDurationBlockNumber();
         Date startTime = e.getAppointmentSession().getSessionFrom();
         int modBlockAtStart = e.getIntDailyNo() / countForBlock;
-        
+
         System.out.println("timePerSlot = " + timePerSlot);
         System.out.println("modBlockAtStart = " + modBlockAtStart);
-        
-        
+
         Calendar app = Calendar.getInstance();
         app.setTime(e.getEncounterDate());
         System.out.println("app = " + app);
-        
+
         Calendar ses = Calendar.getInstance();
         ses.setTime(e.getAppointmentSession().getSessionFrom());
         System.out.println("ses = " + ses);
-        
-        int appHour = ses.get(Calendar.HOUR) ;
+
+        int appHour = ses.get(Calendar.HOUR);
         System.out.println("appHour = " + appHour);
-        int appMin = ses.get(Calendar.MINUTE) ;
+        int appMin = ses.get(Calendar.MINUTE);
         System.out.println("appMin = " + appMin);
 
         app.set(Calendar.HOUR, appHour);
         app.set(Calendar.MINUTE, appMin);
-        app.add(Calendar.MINUTE, (timePerSlot*modBlockAtStart));
-        
+        app.add(Calendar.MINUTE, (timePerSlot * modBlockAtStart));
+
         e.setEncounterDate(app.getTime());
         System.out.println("e.getEncounterDate() = " + e.getEncounterDate());
-        
-        e.setSerialNumber((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber())+1);
-        
+
+        e.setSerialNumber((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber()) + 1);
+
         System.out.println("e.getSerialNumber() = " + e.getSerialNumber());
-        
-        e.setIntSerialNo((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber())+1);
-        
+
+        e.setIntSerialNo((e.getIntDailyNo() % e.getAppointmentSession().getDurationBlockNumber()) + 1);
+
         System.out.println("e.getIntSerialNo() = " + e.getIntSerialNo());
-        
+
     }
-    
+
     public String clearForNewAppointment() {
         selectedDateChanged(null);
         patient = new Patient();

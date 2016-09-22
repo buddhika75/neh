@@ -33,6 +33,12 @@
                                                  selection="#{appointmentSessionController.selectedAppointmentSession}"
                                                  selectionMode="single"
                                                  rowKey="#{s.id}">
+                                        <p:ajax event="rowSelect" 
+                                                listener="#{appointmentSessionController.selectedSessionChanged}" 
+                                                update=":#{p:component('bookings')}" />
+                                        <p:ajax event="rowUnselect" 
+                                                listener="#{appointmentSessionController.selectedSessionChanged}" 
+                                                update=":#{p:component('bookings')}" />
                                         <p:column headerText="Name" >
                                             <p:outputLabel value="#{s.sessionName}" ></p:outputLabel>
                                         </p:column>
@@ -61,6 +67,7 @@
                                              value="#{appointmentSessionController.selectedAppointments}" 
                                              var="e"
                                              emptyMessage="No Appointments">
+
                                     <p:column headerText="Time" >
                                         <p:outputLabel value="#{e.encounterDate}" >
                                             <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
@@ -144,11 +151,11 @@
                                     <h:outputLabel value="National Eye Hospital, Sri Lanka" style="font-size: 18px;"></h:outputLabel>
                                 </td>
                             </tr>
-                             <tr>
-                                 <td colspan="5">
-                                     <h:outputLabel value="Clinic Appointment" ></h:outputLabel>
-                                 </td>
-                             </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <h:outputLabel value="Clinic Appointment" ></h:outputLabel>
+                                </td>
+                            </tr>
                             <tr>
                                 <td style="width: 10px;">
 
@@ -161,6 +168,23 @@
                                 </td>
                                 <td style="text-align: left;">
                                     <p:outputLabel value="#{appointmentSessionController.encounter.patient.name}" ></p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10px;">
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Clinic File No" ></h:outputLabel>
+                                </td>
+                                <td style="width: 2%; text-align: center;">
+                                    <h:outputLabel value=":" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.patient.clinicFileNo}" ></p:outputLabel>
                                 </td>
                                 <td>
 
@@ -198,6 +222,24 @@
                                 <td style="text-align: left;">
                                     <p:outputLabel value="#{appointmentSessionController.encounter.encounterDate}" >
                                         <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                    </p:outputLabel>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td style="text-align: left;">
+                                    <h:outputLabel value="Room" ></h:outputLabel>
+                                </td>
+                                <td style="text-align: center;">
+                                    :
+                                </td>
+                                <td style="text-align: left;">
+                                    <p:outputLabel value="#{appointmentSessionController.encounter.appointmentSession.roomNo}" >
                                     </p:outputLabel>
                                 </td>
                                 <td>

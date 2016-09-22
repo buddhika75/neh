@@ -19,8 +19,12 @@
                                            var="unitItem"
                                            itemValue="#{unitItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="SessionName:" for="sessionName" />
-                        <p:inputText id="sessionName" value="#{appointmentSessionController.selected.sessionName}" title="SessionName" />
+                        <p:outputLabel value="Session Name:" for="sessionName" />
+                        <p:inputText id="sessionName" value="#{appointmentSessionController.selected.sessionName}" title="Session Name" />
+
+                        <p:outputLabel value="Room No:" for="roomNo" />
+                        <p:inputText id="roomNo" value="#{appointmentSessionController.selected.roomNo}" title="Room No." />
+
 
                         <p:outputLabel value="SessionWeekday:" for="sessionWeekday" />
                         <p:selectOneMenu id="sessionWeekday" value="#{appointmentSessionController.selected.sessionWeekday}" >
@@ -30,15 +34,15 @@
 
 
                         <p:outputLabel value="From:" for="sessionFrom" />
-                        <p:calendar id="sessionFrom" value="#{appointmentSessionController.selected.sessionFrom}" title="SessionFrom" timeOnly="true" pattern="HH:mm" >
+                        <p:calendar id="sessionFrom" value="#{appointmentSessionController.selected.sessionFrom}" title="Session From" timeOnly="true" pattern="HH:mm" >
                         </p:calendar>
 
                         <p:outputLabel value="To:" for="sessionTo" />
-                        <p:calendar id="sessionTo" value="#{appointmentSessionController.selected.sessionTo}" title="SessionTo" timeOnly="true"  pattern="HH:mm" >
+                        <p:calendar id="sessionTo" value="#{appointmentSessionController.selected.sessionTo}" title="Session To" timeOnly="true"  pattern="HH:mm" >
                         </p:calendar>
 
                         <p:outputLabel value="Duration of a block :" for="durationInMinutes" />
-                        <p:inputText id="durationInMinutes" value="#{appointmentSessionController.selected.durationInMinutes}" title="DurationInMinutes" />
+                        <p:inputText id="durationInMinutes" value="#{appointmentSessionController.selected.durationInMinutes}" title="Duration In Minutes" />
 
                         <p:outputLabel value="Appointments for a Block:" for="blockNumber" />
                         <p:inputText id="blockNumber" value="#{appointmentSessionController.selected.durationBlockNumber}" title="DurationInMinutes" />
