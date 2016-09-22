@@ -4,7 +4,6 @@
     <jta-data-source>nehdb22</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      
     </properties>
   </persistence-unit>
 </persistence>
