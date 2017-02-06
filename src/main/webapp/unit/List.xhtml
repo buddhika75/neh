@@ -41,10 +41,24 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="Code"/>
+                            </f:facet>
+                            <h:outputText value="#{item.code}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Clinic No Prefix"/>
+                            </f:facet>
+                            <h:outputText value="#{item.clinicNumberPrefix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUnitTitle_role}"/>
                             </f:facet>
                             <h:outputText value="#{item.consultantRole}"/>
                         </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUnitTitle_perentUnit}"/>
