@@ -6,6 +6,7 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.AppointmentSessionFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +27,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.persistence.TemporalType;
+import lk.gov.health.neh.entity.AppointmentTimeSlot;
 import lk.gov.health.neh.entity.Consultant;
 import lk.gov.health.neh.entity.Encounter;
 import lk.gov.health.neh.entity.Patient;
@@ -36,6 +39,7 @@ import lk.gov.health.neh.enums.AppointmentSessionType;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.NumberAndTime;
 import lk.gov.health.neh.enums.Weekday;
+import lk.gov.health.neh.session.AppointmentTimeSlotFacade;
 import lk.gov.health.neh.session.EncounterFacade;
 import lk.gov.health.neh.session.PatientFacade;
 import org.primefaces.event.SelectEvent;
@@ -50,6 +54,8 @@ public class AppointmentSessionController implements Serializable {
     EncounterFacade encounterFacade;
     @EJB
     PatientFacade patientFacade;
+    @EJB
+    AppointmentTimeSlotFacade appointmentTimeSlotFacade;
 
     @Inject
     StaffController staffController;
@@ -69,6 +75,8 @@ public class AppointmentSessionController implements Serializable {
     Date selectedDate;
     Encounter selectedAppointment;
     AppointmentSession selectedAppointmentSession;
+    List<AppointmentTimeSlot> selectedAppointmentTimeSlots;
+    AppointmentTimeSlot selectedAppointmentTimeSlot;
     List<Encounter> selectedAppointments;
     List<AppointmentSession> selectedAppointmentSessions;
     boolean printing;
@@ -92,6 +100,7 @@ public class AppointmentSessionController implements Serializable {
     public void selectedDateChanged(SelectEvent event) {
         selectedAppointment = null;
         selectedAppointmentSession = null;
+        selectedAppointmentTimeSlots = null;
         selectedAppointmentSessions = new ArrayList<AppointmentSession>();
         selectedAppointments = new ArrayList<Encounter>();
         Map m = new HashMap();
@@ -116,6 +125,7 @@ public class AppointmentSessionController implements Serializable {
         }
 
         selectedAppointmentSession = selectedAppointmentSessions.get(0);
+        selectedAppointmentTimeSlots = getAppointmentTimeSlots(selectedAppointmentSession, selectedDate);
 
         selectedSessionChanged();
 
@@ -127,6 +137,7 @@ public class AppointmentSessionController implements Serializable {
         if (selectedAppointmentSession == null) {
             selectedAppointments = new ArrayList<Encounter>();
             selectedAppointment = null;
+            selectedAppointmentTimeSlots = null;
             return;
         }
 
@@ -140,6 +151,7 @@ public class AppointmentSessionController implements Serializable {
         m.put("ed", selectedDate);
 
         selectedAppointments = encounterFacade.findBySQL(j, m);
+        selectedAppointmentTimeSlots = getAppointmentTimeSlots(selectedAppointmentSession, selectedDate);
 
     }
 
@@ -164,15 +176,152 @@ public class AppointmentSessionController implements Serializable {
         encounter.setPatient(patient);
         encounter.setIntDailyNo(selectedAppointments.size());
 
-        convertDailyToBlock(encounter);
-
-        getEncounterFacade().edit(encounter);
-        printing = true;
-        JsfUtil.addSuccessMessage("New Appointment Added");
-        return "";
+        if (convertDailyToBlock(encounter)) {
+            getEncounterFacade().edit(encounter);
+            printing = true;
+            JsfUtil.addSuccessMessage("New Appointment Added");
+            System.out.println("encounter.getEncounterDate() = " + encounter.getEncounterDate());
+            return "";
+        } else {
+            printing = false;
+            JsfUtil.addErrorMessage("Can not Add Appointment");
+            return "";
+        }
     }
 
-    public void convertDailyToBlock(Encounter e) {
+    public List<AppointmentTimeSlot> getAppointmentTimeSlots(AppointmentSession as, Date date) {
+
+        System.out.println("getAppointmentTimeSlots");
+
+        List<AppointmentTimeSlot> tss = new ArrayList<AppointmentTimeSlot>();
+
+        int timePerSlot = as.getDurationInMinutes();
+        long timeSlotsPerSession;
+        int intTimeSlotsPerSesson;
+        long durationBetweenStartAndEnd;
+
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+
+        Calendar sessionStart = Calendar.getInstance();
+        sessionStart.setTime(as.getSessionFrom());
+
+        Calendar sessionEnd = Calendar.getInstance();
+        sessionEnd.setTime(as.getSessionTo());
+
+        System.err.println("as.getSessionFrom() = " + as.getSessionFrom());
+        System.err.println("as.getSessionTo() = " + as.getSessionTo());
+
+        System.out.println("sessionStart = " + sessionStart);
+        System.out.println("sessionEnd = " + sessionEnd);
+
+        start.set(Calendar.MILLISECOND, 0);
+        start.set(Calendar.SECOND, 0);
+        start.set(Calendar.HOUR_OF_DAY, sessionStart.get(Calendar.HOUR_OF_DAY));
+        start.set(Calendar.MINUTE, sessionStart.get(Calendar.MINUTE));
+        System.out.println("start = " + start);
+
+        end.set(Calendar.MILLISECOND, 0);
+        end.set(Calendar.SECOND, 0);
+        end.set(Calendar.HOUR_OF_DAY, sessionEnd.get(Calendar.HOUR_OF_DAY));
+        end.set(Calendar.MINUTE, sessionEnd.get(Calendar.MINUTE));
+        System.out.println("end = " + end);
+
+        durationBetweenStartAndEnd = (end.getTime().getTime() - start.getTime().getTime()) / (1000 * 60);
+        timeSlotsPerSession = durationBetweenStartAndEnd / timePerSlot;
+        System.out.println("timePerSlot = " + timePerSlot);
+        System.out.println("durationBetweenStartAndEnd = " + durationBetweenStartAndEnd);
+
+        intTimeSlotsPerSesson = (int) timeSlotsPerSession;
+
+        System.out.println("intTimeSlotsPerSesson = " + intTimeSlotsPerSesson);
+
+        for (int i = 0; i < intTimeSlotsPerSesson; i++) {
+            Calendar cts = Calendar.getInstance();
+            cts.setTime(date);
+            cts.set(Calendar.MILLISECOND, 0);
+            cts.set(Calendar.SECOND, 0);
+            cts.set(Calendar.HOUR_OF_DAY, start.get(Calendar.HOUR_OF_DAY));
+            cts.set(Calendar.MINUTE, start.get(Calendar.MINUTE));
+            cts.add(Calendar.MINUTE, i * as.getDurationInMinutes());
+            String j = "select a "
+                    + " from AppointmentTimeSlot a "
+                    + " where a.timeSlotTimeStamp=:ats "
+                    + " and a.appointmentSession=:apps";
+            Map m = new HashMap();
+            m.put("ats", cts.getTime());
+            m.put("apps", as);
+            AppointmentTimeSlot ts = getAppointmentTimeSlotFacade().findFirstBySQL(j, m, TemporalType.TIMESTAMP);
+            System.out.println("ts = " + ts);
+            if (ts == null) {
+                ts = new AppointmentTimeSlot();
+                ts.setAppointmentSession(as);
+                ts.setTimeSlotDate(cts.getTime());
+                ts.setTimeSlotTime(cts.getTime());
+                ts.setTimeSlotTimeStamp(cts.getTime());
+                DateFormat df = new SimpleDateFormat("HH:mm");
+                Date appTime = cts.getTime();
+                String appName = df.format(appTime);
+                ts.setTimeSlotName(appName);
+                getAppointmentTimeSlotFacade().create(ts);
+                System.out.println("create"
+                        + "");
+            }
+            tss.add(ts);
+        }
+        selectedAppointmentTimeSlot = null;
+        return tss;
+
+    }
+
+    public boolean convertDailyToBlock(Encounter e) {
+        String j;
+        Map m;
+        boolean canAdd = false;
+        System.out.println("selectedAppointmentTimeSlots = " + selectedAppointmentTimeSlots);
+
+        for (AppointmentTimeSlot ts : selectedAppointmentTimeSlots) {
+            System.out.println("ts = " + ts);
+            j = "Select count(e) from Encounter e "
+                    + " where e.encounterType=:et "
+                    + " and e.appointmentSession=:aps "
+                    + " and e.encounterDate=:ed "
+                    + " and e.appointmentTimeSlot=:ats";
+            m = new HashMap();
+            m.put("et", EncounterType.Appointment);
+            m.put("aps", selectedAppointmentSession);
+            m.put("ed", selectedDate);
+            m.put("ats", ts);
+            long count = getEncounterFacade().findLongByJpql(j, m);
+            System.out.println("selectedAppointmentTimeSlot = " + selectedAppointmentTimeSlot);
+            if (selectedAppointmentTimeSlot == null) {
+                System.out.println("selectedAppointmentSession.getDurationBlockNumber() = " + selectedAppointmentSession.getDurationBlockNumber());
+                System.out.println("count = " + count);
+                if (count < selectedAppointmentSession.getDurationBlockNumber()) {
+                    System.out.println("1. ts.getTimeSlotTimeStamp() = " + ts.getTimeSlotTimeStamp());
+                    e.setEncounterDate(ts.getTimeSlotTimeStamp());
+                    e.setEncounterTime(ts.getTimeSlotTimeStamp());
+                    System.out.println("e.getEncounterDate() = " + e.getEncounterDate());
+                    e.setSerialNumber(count + 1);
+                    e.setIntSerialNo((int) count + 1);
+                    e.setAppointmentTimeSlot(ts);
+                    return true;
+                }
+            } else if (selectedAppointmentTimeSlot.equals(ts)) {
+                System.out.println("2. ts.getTimeSlotTimeStamp() = " + ts.getTimeSlotTimeStamp());
+                e.setEncounterDate(ts.getTimeSlotTimeStamp());
+                e.setEncounterTime(ts.getTimeSlotTimeStamp());
+                System.out.println("e.getEncounterDate() = " + e.getEncounterDate());
+                e.setSerialNumber(count + 1);
+                e.setIntSerialNo((int) count + 1);
+                e.setAppointmentTimeSlot(ts);
+                return true;
+            }
+        }
+        return canAdd;
+    }
+
+    public void convertDailyToBlockOld(Encounter e) {
         int timePerSlot = e.getAppointmentSession().getDurationInMinutes();
         int countForBlock = e.getAppointmentSession().getDurationBlockNumber();
         Date startTime = e.getAppointmentSession().getSessionFrom();
@@ -452,6 +601,30 @@ public class AppointmentSessionController implements Serializable {
 
     public void setPrinting(boolean printing) {
         this.printing = printing;
+    }
+
+    public AppointmentTimeSlotFacade getAppointmentTimeSlotFacade() {
+        return appointmentTimeSlotFacade;
+    }
+
+    public PersonController getPersonController() {
+        return personController;
+    }
+
+    public List<AppointmentTimeSlot> getSelectedAppointmentTimeSlots() {
+        return selectedAppointmentTimeSlots;
+    }
+
+    public void setSelectedAppointmentTimeSlots(List<AppointmentTimeSlot> selectedAppointmentTimeSlots) {
+        this.selectedAppointmentTimeSlots = selectedAppointmentTimeSlots;
+    }
+
+    public AppointmentTimeSlot getSelectedAppointmentTimeSlot() {
+        return selectedAppointmentTimeSlot;
+    }
+
+    public void setSelectedAppointmentTimeSlot(AppointmentTimeSlot selectedAppointmentTimeSlot) {
+        this.selectedAppointmentTimeSlot = selectedAppointmentTimeSlot;
     }
 
     @FacesConverter(forClass = AppointmentSession.class)

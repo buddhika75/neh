@@ -34,6 +34,8 @@ public class Encounter implements Serializable {
     Patient patient;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date encounterDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Date encounterTime;
     @Enumerated(EnumType.STRING)
     EncounterType encounterType;
     String dailyNo;
@@ -85,10 +87,28 @@ public class Encounter implements Serializable {
 
     @ManyToOne
     AppointmentSession appointmentSession;
+    @ManyToOne
+    AppointmentTimeSlot appointmentTimeSlot;
     boolean cancelled;
 
     @ManyToOne
     Encounter parent;
+
+    public AppointmentTimeSlot getAppointmentTimeSlot() {
+        return appointmentTimeSlot;
+    }
+
+    public void setAppointmentTimeSlot(AppointmentTimeSlot appointmentTimeSlot) {
+        this.appointmentTimeSlot = appointmentTimeSlot;
+    }
+
+    public Date getEncounterTime() {
+        return encounterTime;
+    }
+
+    public void setEncounterTime(Date encounterTime) {
+        this.encounterTime = encounterTime;
+    }
     
     
 
