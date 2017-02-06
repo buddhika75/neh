@@ -64,19 +64,32 @@
 
 
                             <p:column rowspan="2">
-
+                                <p:commandButton value="Print List" ajax="false" >
+                                    <p:printer target="bookings" ></p:printer>
+                                </p:commandButton>
                                 <p:dataTable id="bookings" 
                                              value="#{appointmentSessionController.selectedAppointments}" 
                                              var="e"
                                              emptyMessage="No Appointments">
-
+                                    <f:facet name="header" >
+                                        <p:outputLabel value="#{appointmentSessionController.selectedAppointmentSession.unit.name}" ></p:outputLabel>
+                                        <p:outputLabel value=" " ></p:outputLabel>
+                                        <p:outputLabel value="#{appointmentSessionController.selectedAppointmentSession.sessionName}" ></p:outputLabel>
+                                        <p:outputLabel value=" " ></p:outputLabel>
+                                        <p:outputLabel value="#{appointmentSessionController.selectedDate}" >
+                                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                        </p:outputLabel>
+                                    </f:facet>
                                     <p:column headerText="Time" >
                                         <p:outputLabel value="#{e.encounterTime}" >
                                             <f:convertDateTime pattern="hh:mm"  timeZone="Asia/Colombo" ></f:convertDateTime>
                                         </p:outputLabel>
                                     </p:column>
-                                    <p:column headerText="No" >
+                                    <p:column headerText="Session No" >
                                         <p:outputLabel value="#{e.intSerialNo}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Daily No" >
+                                        <p:outputLabel value="#{e.intDailyNo}" ></p:outputLabel>
                                     </p:column>
                                     <p:column headerText="Name" >
                                         <p:outputLabel value="#{e.patient.nameWithTitle}" ></p:outputLabel>
@@ -114,7 +127,8 @@
                                             <f:selectItems value="#{appointmentSessionController.selectedAppointmentTimeSlots}" var="ats" itemLabel="#{ats.timeSlotName}" itemValue="#{ats}" ></f:selectItems>
                                         </p:selectOneMenu>
                                     </h:panelGrid>
-                                    <p:commandButton ajax="false" value="Make The Appointment" action="#{appointmentSessionController.makeAnAppointment}" ></p:commandButton>
+                                    <p:commandButton ajax="false" value="Make The Appointment" 
+                                                     action="#{appointmentSessionController.makeAnAppointment}" ></p:commandButton>
                                 </p:panel>
 
                             </p:column>

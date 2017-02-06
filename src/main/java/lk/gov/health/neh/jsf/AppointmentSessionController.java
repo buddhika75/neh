@@ -174,7 +174,7 @@ public class AppointmentSessionController implements Serializable {
         encounter.setEncounterType(EncounterType.Appointment);
 
         encounter.setPatient(patient);
-        encounter.setIntDailyNo(selectedAppointments.size());
+        encounter.setIntDailyNo(selectedAppointments.size()+1);
 
         if (convertDailyToBlock(encounter)) {
             getEncounterFacade().edit(encounter);
