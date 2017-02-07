@@ -62,9 +62,7 @@
 
 
                             <p:column rowspan="2">
-                                <p:commandButton ajax="false" value="Print" >
-                                    <p:printer target="bookings" ></p:printer>
-                                </p:commandButton>
+
                                 <p:dataTable id="bookings" 
                                              value="#{appointmentSessionController.selectedAppointments}" 
                                              var="e"
