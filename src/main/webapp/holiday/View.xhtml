@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HolidayViewDlg" widgetVar="HolidayViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewHolidayTitle}">
+            <h:form id="HolidayViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{holidayController.selected != null}">
+                        <p:calendar value="#{holidayController.selected.holidayDate}" pattern="dd MMMM yyyy">
+                        </p:calendar>
+                        <p:outputLabel value="#{bundle.CreateHolidayLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{holidayController.selected.holidayName}" title="#{bundle.CreateHolidayTitle_name}" />
+                        <p:outputLabel value="Code" for="txtCode" />
+                        <p:inputText id="txtCode" value="#{holidayController.selected.holidayComments}" title="Code" />
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="HolidayViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
