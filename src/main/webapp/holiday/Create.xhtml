@@ -8,21 +8,21 @@
 
     <ui:composition>
 
-        <p:dialog id="UnitCreateDlg" widgetVar="UnitCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Create">
-            <h:form id="UnitCreateForm">
+        <p:dialog id="HolidayCreateDlg" widgetVar="HolidayCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Create">
+            <h:form id="HolidayCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{holidayController.selected != null}">
                         <p:calendar value="#{holidayController.selected.holidayDate}" pattern="dd MMMM yyyy">
                         </p:calendar>
-                        <p:outputLabel value="#{bundle.CreateUnitLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{holidayController.selected.holidayName}" title="#{bundle.CreateUnitTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateHolidayLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{holidayController.selected.holidayName}" title="#{bundle.CreateHolidayTitle_name}" />
                         <p:outputLabel value="Code" for="txtCode" />
                         <p:inputText id="txtCode" value="#{holidayController.selected.holidayComments}" title="Code" />
                        
                        
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{holidayController.create}" value="#{bundle.Save}" update="display,:UnitListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnitCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UnitCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{holidayController.create}" value="#{bundle.Save}" update="display,:HolidayListForm:datalist,:growl" oncomplete="handleSubmit(args,'HolidayCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HolidayCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
