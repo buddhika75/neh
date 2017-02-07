@@ -15,7 +15,7 @@
 
         <ui:define name="body">
             <h:form >
-                <p:panel header="#{bundle.registerPatient}" rendered="#{!appointmentSessionController.printing}">
+                <p:panel header="Appointments" rendered="#{!appointmentSessionController.printing}">
 
                     <p:panelGrid >
 
@@ -24,7 +24,9 @@
                             <p:column >
                                 <h:panelGrid columns="2" >
                                     <p:calendar value="#{appointmentSessionController.selectedDate}" mode="inline">
-                                        <p:ajax event="dateSelect" listener="#{appointmentSessionController.selectedDateChanged}" process="@this" update="sessions bookings" />
+                                        <p:ajax event="dateSelect" 
+                                                listener="#{appointmentSessionController.selectedDateChanged}" 
+                                                process="@this" update="sessions bookings cmdTimeSlots" />
                                     </p:calendar>
                                     <p:dataTable id="sessions" 
                                                  value="#{appointmentSessionController.selectedAppointmentSessions}" 
@@ -44,11 +46,11 @@
                                         </p:column>
                                         <p:column headerText="Time" >
                                             <p:outputLabel value="#{s.sessionFrom}" >
-                                                <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                                <f:convertDateTime pattern="HH:mm" timeZone="Asia/Colombo" ></f:convertDateTime>
                                             </p:outputLabel>
                                             <p:outputLabel value="-" ></p:outputLabel>
                                             <p:outputLabel value="#{s.sessionTo}" >
-                                                <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                                <f:convertDateTime pattern="HH:mm" timeZone="Asia/Colombo" ></f:convertDateTime>
                                             </p:outputLabel>
                                         </p:column>
                                         <p:column headerText="Maximum" >
@@ -62,19 +64,32 @@
 
 
                             <p:column rowspan="2">
-
+                                <p:commandButton value="Print List" ajax="false" >
+                                    <p:printer target="bookings" ></p:printer>
+                                </p:commandButton>
                                 <p:dataTable id="bookings" 
                                              value="#{appointmentSessionController.selectedAppointments}" 
                                              var="e"
                                              emptyMessage="No Appointments">
-
+                                    <f:facet name="header" >
+                                        <p:outputLabel value="#{appointmentSessionController.selectedAppointmentSession.unit.name}" ></p:outputLabel>
+                                        <p:outputLabel value=" " ></p:outputLabel>
+                                        <p:outputLabel value="#{appointmentSessionController.selectedAppointmentSession.sessionName}" ></p:outputLabel>
+                                        <p:outputLabel value=" " ></p:outputLabel>
+                                        <p:outputLabel value="#{appointmentSessionController.selectedDate}" >
+                                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                        </p:outputLabel>
+                                    </f:facet>
                                     <p:column headerText="Time" >
-                                        <p:outputLabel value="#{e.encounterDate}" >
-                                            <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                        <p:outputLabel value="#{e.encounterTime}" >
+                                            <f:convertDateTime pattern="hh:mm"  timeZone="Asia/Colombo" ></f:convertDateTime>
                                         </p:outputLabel>
                                     </p:column>
-                                    <p:column headerText="No" >
+                                    <p:column headerText="Session No" >
                                         <p:outputLabel value="#{e.intSerialNo}" ></p:outputLabel>
+                                    </p:column>
+                                    <p:column headerText="Daily No" >
+                                        <p:outputLabel value="#{e.intDailyNo}" ></p:outputLabel>
                                     </p:column>
                                     <p:column headerText="Name" >
                                         <p:outputLabel value="#{e.patient.nameWithTitle}" ></p:outputLabel>
@@ -106,9 +121,14 @@
                                         <p:inputText value="#{appointmentSessionController.patient.telephoneNo}" ></p:inputText>
                                         <p:outputLabel value="Clinic File No" ></p:outputLabel>
                                         <p:inputText value="#{appointmentSessionController.patient.clinicFileNo}" ></p:inputText>
-
+                                        <p:outputLabel value="Time Slot" ></p:outputLabel>
+                                        <p:selectOneMenu id="cmdTimeSlots" value="#{appointmentSessionController.selectedAppointmentTimeSlot}"  >
+                                            <f:selectItem itemLabel="Default" ></f:selectItem>
+                                            <f:selectItems value="#{appointmentSessionController.selectedAppointmentTimeSlots}" var="ats" itemLabel="#{ats.timeSlotName}" itemValue="#{ats}" ></f:selectItems>
+                                        </p:selectOneMenu>
                                     </h:panelGrid>
-                                    <p:commandButton ajax="false" value="Make The Appointment" action="#{appointmentSessionController.makeAnAppointment}" ></p:commandButton>
+                                    <p:commandButton ajax="false" value="Make The Appointment" 
+                                                     action="#{appointmentSessionController.makeAnAppointment}" ></p:commandButton>
                                 </p:panel>
 
                             </p:column>
@@ -219,7 +239,7 @@
                                 </td>
                                 <td style="text-align: left;">
                                     <p:outputLabel value="#{appointmentSessionController.encounter.encounterDate}" >
-                                        <f:convertDateTime pattern="hh:mm" ></f:convertDateTime>
+                                        <f:convertDateTime pattern="hh:mm" timeZone="Asia/Colombo" ></f:convertDateTime>
                                     </p:outputLabel>
                                 </td>
                                 <td>

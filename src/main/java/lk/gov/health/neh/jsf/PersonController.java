@@ -76,7 +76,7 @@ public class PersonController implements Serializable {
         selectedPatient.setClinicFileNoYearlySerial(f.getAnnualCount());
         System.out.println("f.getAnnualCount() = " + f.getAnnualCount());
         selectedPatient.setClinicFileNoYear(f.getYearValue());
-        selectedPatient.setClinicFileNo(selectedPatient.getClinicFileNoYearlySerial() + "/" + selectedPatient.getClinicFileNoYear());
+        selectedPatient.setClinicFileNo(staffController.getLoggedUnit() + "/" + selectedPatient.getClinicFileNoYearlySerial() + "/" + selectedPatient.getClinicFileNoYear());
 
         return "/appointments/register_patient";
     }

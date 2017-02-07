@@ -16,6 +16,11 @@
                         <p:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.CreateUnitTitle_name}" />
                         <p:outputLabel value="Code" for="txtCode" />
                         <p:inputText id="txtCode" value="#{unitController.selected.code}" title="Code" />
+
+                        <p:outputLabel value="cn" for="txtCn" />
+                        <p:inputText id="txtCn" value="#{unitController.selected.clinicNumberPrefix}" title="Clinic No" />
+                        
+                        
                         <p:outputLabel value="Role" for="txtRole" />
                         <p:inputText id="txtRole" value="#{unitController.selected.consultantRole}" title="Role" />
                         <p:outputLabel value="Consultant" for="institution" />

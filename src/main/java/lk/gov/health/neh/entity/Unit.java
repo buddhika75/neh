@@ -37,6 +37,18 @@ public class Unit implements Serializable {
     
     @ManyToOne
     Consultant consultant;
+    
+    String clinicNumberPrefix;
+
+    public String getClinicNumberPrefix() {
+        return clinicNumberPrefix;
+    }
+
+    public void setClinicNumberPrefix(String clinicNumberPrefix) {
+        this.clinicNumberPrefix = clinicNumberPrefix;
+    }
+    
+    
 
     public Consultant getConsultant() {
         return consultant;

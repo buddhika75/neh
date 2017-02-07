@@ -14,9 +14,14 @@
                     <p:panelGrid columns="2" rendered="#{unitController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateUnitLabel_name}" for="name" />
                         <p:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.CreateUnitTitle_name}" />
+
                         <p:outputLabel value="Code" for="txtCode" />
                         <p:inputText id="txtCode" value="#{unitController.selected.code}" title="Code" />
 
+                        <p:outputLabel value="cn" for="txtCn" />
+                        <p:inputText id="txtCn" value="#{unitController.selected.clinicNumberPrefix}" title="Clinic No" />
+                        
+                        
                         <p:outputLabel value="Role" for="role" />
                         <p:selectOneMenu id="role" value="#{unitController.selected.consultantRole}" >
                             <f:selectItems value="#{enumController.consultantRoles}"/>

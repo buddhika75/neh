@@ -35,11 +35,11 @@
 
 
                         <p:outputLabel value="From:" for="sessionFrom" />
-                        <p:calendar id="sessionFrom" value="#{appointmentSessionController.selected.sessionFrom}" title="SessionFrom" timeOnly="true" pattern="HH:mm" >
+                        <p:calendar id="sessionFrom" value="#{appointmentSessionController.selected.sessionFrom}" title="SessionFrom" timeOnly="true" pattern="HH:mm" timeZone="Asia/Colombo" >
                         </p:calendar>
 
                         <p:outputLabel value="To:" for="sessionTo" />
-                        <p:calendar id="sessionTo" value="#{appointmentSessionController.selected.sessionTo}" title="SessionTo" timeOnly="true"  pattern="HH:mm" >
+                        <p:calendar id="sessionTo" value="#{appointmentSessionController.selected.sessionTo}" title="SessionTo" timeOnly="true"  pattern="HH:mm" timeZone="Asia/Colombo" >
                         </p:calendar>
 
                         <p:outputLabel value="Duration of a block :" for="durationInMinutes" />
