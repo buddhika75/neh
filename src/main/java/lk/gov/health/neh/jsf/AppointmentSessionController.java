@@ -117,6 +117,7 @@ public class AppointmentSessionController implements Serializable {
                     + " where a.sessionWeekday=:swd ";
             m.put("swd", Weekday.getWeekday(selectedDate));
         }
+       
         selectedAppointmentSessions = getFacade().findBySQL(j, m);
 
         if (selectedAppointmentSessions == null || selectedAppointmentSessions.isEmpty()) {
@@ -145,6 +146,7 @@ public class AppointmentSessionController implements Serializable {
                 + " where e.encounterType=:et "
                 + " and e.appointmentSession=:aps "
                 + " and e.encounterDate=:ed";
+         j+=" order by e.encounterTime, e.intDailyNo";
         m = new HashMap();
         m.put("et", EncounterType.Appointment);
         m.put("aps", selectedAppointmentSession);
