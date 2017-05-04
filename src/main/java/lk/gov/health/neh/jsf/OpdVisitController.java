@@ -166,7 +166,15 @@ public class OpdVisitController implements Serializable {
         viewPrint = true;
         printPreview = true;
         if (selected.getEncounterType() == EncounterType.OpdVisit) {
-            return "/opdVisit/opd_visit";
+            Calendar c = Calendar.getInstance();
+            Long now = c.getTime().getTime();
+            c.setTime(selected.getEncounterTime());
+            Long booked = c.getTime().getTime();
+            if( (now - booked) / (1000/60/60) > 60){
+                JsfUtil.addErrorMessage("Can not edit for visits booked 2 hours ago");
+                return "";
+            }
+            return "/opdVisit/opd_visit_edit";
         }
         
 //        if (selected.getEncounterType() == EncounterType.Casulty) {
