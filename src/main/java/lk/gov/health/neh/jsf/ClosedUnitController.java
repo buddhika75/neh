@@ -92,7 +92,10 @@ public class ClosedUnitController implements Serializable {
 
     public List<ClosedUnit> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            String j = "select c from ClosedUnit c"
+                    + " where c.closedDate is not null "
+                    + " order by c.closedDate desc";
+            items = getFacade().findBySQL(j);
         }
         return items;
     }

@@ -580,7 +580,7 @@ public class OpdVisitController implements Serializable {
     }
 
     public String stringConversionOfSerialNo(int sn) {
-        int snt = sn + 555 + 146  ; //to set serial number
+        int snt = sn -249   ; //to set serial number
         Calendar c = Calendar.getInstance();
         String no = "" + c.get(Calendar.YEAR);
         System.out.println("no = " + no);
@@ -603,7 +603,7 @@ public class OpdVisitController implements Serializable {
         System.out.println("j = " + j);
         Long intCount =  getFacade().findLongByJpql(j, m);
         System.out.println("intCount = " + intCount);
-        return intCount -645;
+        return intCount -0;
     }
 
     public Long todaysCount() {
