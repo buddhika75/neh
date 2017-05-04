@@ -160,6 +160,27 @@ public class OpdVisitController implements Serializable {
         }
 
     }
+    
+    
+    public String editForm() {
+        viewPrint = true;
+        printPreview = true;
+        if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            return "/opdVisit/opd_visit";
+        }
+        
+//        if (selected.getEncounterType() == EncounterType.Casulty) {
+//            return "/opdVisit/casulty_visit";
+//        }
+//        if (selected.getEncounterType() == EncounterType.CloseUnitVisit) {
+//            return "/opdVisit/close_unit_visit";
+//        } else {
+//            return "/opdVisit/special_unit_visit";
+//        }
+
+        JsfUtil.addErrorMessage("Can only Edit OPD Visits");
+        return "";
+    }
 
     public List<OpdVisit> getOpdVisits() {
         return opdVisits;
