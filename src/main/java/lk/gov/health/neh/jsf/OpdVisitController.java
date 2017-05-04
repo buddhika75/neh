@@ -163,14 +163,21 @@ public class OpdVisitController implements Serializable {
     
     
     public String editForm() {
-        viewPrint = true;
-        printPreview = true;
+        viewPrint = false;
+        printPreview = false;
+        System.out.println("Edit Form");
         if (selected.getEncounterType() == EncounterType.OpdVisit) {
+            System.out.println("OPD Visit");
+            if(selected.getEncounterTime()==null){
+                selected.setEncounterTime(new Date());
+            }
             Calendar c = Calendar.getInstance();
             Long now = c.getTime().getTime();
             c.setTime(selected.getEncounterTime());
             Long booked = c.getTime().getTime();
-            if( (now - booked) / (1000/60/60) > 60){
+            Long durationInMinutes = (now - booked) / (1000*60*60);
+            System.out.println("durationInMinutes = " + durationInMinutes);
+            if(  durationInMinutes > 60){
                 JsfUtil.addErrorMessage("Can not edit for visits booked 2 hours ago");
                 return "";
             }
@@ -305,6 +312,32 @@ public class OpdVisitController implements Serializable {
     }
 
     public String addNewOpdVisit() {
+        
+        int appHour;
+        int appMin;
+        Calendar c = Calendar.getInstance();
+        appHour = c.get(Calendar.HOUR_OF_DAY);
+        appMin = c.get(Calendar.MINUTE);
+        if(appHour<6){
+            JsfUtil.addErrorMessage("Can no add OPD Visits before 6am");
+            return "";
+        }
+        
+        if(appHour>20){
+            JsfUtil.addErrorMessage("Can no add OPD Visits after 8pm");
+            return "";
+        }
+        
+        if(appHour==11 && appMin > 10 ){
+            JsfUtil.addErrorMessage("Can not add OPD Visits from 11am to 1pm");
+            return "";
+        }
+        
+        if(appHour == 12 ){
+            JsfUtil.addErrorMessage("Can not add OPD Visits from 11am to 1pm");
+            return "";
+        }
+        
         selected = new OpdVisit();
         Patient pt = new Patient();
         selected.setPatient(pt);
@@ -313,6 +346,7 @@ public class OpdVisitController implements Serializable {
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterType(EncounterType.OpdVisit);
         selected.setEncounterDate(new Date());
+        selected.setEncounterTime(new Date());
         selected.setUnit(nextOpdUnit(EncounterType.OpdVisit, new Date(), ConsultantRole.OPD));
         updateDailyNo();
         initializeEmbeddableKey();
@@ -576,6 +610,7 @@ public class OpdVisitController implements Serializable {
         selected.setIntDailyNo(todaysCasualtyCount().intValue());
         selected.setDailyNo(stringConversionOfDailyNo(selected.getIntDailyNo()));
         selected.setEncounterDate(new Date());
+        selected.setEncounterTime(new Date());
         selected.setEncounterType(EncounterType.Casulty);
         initializeEmbeddableKey();
         return "/opdVisit/casulty_visit";
@@ -589,6 +624,7 @@ public class OpdVisitController implements Serializable {
         selected.setIntSerialNo(annualCount().intValue());
         selected.setSerialNo(stringConversionOfSerialNo(selected.getIntSerialNo()));
         selected.setEncounterDate(new Date());
+        selected.setEncounterTime(new Date());
         selected.setEncounterType(EncounterType.SpecialUnitVisit);
         initializeEmbeddableKey();
         return "/opdVisit/special_unit_visit";

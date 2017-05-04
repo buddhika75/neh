@@ -66,6 +66,13 @@
                                                     <p:menuitem value="Person" outcome="/person/List.xhtml" />
                                                     <p:menuitem value="Staff" outcome="/staff/List.xhtml" />
                                                 </p:submenu>
+                                                <p:submenu label="#{bundle.Appointments}">
+                                                    <p:menuitem ajax="false" value="#{bundle.RegisterPatient}" action="#{personController.toAddNewAppointmentByAddingPatient}"/>
+                                                    <p:menuitem ajax="false" value="#{bundle.SearchPatient}" action="#{personController.toAddNewAppointmentBySearchingPatient}"/>
+                                                    <p:menuitem ajax="false" value="#{bundle.Appointments}" action="#{appointmentSessionController.toAddNewAppointmentByAddingPatient()}"/>
+                                                    <p:menuitem ajax="false" value="#{bundle.ScheduleAppointment}" outcome="/appointments/List.xhtml"/>
+                                                    <p:menuitem ajax="false" value="Holidays" action="/holiday/List.xhtml"/>
+                                                </p:submenu>
 
 
                                             </p:menubar>

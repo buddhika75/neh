@@ -26,10 +26,13 @@
 
                         </p:panelGrid>
 
-                        <p:dataTable value="#{opdVisitController.opdVisits}" var="v" >
+                        <p:dataTable value="#{opdVisitController.opdVisits}" var="v" rowIndexVar="n" >
+                            <p:column width="30" >
+                                <p:outputLabel value="#{n + 1}" ></p:outputLabel>
+                            </p:column>
                             <p:column headerText="Date" sortBy="#{v.encounterDate}" >
                                 <h:outputLabel value="#{v.encounterDate}" >
-                                    <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                                    <f:convertDateTime pattern="dd MMMM yyyy hh:mm" timeZone="Asia/Colombo" ></f:convertDateTime>
                                 </h:outputLabel>
                             </p:column>
                             <p:column headerText="Unit" sortBy="#{v.unit.name}" filterBy="#{v.unit.name}" filterMatchMode="contains" >
