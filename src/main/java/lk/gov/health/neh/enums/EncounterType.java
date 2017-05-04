@@ -14,4 +14,6 @@ public enum EncounterType {
     Casulty,
     SpecialUnitVisit,
     CloseUnitVisit,
+    Appointment,
+    AppointmentDate,
 }

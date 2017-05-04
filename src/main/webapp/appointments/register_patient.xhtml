@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateNewAppointment}" ></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form >
+                <p:panel header="#{bundle.CreateNewAppointment}">
+
+                    <p:panelGrid >
+
+                        <p:row >
+                            <p:column >
+
+                                <p:panel header="Patient Registration" >
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Name" ></p:outputLabel>
+                                        <p:inputText value="#{personController.selectedPatient.name}" ></p:inputText>
+                                        <p:outputLabel value="Address" ></p:outputLabel>
+                                        <p:inputText value="#{personController.selectedPatient.address}" ></p:inputText>
+                                        <p:outputLabel value="Phone No" ></p:outputLabel>
+                                        <p:inputText value="#{personController.selectedPatient.telephoneNo}" ></p:inputText>
+                                        <p:outputLabel value="Clinic File No" ></p:outputLabel>
+                                        <p:inputText value="#{personController.selectedPatient.clinicFileNo}" ></p:inputText>
+                                         <p:outputLabel value="Year" ></p:outputLabel>
+                                         <p:inputText value="#{personController.selectedPatient.clinicFileNoYear}" ></p:inputText>
+                                         <p:outputLabel value="Number" ></p:outputLabel>
+                                         <p:inputText value="#{personController.selectedPatient.clinicFileNoYearlySerial}" ></p:inputText>
+                                    </h:panelGrid>
+                                    <p:commandButton ajax="false" value="Register" action="#{personController.saveNewPatientAndPrepareForAnotherNewPatient()}" ></p:commandButton>
+                                    <p:commandButton ajax="false" value="Register &amp; Add Appointment" action="#{personController.saveNewPatientAndGoToAppointments}" ></p:commandButton>
+                                </p:panel>
+
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+
+
+
+
+
+
+
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

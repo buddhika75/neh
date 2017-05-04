@@ -7,7 +7,6 @@ package lk.gov.health.neh.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,11 +17,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
-import lk.gov.health.neh.enums.ConsultantRole;
 import lk.gov.health.neh.enums.Nationality;
 import lk.gov.health.neh.enums.Religion;
 import lk.gov.health.neh.enums.Sex;
 import lk.gov.health.neh.enums.Title;
+import lk.gov.health.neh.enums.UserRole;
 
 /**
  *
@@ -59,7 +58,83 @@ public class Person implements Serializable {
     @ManyToOne
     Item district;
     String telephoneNo;
+    @ManyToOne
+    Unit unit;
 
+    boolean registered;
+    
+    @Enumerated(EnumType.STRING)
+    UserRole userRole;
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
+    
+    String clinicFileNo;
+    int clinicFileNoYearlySerial;
+    int clinicFileNoYear;
+    String opdNo;
+    String phn;
+
+    public int getClinicFileNoYearlySerial() {
+        return clinicFileNoYearlySerial;
+    }
+
+    public void setClinicFileNoYearlySerial(int clinicFileNoYearlySerial) {
+        this.clinicFileNoYearlySerial = clinicFileNoYearlySerial;
+    }
+
+    public int getClinicFileNoYear() {
+        return clinicFileNoYear;
+    }
+
+    public void setClinicFileNoYear(int clinicFileNoYear) {
+        this.clinicFileNoYear = clinicFileNoYear;
+    }
+    
+    
+
+    public String getClinicFileNo() {
+        return clinicFileNo;
+    }
+
+    public void setClinicFileNo(String clinicFileNo) {
+        this.clinicFileNo = clinicFileNo;
+    }
+
+    public String getOpdNo() {
+        return opdNo;
+    }
+
+    public void setOpdNo(String opdNo) {
+        this.opdNo = opdNo;
+    }
+
+    public String getPhn() {
+        return phn;
+    }
+
+    public void setPhn(String phn) {
+        this.phn = phn;
+    }
+    
+    
+    
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+    
+    
+    
     public String getName() {
         return name;
     }
@@ -133,7 +208,11 @@ public class Person implements Serializable {
     }
 
     public String getNameWithTitle() {
-        return nameWithTitle;
+        if (title != null) {
+            return title + " " + name;
+        }else{
+            return name;
+        }
     }
 
     public void setNameWithTitle(String nameWithTitle) {
@@ -149,7 +228,7 @@ public class Person implements Serializable {
     }
 
     public Item getOccupation() {
-        if(occupation == null){
+        if (occupation == null) {
             occupation = new Item();
         }
         return occupation;
@@ -175,6 +254,16 @@ public class Person implements Serializable {
         this.telephoneNo = telephoneNo;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

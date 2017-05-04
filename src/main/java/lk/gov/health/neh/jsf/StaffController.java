@@ -14,28 +14,43 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 import javax.persistence.Column;
+import lk.gov.health.neh.entity.Unit;
 
-@ManagedBean(name = "staffController")
+@Named(value = "staffController")
 @SessionScoped
 public class StaffController implements Serializable {
 
     @EJB
     private lk.gov.health.neh.session.StaffFacade ejbFacade;
+    @Inject
+    CommonController commonController;
     private List<Staff> items = null;
     private Staff selected;
 
     Staff loggedStaff;
+    Unit loggedUnit;
     boolean logged;
     String userName;
     String password;
 
+    public Unit getLoggedUnit() {
+        return loggedUnit;
+    }
+
+    public void setLoggedUnit(Unit loggedUnit) {
+        this.loggedUnit = loggedUnit;
+    }
+
+    
+    
     public Staff getLoggedStaff() {
         return loggedStaff;
     }
@@ -67,20 +82,18 @@ public class StaffController implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
 
     public StaffController() {
     }
-    
-    public String logout(){
-        logged=false;
+
+    public String logout() {
+        logged = false;
         loggedStaff = null;
         return "index";
     }
 
     public String login() {
-        if (getFacade().count()==0) {
+        if (getFacade().count() == 0) {
             Staff s = new Staff();
             s.setName(userName);
             s.setUserName(userName);
@@ -89,23 +102,31 @@ public class StaffController implements Serializable {
             loggedStaff = s;
             logged = true;
         }
-        String j = "select s from Staff s where s.retired=false and lower(s.userName)=:un";
+        String j = "select s from Staff s where s.retired=false and s.userName=:un order by s.id desc";
         Map m = new HashMap();
-        m.put("un", userName.toLowerCase());
+        m.put("un", userName);
         Staff s = getFacade().findFirstBySQL(j, m);
         if (s == null) {
             logged = false;
             loggedStaff = null;
+            loggedUnit = null;
             JsfUtil.addErrorMessage("No such user");
             return "index";
         }
+        System.out.println("s.getUserName() = " + s.getUserName());
+        System.out.println("s.getPassword() = " + s.getPassword());
+        System.out.println("password = " + password);
         if (CommonController.checkPassword(password, s.getPassword())) {
             logged = true;
             loggedStaff = s;
+            loggedUnit = s.getUnit();
+            userName = "";
+            password = "";
             JsfUtil.addSuccessMessage("Logged Successfully");
         } else {
             logged = false;
             loggedStaff = null;
+            loggedUnit = null;
             JsfUtil.addErrorMessage("Wrong Password");
         }
         return "index";
@@ -136,7 +157,12 @@ public class StaffController implements Serializable {
     }
 
     public void create() {
+        System.out.println("saving staff");
+        String pw = CommonController.makeHash(password);
+        password = "";
+        selected.setPassword(pw);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("StaffCreated"));
+        System.out.println("saved");
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -144,6 +170,17 @@ public class StaffController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StaffUpdated"));
+    }
+
+    public void updatePassword() {
+        System.out.println("selected = " + selected);
+        System.out.println("password = " + password);
+        String pw = CommonController.makeHash(password);
+        password = "";
+        selected.setPassword(pw);
+        
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("StaffUpdated"));
+        System.out.println("selected.getPassword() = " + selected.getPassword());
     }
 
     public void destroy() {
@@ -162,6 +199,8 @@ public class StaffController implements Serializable {
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
+        System.out.println("persist");
+        System.out.println("selected = " + selected);
         if (selected != null) {
             setEmbeddableKeys();
             try {
@@ -238,4 +277,44 @@ public class StaffController implements Serializable {
 
     }
 
+    @FacesConverter("staffConverter")
+    public static class StaffConverter implements Converter {
+
+        @Override
+        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            if (value == null || value.length() == 0) {
+                return null;
+            }
+            StaffController controller = (StaffController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "staffController");
+            return controller.getFacade().find(getKey(value));
+        }
+
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
+            return key;
+        }
+
+        String getStringKey(java.lang.Long value) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(value);
+            return sb.toString();
+        }
+
+        @Override
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+            if (object == null) {
+                return null;
+            }
+            if (object instanceof Staff) {
+                Staff o = (Staff) object;
+                return getStringKey(o.getId());
+            } else {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Staff.class.getName()});
+                return null;
+            }
+        }
+
+    }
 }

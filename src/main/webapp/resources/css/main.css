@@ -17,3 +17,11 @@ and open the template in the editor.
 .threeHunderedWidthInput{
     width: 300px!important;
 }
+
+.alignTop td {
+    vertical-align: top;
+}
+
+.alignTop {
+    vertical-align: top;
+}

@@ -34,6 +34,8 @@ public class Encounter implements Serializable {
     Patient patient;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date encounterDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Date encounterTime;
     @Enumerated(EnumType.STRING)
     EncounterType encounterType;
     String dailyNo;
@@ -55,34 +57,88 @@ public class Encounter implements Serializable {
     String valnc = "";
     String varc = "";
     String valc = "";
-    
+
     String nonAidREye;
     String nonAidLEye;
     String cglassREye;
     String cglassLEye;
-    
+
     Boolean dm;
     Boolean hpt;
     Boolean ihd;
     Boolean ba;
     Boolean allergy;
+
+    Boolean trauma;
+    Boolean glaucoma;
+    Boolean laserRx;
+    Boolean avastinIng;
+    Boolean pst;
+    Boolean cataractSx;
+    Boolean trab;
+    Boolean tppv;
+    Boolean pkp;
+    Boolean squint;
+
+    String pstmediOther = "";
+    String ocularHxOther = "";
+    String sugicalHxOther = "";
+    long serialNumber;
+
+    @ManyToOne
+    AppointmentSession appointmentSession;
+    @ManyToOne
+    AppointmentTimeSlot appointmentTimeSlot;
+    boolean cancelled;
+
+    @ManyToOne
+    Encounter parent;
+
+    public AppointmentTimeSlot getAppointmentTimeSlot() {
+        return appointmentTimeSlot;
+    }
+
+    public void setAppointmentTimeSlot(AppointmentTimeSlot appointmentTimeSlot) {
+        this.appointmentTimeSlot = appointmentTimeSlot;
+    }
+
+    public Date getEncounterTime() {
+        return encounterTime;
+    }
+
+    public void setEncounterTime(Date encounterTime) {
+        this.encounterTime = encounterTime;
+    }
     
-   Boolean trauma;
-   Boolean glaucoma;
-   Boolean laserRx;
-   Boolean avastinIng;
-   Boolean pst;
-   Boolean cataractSx;
-   Boolean trab;
-   Boolean tppv;
-   Boolean pkp;
-   Boolean squint;
-   
-   
-   String pstmediOther ="";
-   String ocularHxOther ="";
-   String sugicalHxOther ="";
-   long serialNumber;
+    
+
+    public Encounter getParent() {
+        return parent;
+    }
+
+    public void setParent(Encounter parent) {
+        this.parent = parent;
+    }
+    
+    
+    
+    public AppointmentSession getAppointmentSession() {
+        return appointmentSession;
+    }
+
+    public void setAppointmentSession(AppointmentSession appointmentSession) {
+        this.appointmentSession = appointmentSession;
+    }
+
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+    
+    
 
     public long getSerialNumber() {
         return serialNumber;
@@ -251,7 +307,7 @@ public class Encounter implements Serializable {
     public void setSugicalHxOther(String sugicalHxOther) {
         this.sugicalHxOther = sugicalHxOther;
     }
-   
+
     public EncounterType getEncounterType() {
         return encounterType;
     }
@@ -325,7 +381,7 @@ public class Encounter implements Serializable {
     }
 
     public Patient getPatient() {
-        if (patient == null){
+        if (patient == null) {
             patient = new Patient();
         }
         return patient;
@@ -406,8 +462,6 @@ public class Encounter implements Serializable {
     public void setClosedUnit(ClosedUnit closedUnit) {
         this.closedUnit = closedUnit;
     }
-    
-    
 
     public Long getId() {
         return id;

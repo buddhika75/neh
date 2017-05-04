@@ -15,15 +15,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import lk.gov.health.neh.enums.ItemType;
 
-@ManagedBean(name = "itemController")
+@Named(value = "itemController")
 @SessionScoped
 public class ItemController implements Serializable {
 
@@ -136,7 +136,7 @@ public class ItemController implements Serializable {
         String j;
         Map m = new HashMap();
         m.put("it", it);
-        m.put("n", qry.toUpperCase());
+        m.put("n", "%"+ qry.toUpperCase() + "%");
         j = "Select i from Item i where i.retired=false and i.itemType=:it and upper(i.name) like :n order by i.name";
         return getFacade().findBySQL(j, m);
     }

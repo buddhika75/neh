@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="body" >
+
+
+                <p:panel header="Visit Count By Gender" >
+                    <h:form  >
+
+                        <h:panelGrid columns="2" >
+
+                            <p:panelGrid columns="2" style="border-color: white">
+                                <p:outputLabel value="From Date" ></p:outputLabel>
+                                <p:calendar value="#{encounterController.fromDate}" pattern="dd MMMM yyyy" ></p:calendar>
+                                <p:outputLabel value="To Date" ></p:outputLabel>
+                                <p:calendar value="#{encounterController.toDate}" pattern="dd MMMM yyyy"></p:calendar>
+
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="3" style="border-color: white">
+                                <p:commandButton value="Count OPD &nbsp; Casulty Visits" ajax="false" action="#{encounterController.opdAndCasultyVisitCountsByGender}" ></p:commandButton>
+                                <p:commandButton value="Count OPD Visits" ajax="false" action="#{encounterController.opdVisitCountsByGender}" ></p:commandButton>
+                                <p:commandButton value="Count Casulty Visits" ajax="false" action="#{encounterController.casultyVisitCountsByGender}" ></p:commandButton>
+                            </p:panelGrid>
+
+                        </h:panelGrid>
+
+
+
+                        <p:dataTable id="tbl" value="#{encounterController.recordData}" var="rc" style="width: 300px;">
+                            <f:facet name="header">
+                                <h:outputText value="#{encounterController.headerString}"  />
+                            </f:facet>
+                            <f:facet name="footer">
+                                <h:commandButton  value="Export to Excel" style="float: left;">
+                                    <p:dataExporter type="xls" target="tbl" fileName="visits_by_gender" pageOnly="true"/>
+                                </h:commandButton>
+                            </f:facet>
+
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="2" headerText="#{encounterController.dateString}" />
+                                </p:row>
+                            </p:columnGroup>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Gender" />
+                                </f:facet>
+                                <p:outputLabel value="#{rc.name}" ></p:outputLabel>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Count" />
+                                </f:facet>
+                                <p:outputLabel value="#{rc.value}" ></p:outputLabel>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    </h:form>
+
+                </p:panel>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
