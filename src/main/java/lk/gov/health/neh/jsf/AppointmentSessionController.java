@@ -38,6 +38,7 @@ import lk.gov.health.neh.enums.AppointmentSessionDateType;
 import lk.gov.health.neh.enums.AppointmentSessionType;
 import lk.gov.health.neh.enums.EncounterType;
 import lk.gov.health.neh.enums.NumberAndTime;
+import lk.gov.health.neh.enums.UserRole;
 import lk.gov.health.neh.enums.Weekday;
 import lk.gov.health.neh.session.AppointmentTimeSlotFacade;
 import lk.gov.health.neh.session.EncounterFacade;
@@ -117,7 +118,7 @@ public class AppointmentSessionController implements Serializable {
                     + " where a.sessionWeekday=:swd ";
             m.put("swd", Weekday.getWeekday(selectedDate));
         }
-       
+
         selectedAppointmentSessions = getFacade().findBySQL(j, m);
 
         if (selectedAppointmentSessions == null || selectedAppointmentSessions.isEmpty()) {
@@ -146,7 +147,7 @@ public class AppointmentSessionController implements Serializable {
                 + " where e.encounterType=:et "
                 + " and e.appointmentSession=:aps "
                 + " and e.encounterDate=:ed";
-         j+=" order by e.encounterTime, e.intDailyNo";
+        j += " order by e.encounterTime, e.intDailyNo";
         m = new HashMap();
         m.put("et", EncounterType.Appointment);
         m.put("aps", selectedAppointmentSession);
@@ -176,7 +177,29 @@ public class AppointmentSessionController implements Serializable {
         encounter.setEncounterType(EncounterType.Appointment);
 
         encounter.setPatient(patient);
-        encounter.setIntDailyNo(selectedAppointments.size()+1);
+        encounter.setIntDailyNo(selectedAppointments.size() + 1);
+
+        if (staffController.getLoggedStaff().getUserRole() == UserRole.Administrator
+                || staffController.getLoggedStaff().getUserRole() == UserRole.SuperUser
+                || staffController.getLoggedStaff().getUserRole() == UserRole.Manager) {
+
+            if (selectedAppointments.size()
+                    >= (selectedAppointmentSession.getNumberOfAppointments()
+                    + selectedAppointmentSession.getAdditionalManagerAppointments()
+                    + selectedAppointmentSession.getAdditionalManagerAppointments()
+                    )
+                    ) {
+                JsfUtil.addErrorMessage("Can not add any more appointment");
+                return "";
+            }
+        } else {
+            if (selectedAppointments.size()
+                    >= selectedAppointmentSession.getNumberOfAppointments()) {
+                JsfUtil.addErrorMessage("Can not add any more appointment");
+                return "";
+            }
+
+        }
 
         if (convertDailyToBlock(encounter)) {
             getEncounterFacade().edit(encounter);
