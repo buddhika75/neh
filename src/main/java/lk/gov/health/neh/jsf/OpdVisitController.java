@@ -455,7 +455,7 @@ public class OpdVisitController implements Serializable {
         System.out.println("getting today's open units");
         String j;
         Map m = new HashMap();
-        j = "select u from Unit u where type(u)!=:uc and u.consultantRole=:cr and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
+        j = "select u from Unit u where u.retired=false and type(u)!=:uc and u.consultantRole=:cr and u.id not in(select c.closedUnit.id from ClosedUnit c where c.closedDate=:cd)";
         m.put("cd", cd);
         m.put("cr", ConsultantRole.OPD);
         m.put("uc", Ward.class);

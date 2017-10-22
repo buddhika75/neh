@@ -23,16 +23,15 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.UserRole}" for="userRole" />
-                        <p:selectOneMenu required="true" id="userRole" value="#{staffController.selected.userRole}" >
+                        <p:selectOneMenu  id="userRole" value="#{staffController.selected.userRole}" >
                             <f:selectItem itemLabel="Select User Role" ></f:selectItem>
                             <f:selectItems value="#{enumController.userRoles}" ></f:selectItems>
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.Unit}" for="unit" />
-                        <p:selectOneMenu required="true" id="unit" value="#{staffController.selected.unit}" >
-                            <f:selectItem itemLabel="Select Unit" ></f:selectItem>
-                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"
-                                           var="u" itemLabel="#{u.name}" itemValue="#{u}"></f:selectItems>
+                        <p:selectOneMenu  id="unit" value="#{staffController.selected.unit}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}"></f:selectItems>
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateStaffLabel_nic}" for="nic" />
@@ -49,7 +48,7 @@
                         <p:outputLabel value="#{bundle.CreateStaffLabel_userName}"  />
                         <p:outputLabel id="userName" value="#{staffController.selected.userName}" title="#{bundle.CreateStaffTitle_userName}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{staffController.update}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StaffEditDialog');"/>
+                    <p:commandButton ajax="false" actionListener="#{staffController.update}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StaffEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StaffEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
