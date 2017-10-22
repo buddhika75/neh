@@ -6,7 +6,6 @@ import lk.gov.health.neh.jsf.util.JsfUtil.PersistAction;
 import lk.gov.health.neh.session.UnitFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +22,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import lk.gov.health.neh.entity.Ward;
 
-@Named(value = "unitController")
+@Named
 @SessionScoped
 public class UnitController implements Serializable {
 
     @EJB
-    private lk.gov.health.neh.session.UnitFacade ejbFacade;
+    private UnitFacade ejbFacade;
     private List<Unit> items = null;
     private Unit selected;
 
@@ -134,11 +133,15 @@ public class UnitController implements Serializable {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+            System.out.println("1");
             if (value == null || value.length() == 0) {
+                System.out.println("2");
                 return null;
             }
+            System.out.println("3");
             UnitController controller = (UnitController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "unitController");
+            System.out.println("4");
             return controller.getFacade().find(getKey(value));
         }
 

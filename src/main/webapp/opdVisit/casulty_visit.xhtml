@@ -427,9 +427,9 @@
                                                 </h:panelGrid>
                                             </td>
                                             <td>
-                                                <h:outputLabel id="lblDate" value="#{opdVisitController.selected.encounterDate}" style="font-size: 14px;">
-                                                    <f:convertDateTime pattern="dd MM yyyy"></f:convertDateTime>
-                                                </h:outputLabel>
+                                                <p:outputLabel id="lblDate" value="#{opdVisitController.selected.encounterDate}" style="font-size: 14px;">
+                                                    <f:convertDateTime timeZone="Asia/Colombo" pattern="dd MM yyyy"></f:convertDateTime>
+                                                </p:outputLabel>
                                             </td>
                                         </tr>
                                     </table>

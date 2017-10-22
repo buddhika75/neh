@@ -52,7 +52,7 @@
                         <p:outputLabel value="#{bundle.CreateStaffLabel_password}" for="password" />
                         <p:inputText required="true" id="password" value="#{staffController.password}" title="#{bundle.CreateStaffTitle_password}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{staffController.create}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args,'StaffCreateDialog');"/>
+                    <p:commandButton ajax="false" actionListener="#{staffController.create}" value="#{bundle.Save}" update="display,:StaffListForm:datalist,:growl" oncomplete="handleSubmit(args,'StaffCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="StaffCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

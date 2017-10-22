@@ -34,7 +34,7 @@
                                         <p:outputLabel value="Casualty Unit is not selected. Please select" ></p:outputLabel>
                                         <p:selectOneMenu value="#{opdVisitController.todaysClosedUnit.closedUnit}" >
                                             <f:selectItem itemLabel="Select a unit" ></f:selectItem>
-                                            <f:selectItems value="#{unitController.itemsAvailableSelectOne}" var="u" itemLabel="#{u.name}" itemValue="#{u}" ></f:selectItems>
+                                            <f:selectItems value="#{unitController.itemsAvailableSelectMany}" var="u" itemLabel="#{u.name}" itemValue="#{u}" ></f:selectItems>
                                         </p:selectOneMenu>
                                         <p:commandButton value="Set" ajax="false" action="#{opdVisitController.saveTodaysClosedUnit()}" ></p:commandButton>
                                     </h:panelGroup>

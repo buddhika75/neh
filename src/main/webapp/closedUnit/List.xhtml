@@ -32,7 +32,9 @@
                                 <h:outputText value="#{bundle.ListClosedUnitTitle_closedDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.closedDate}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime timeZone="Asia/Colombo" pattern="dd MMMM yyyy" >
+                                 
+                                </f:convertDateTime>
                             </h:outputText>
                         </p:column>
                         <p:column>
